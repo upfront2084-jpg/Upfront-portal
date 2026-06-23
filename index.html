@@ -197,8 +197,50 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--te
 .score-bar-fill{height:100%;background:var(--teal);border-radius:10px;transition:width .3s;}
 .score-pct{font-size:13px;font-weight:600;color:var(--muted);}
 
+
+/* HW EXERCISE TABS (A / B / C) */
+.hw-ex-tabs{display:flex;gap:0;margin-bottom:1.25rem;border:1.5px solid var(--border);border-radius:12px;overflow:hidden;background:#f8f9fa;}
+.hw-ex-tab{flex:1;padding:10px 6px;border:none;background:transparent;cursor:pointer;font-size:13px;font-weight:700;color:var(--muted);transition:.15s;border-right:1.5px solid var(--border);text-align:center;line-height:1.3;}
+.hw-ex-tab:last-child{border-right:none;}
+.hw-ex-tab.active{background:var(--teal);color:#fff;}
+.hw-ex-tab.done{background:#d4edda;color:#155724;}
+.hw-ex-panel{display:none;}
+.hw-ex-panel.active{display:block;}
+.ex-header{background:linear-gradient(135deg,var(--teal),#0a6b7c);color:#fff;padding:10px 16px;border-radius:10px;margin-bottom:1rem;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:space-between;}
+.ex-header-title{font-size:14px;font-weight:800;}
+.ex-header-sub{font-size:11px;opacity:.8;margin-top:2px;}
+.btn-redo{font-size:11px;padding:5px 12px;border-radius:20px;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);color:#fff;cursor:pointer;font-weight:700;transition:.15s;}
+.btn-redo:hover{background:rgba(255,255,255,.35);}
+.ex-table{width:100%;border-collapse:collapse;font-size:13px;border-radius:10px;overflow:hidden;margin-bottom:.5rem;}
+.ex-table th{background:#f0f4f8;padding:8px 12px;text-align:left;font-weight:700;color:var(--muted);font-size:11px;border:1px solid var(--border);text-transform:uppercase;letter-spacing:.4px;}
+.ex-table td{padding:7px 12px;border:1px solid var(--border);vertical-align:middle;}
+.ex-table tr:nth-child(even) td{background:#fafbfc;}
+.ans-field{width:100%;border:1.5px solid var(--border);border-radius:7px;padding:6px 8px;font-size:13px;outline:none;resize:none;transition:.15s;font-family:inherit;min-height:32px;}
+.ans-field:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(12,84,96,.1);}
+.ans-field:disabled{background:#f4f4f4;color:#555;}
+.match-ref-box{background:linear-gradient(135deg,#f0f7ff,#e8f4fd);border:1px solid #b8d4f0;border-radius:10px;padding:11px 14px;margin-bottom:.85rem;font-size:12px;line-height:2.2;}
+.match-sel{width:60px;border:1.5px solid var(--border);border-radius:7px;padding:5px 4px;font-size:13px;outline:none;text-align:center;}
+.match-sel:focus{border-color:var(--teal);}
+.match-sel:disabled{background:#f4f4f4;}
+.mc-opts{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:4px;}
+.mc-opt{display:flex;align-items:center;gap:6px;padding:5px 9px;border:1.5px solid var(--border);border-radius:7px;cursor:pointer;font-size:12px;transition:.15s;background:#fff;}
+.mc-opt:hover{border-color:var(--teal);background:#f0fafa;}
+.mc-opt input{accent-color:var(--teal);}
+.mc-opt.disabled{pointer-events:none;opacity:.75;}
+.ex-footer{display:flex;justify-content:flex-end;margin-top:1rem;padding-top:.85rem;border-top:1px solid var(--border);gap:8px;align-items:center;}
+.ex-done-badge{font-size:12px;font-weight:700;color:var(--success);}
+.etapa-label{font-size:13px;font-weight:800;color:var(--navy);margin-bottom:.75rem;padding:8px 14px;background:#f0f4f8;border-radius:8px;border-left:4px solid var(--teal);}
+.fb-student{background:#e8f5e9;border:1px solid #a5d6a7;border-radius:10px;padding:12px 16px;margin-bottom:1rem;font-size:13px;color:#1b5e20;}
+.fb-student strong{display:block;margin-bottom:4px;font-weight:800;}
+
 /* TOAST */
 .toast{position:fixed;bottom:24px;right:24px;background:#1a1a2e;color:#fff;padding:10px 18px;border-radius:10px;font-size:13px;font-weight:600;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,.2);transition:opacity .3s;}
+
+/* PAGE TRANSITIONS */
+@keyframes ufPageIn{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+@keyframes ufPageOut{from{opacity:1;}to{opacity:0;}}
+.screen.active{animation:ufPageIn .32s ease;}
+.screen.leaving{display:block!important;animation:ufPageOut .2s ease forwards;pointer-events:none;}
 </style>
 </head>
 <body>
@@ -563,172 +605,173 @@ function folderUrl(id){return 'https://drive.google.com/drive/folders/'+id;}
 function audioStreamUrl(id){return 'https://drive.google.com/uc?export=open&id='+id;}
 
 // ═══════════════════════════════════════════════
-//  HOMEWORK DATA — CLASS 01
+//  HOMEWORK DATA — ALL CLASSES
 // ═══════════════════════════════════════════════
 var HOMEWORK={};
+
 HOMEWORK['A1-1']={
   title:'Class 01 — Homework',
   etapas:[
-    {name:'Etapa 1 — Verbs & Conjugation',sections:[
+    {name:'Etapa 1 — Verbs',exercises:[
       {type:'translation',title:'A · Tradução PT → EN',items:[
-        {pt:'Eu preciso falar',answer:'I need to speak'},
-        {pt:'Eu falo inglês',answer:'I speak English'},
-        {pt:'Eu preciso comer agora',answer:'I need to eat now'},
-        {pt:'Eu como peixe',answer:'I eat fish'},
-        {pt:'Eu preciso beber água hoje',answer:'I need to drink water today'},
-        {pt:'Eu bebo leite',answer:'I drink milk'},
-        {pt:'Eu preciso falar com você',answer:'I need to speak with you'},
-        {pt:'Eu preciso comer carne',answer:'I need to eat meat'},
-        {pt:'Eu bebo suco',answer:'I drink juice'},
-        {pt:'Eu preciso falar inglês agora',answer:'I need to speak English now'}
+        {pt:'precisar',en:'to need'},
+        {pt:'eu preciso',en:'I need'},
+        {pt:'você precisa',en:'you need'},
+        {pt:'falar',en:'to speak'},
+        {pt:'eu falo',en:'I speak'},
+        {pt:'você fala',en:'you speak'},
+        {pt:'comer',en:'to eat'},
+        {pt:'eu como',en:'I eat'},
+        {pt:'você come',en:'you eat'},
+        {pt:'beber',en:'to drink'},
+        {pt:'eu bebo',en:'I drink'},
+        {pt:'você bebe',en:'you drink'}
       ]},
       {type:'match',title:'B · Match the Columns',
-       left:['To need','To speak','To eat','To drink','I need','I speak','I eat','I drink','I need to speak','I need to eat'],
-       right:['Precisar (de)','Falar','Comer','Beber / Tomar','Eu preciso','Eu falo','Eu como','Eu bebo','Eu preciso falar','Eu preciso comer'],
-       correctIdx:[0,1,2,3,4,5,6,7,8,9]},
+        left:['to need','to speak','to eat','to drink','I need','you speak','I eat','you drink','I speak','you need'],
+        right:['precisar','falar','comer','beber','eu preciso','você fala','eu como','você bebe','eu falo','você precisa'],
+        correctIdx:[0,1,2,3,4,5,6,7,8,9]},
       {type:'unscramble',title:'C · Unscramble',items:[
-        {words:'to / speak. / need / I',answer:'I need to speak'},
-        {words:'speak / English. / I',answer:'I speak English'},
-        {words:'to / need / I / now. / eat',answer:'I need to eat now'},
-        {words:'I / fish / today. / eat',answer:'I eat fish today'},
-        {words:'I / to / water. / need / drink',answer:'I need to drink water'},
-        {words:'now. / milk / drink / I',answer:'I drink milk now'},
-        {words:'you. / speak / with / I / need / to',answer:'I need to speak with you'},
-        {words:'to / meat. / need / I / eat',answer:'I need to eat meat'},
-        {words:'drink / today. / juice / I',answer:'I drink juice today'},
-        {words:'I / speak / to / need / English / now.',answer:'I need to speak English now'}
+        {words:['need','I'],answer:'I need'},
+        {words:['speak','you'],answer:'you speak'},
+        {words:['eat','I'],answer:'I eat'},
+        {words:['drink','you'],answer:'you drink'},
+        {words:['to','need'],answer:'to need'},
+        {words:['to','speak'],answer:'to speak'}
       ]}
     ]},
-    {name:'Etapa 2 — Vocabulary',sections:[
+    {name:'Etapa 2 — Family & Food',exercises:[
       {type:'translation',title:'A · Tradução PT → EN',items:[
-        {pt:'Eu falo com meu pai',answer:'I speak with my father'},
-        {pt:'Eu bebo café com minha mãe',answer:'I drink coffee with my mother'},
-        {pt:'Eu preciso comer peixe hoje',answer:'I need to eat fish today'},
-        {pt:'Eu bebo leite agora',answer:'I drink milk now'},
-        {pt:'Eu preciso beber água hoje',answer:'I need to drink water today'},
-        {pt:'Eu falo com meus parentes',answer:'I speak with my relatives'},
-        {pt:'Eu como carne com meu irmão',answer:'I eat meat with my brother'},
-        {pt:'Eu bebo suco com minha irmã',answer:'I drink juice with my sister'},
-        {pt:'Eu preciso comer carne agora',answer:'I need to eat meat now'},
-        {pt:'Eu preciso falar inglês com meus pais',answer:'I need to speak English with my parents'}
+        {pt:'irmão',en:'brother'},
+        {pt:'irmã',en:'sister'},
+        {pt:'pai',en:'father'},
+        {pt:'mãe',en:'mother'},
+        {pt:'pais',en:'parents'},
+        {pt:'parentes',en:'relatives'},
+        {pt:'vinho',en:'wine'},
+        {pt:'café',en:'coffee'},
+        {pt:'peixe',en:'fish'},
+        {pt:'carne',en:'meat'}
       ]},
       {type:'match',title:'B · Match the Columns',
-       left:['Brother','Sister','Father','Mother','Parents','Relatives','Wine','Coffee','Fish','Meat'],
-       right:['Irmão','Irmã','Pai','Mãe','Pais','Parentes','Vinho','Café','Peixe','Carne'],
-       correctIdx:[0,1,2,3,4,5,6,7,8,9]},
+        left:['brother','sister','father','mother','parents','relatives','wine','coffee','fish','meat'],
+        right:['irmão','irmã','pai','mãe','pais','parentes','vinho','café','peixe','carne'],
+        correctIdx:[0,1,2,3,4,5,6,7,8,9]},
       {type:'unscramble',title:'C · Unscramble',items:[
-        {words:'I / father. / with / speak / my',answer:'I speak with my father'},
-        {words:'I / coffee / my / mother. / drink / with',answer:'I drink coffee with my mother'},
-        {words:'need / today. / eat / I / to / fish',answer:'I need to eat fish today'},
-        {words:'I / milk / now. / drink',answer:'I drink milk now'},
-        {words:'need / today / drink / to / water. / I',answer:'I need to drink water today'},
-        {words:'speak / I / relatives. / with / my',answer:'I speak with my relatives'},
-        {words:'brother. / with / my / I / eat / meat',answer:'I eat meat with my brother'},
-        {words:'my / drink / I / sister. / juice / with',answer:'I drink juice with my sister'},
-        {words:'need / now. / I / to / eat / meat',answer:'I need to eat meat now'},
-        {words:'English / to / my / need / I / parents. / with / speak',answer:'I need to speak English with my parents'}
+        {words:['brother','my'],answer:'my brother'},
+        {words:['sister','my'],answer:'my sister'},
+        {words:['father','my'],answer:'my father'},
+        {words:['mother','my'],answer:'my mother'},
+        {words:['my','parents'],answer:'my parents'},
+        {words:['my','relatives'],answer:'my relatives'}
       ]}
     ]},
-    {name:'Etapa 3 — Expressions & Greetings',sections:[
+    {name:'Etapa 3 — Greetings',exercises:[
       {type:'translation',title:'A · Tradução PT → EN',items:[
-        {pt:'Bom dia. Eu preciso comer',answer:'Good morning. I need to eat'},
-        {pt:'Boa tarde. Eu bebo leite',answer:'Good afternoon. I drink milk'},
-        {pt:'Boa noite. Eu falo inglês',answer:'Good night. I speak English'},
-        {pt:'Por favor, eu preciso beber água',answer:'Please, I need to drink water'},
-        {pt:'Obrigado. Eu como peixe',answer:'Thank you. I eat fish'},
-        {pt:'De nada. Eu falo português',answer:"You're welcome. I speak Portuguese"},
-        {pt:'Bom dia. Eu preciso falar inglês',answer:'Good morning. I need to speak English'},
-        {pt:'Por favor, eu preciso comer agora',answer:'Please, I need to eat now'},
-        {pt:'Eu preciso beber suco, obrigado',answer:'I need to drink juice, thank you'},
-        {pt:'Boa tarde. Eu falo com meus pais',answer:'Good afternoon. I speak with my parents'}
+        {pt:'obrigado / obrigada',en:'thank you'},
+        {pt:'de nada',en:"you're welcome"},
+        {pt:'por favor',en:'please'},
+        {pt:'bom dia',en:'good morning'},
+        {pt:'boa tarde',en:'good afternoon'},
+        {pt:'boa noite (chegando)',en:'good evening'},
+        {pt:'boa noite (indo embora)',en:'good night'}
       ]},
+      {type:'match',title:'B · Match the Columns',
+        left:['thank you',"you're welcome",'please','good morning','good afternoon','good evening','good night'],
+        right:['obrigado / obrigada','de nada','por favor','bom dia','boa tarde','boa noite (chegando)','boa noite (indo embora)'],
+        correctIdx:[0,1,2,3,4,5,6]},
       {type:'unscramble',title:'C · Unscramble',items:[
-        {words:'morning / to / need / eat. / Good / I',answer:'Good morning I need to eat'},
-        {words:'afternoon / Good / milk. / I / drink',answer:'Good afternoon I drink milk'},
-        {words:'I / evening, / Good / English. / speak',answer:'Good evening I speak English'},
-        {words:'need / I / Please, / drink / to / water.',answer:'Please I need to drink water'},
-        {words:'Thank / I / fish. / you / eat',answer:'Thank you I eat fish'},
-        {words:"speak / I / welcome / Portuguese. / You´re",answer:"You are welcome I speak Portuguese"},
-        {words:'to / need / I / speak / Good / English / morning,',answer:'Good morning I need to speak English'},
-        {words:'eat / I / Please, / now. / need / to',answer:'Please I need to eat now'},
-        {words:'to / juice, / I / you. / need / thank / drink',answer:'I need to drink juice thank you'},
-        {words:'afternoon, / I / speak / Good / my / parents. / with',answer:'Good afternoon I speak with my parents'}
+        {words:['you','thank'],answer:'thank you'},
+        {words:["you're",'welcome'],answer:"you're welcome"},
+        {words:['morning','good'],answer:'good morning'},
+        {words:['afternoon','good'],answer:'good afternoon'},
+        {words:['evening','good'],answer:'good evening'},
+        {words:['night','good'],answer:'good night'}
       ]}
     ]}
   ]
 };
 
-// ═══════════════════════════════════════════════
-//  HOMEWORK — CLASSES 02-13
-// ═══════════════════════════════════════════════
-
 HOMEWORK['A1-2']={
   title:'Class 02 — Homework',
   etapas:[
-    {name:'Etapa 1 — Verbs & Conjugation',sections:[
+    {name:'Etapa 1 — Verbs',exercises:[
       {type:'translation',title:'A · Tradução PT → EN',items:[
-        {pt:'Quero trabalhar agora',answer:'I want to work now'},
-        {pt:'Quero treinar com você',answer:'I want to exercise with you'},
-        {pt:'Preciso trabalhar com meu pai',answer:'I need to work with my father'},
-        {pt:'Trabalho com minha mãe',answer:'I work with my mother'},
-        {pt:'Eu quero brincar com você',answer:'I want to play with you'},
-        {pt:'Eu treino com meu irmão',answer:'I exercise with my brother'},
-        {pt:'Eu quero brincar com minha mãe',answer:'I want to play with my mother'},
-        {pt:'Quero beber leite',answer:'I want to drink milk'},
-        {pt:'Quero falar inglês com você',answer:'I want to speak English with you'},
-        {pt:'Não quero trabalhar',answer:"I don't want to work"}
+        {pt:'querer',en:'to want'},
+        {pt:'eu quero',en:'I want'},
+        {pt:'você quer',en:'you want'},
+        {pt:'trabalhar',en:'to work'},
+        {pt:'eu trabalho',en:'I work'},
+        {pt:'você trabalha',en:'you work'},
+        {pt:'se exercitar',en:'to exercise'},
+        {pt:'eu me exercito',en:'I exercise'},
+        {pt:'jogar',en:'to play'},
+        {pt:'eu jogo',en:'I play'},
+        {pt:'você joga',en:'you play'}
       ]},
-      {type:'translation',title:'B · Negativa PT → EN',items:[
-        {pt:'Não quero treinar hoje',answer:"I don't want to exercise today"},
-        {pt:'Não trabalho de manhã',answer:"I don't work in the morning"},
-        {pt:'Não quero brincar agora',answer:"I don't want to play now"},
-        {pt:'Não quero beber suco',answer:"I don't want to drink juice"},
-        {pt:'Não preciso trabalhar à noite',answer:"I don't need to work in the evening"},
-        {pt:'Não quero comer carne à tarde',answer:"I don't want to eat meat in the afternoon"},
-        {pt:'Não bebo à noite',answer:"I don't drink at night"},
-        {pt:'Não quero treinar à tarde',answer:"I don't want to exercise in the afternoon"},
-        {pt:'Não trabalho no fim de semana',answer:"I don't work on the weekend"},
-        {pt:'Não quero beber chá agora',answer:"I don't want to drink tea now"}
+      {type:'match',title:'B · Match the Columns',
+        left:['to want','to work','to exercise','to play','I want','you want','I work','you work','I exercise','I play'],
+        right:['querer','trabalhar','se exercitar','jogar','eu quero','você quer','eu trabalho','você trabalha','eu me exercito','eu jogo'],
+        correctIdx:[0,1,2,3,4,5,6,7,8,9]},
+      {type:'unscramble',title:'C · Unscramble',items:[
+        {words:['want','I'],answer:'I want'},
+        {words:['work','you'],answer:'you work'},
+        {words:['exercise','I'],answer:'I exercise'},
+        {words:['play','you'],answer:'you play'},
+        {words:['to','want'],answer:'to want'},
+        {words:['to','work'],answer:'to work'}
       ]}
     ]},
-    {name:'Etapa 2 — Vocabulary',sections:[
+    {name:'Etapa 2 — Food & Family',exercises:[
       {type:'translation',title:'A · Tradução PT → EN',items:[
-        {pt:'Eu brinco com meu filho',answer:'I play with my son'},
-        {pt:'Eu falo com minha filha',answer:'I speak with my daughter'},
-        {pt:'Eu preciso falar com minha filha',answer:'I need to speak with my daughter'},
-        {pt:'Eu não bebo com minhas crianças',answer:"I don't drink with my children"},
-        {pt:'Eu quero comer peixe',answer:'I want to eat fish'},
-        {pt:'Eu preciso de um copo de água',answer:'I need a glass of water'},
-        {pt:'Eu brinco, mas eu trabalho',answer:'I play but I work'},
-        {pt:'Quero comer carne amanhã',answer:'I want to eat meat tomorrow'},
-        {pt:'Não como queijo com minha filha',answer:"I don't eat cheese with my daughter"},
-        {pt:'Não quero uma xícara de chá',answer:"I don't want a cup of tea"}
+        {pt:'filho',en:'son'},
+        {pt:'filha',en:'daughter'},
+        {pt:'filhos',en:'children'},
+        {pt:'pão',en:'bread'},
+        {pt:'queijo',en:'cheese'},
+        {pt:'presunto',en:'ham'},
+        {pt:'xícara',en:'cup'},
+        {pt:'copo',en:'glass'},
+        {pt:'fatia',en:'slice'},
+        {pt:'mas',en:'but'}
       ]},
-      {type:'translation',title:'B · Expressions PT → EN',items:[
-        {pt:'Oi, quero falar com você',answer:'Hi, I want to speak with you'},
-        {pt:'Olá, quero comer agora',answer:'Hello, I want to eat'},
-        {pt:'Desculpe, eu não quero vinho',answer:"Sorry, I don't want wine"},
-        {pt:'Com licença, eu preciso trabalhar agora',answer:'Excuse me, I need to work now'},
-        {pt:'Não bebo à noite',answer:"I don't drink at night"},
-        {pt:'Preciso falar com você de manhã',answer:'I need to speak with you in the morning'},
-        {pt:'Quero brincar de manhã',answer:'I want to play in the morning'},
-        {pt:'Não preciso trabalhar à noite',answer:"I don't need to work in the evening"},
-        {pt:'Não trabalho de manhã',answer:"I don't work in the morning"},
-        {pt:'Bebo café com minha mãe',answer:'I drink coffee with my mother'}
+      {type:'match',title:'B · Match the Columns',
+        left:['son','daughter','children','bread','cheese','ham','cup','glass','slice','but'],
+        right:['filho','filha','filhos','pão','queijo','presunto','xícara','copo','fatia','mas'],
+        correctIdx:[0,1,2,3,4,5,6,7,8,9]},
+      {type:'unscramble',title:'C · Unscramble',items:[
+        {words:['son','my'],answer:'my son'},
+        {words:['daughter','my'],answer:'my daughter'},
+        {words:['children','my'],answer:'my children'},
+        {words:['of','slice','bread'],answer:'slice of bread'},
+        {words:['of','cup','coffee'],answer:'cup of coffee'},
+        {words:['of','glass','water'],answer:'glass of water'}
       ]}
     ]},
-    {name:"Etapa 3 — Grammar: Don't",sections:[
-      {type:'translation',title:"A · Negativa com DON'T PT → EN",items:[
-        {pt:'Eu não quero',answer:"I don't want"},
-        {pt:'Eu não trabalho',answer:"I don't work"},
-        {pt:'Eu não treino',answer:"I don't exercise"},
-        {pt:'Eu não brinco',answer:"I don't play"},
-        {pt:'Não quero trabalhar',answer:"I don't want to work"},
-        {pt:'Não quero treinar',answer:"I don't want to exercise"},
-        {pt:'Não quero brincar',answer:"I don't want to play"},
-        {pt:'Não quero falar com você',answer:"I don't want to speak with you"},
-        {pt:'Não quero comer peixe',answer:"I don't want to eat fish"},
-        {pt:'Não quero beber chá agora',answer:"I don't want to drink tea now"}
+    {name:'Etapa 3 — Expressions',exercises:[
+      {type:'translation',title:'A · Tradução PT → EN',items:[
+        {pt:'oi',en:'hi'},
+        {pt:'olá',en:'hello'},
+        {pt:'desculpa',en:'sorry'},
+        {pt:'com licença',en:'excuse me'},
+        {pt:'tchau',en:'goodbye'},
+        {pt:'de manhã',en:'in the morning'},
+        {pt:'de tarde',en:'in the afternoon'},
+        {pt:'de noite',en:'at night'},
+        {pt:'ao meio dia',en:'at noon'},
+        {pt:'à meia noite',en:'at midnight'}
+      ]},
+      {type:'match',title:'B · Match the Columns',
+        left:['hi','hello','sorry','excuse me','goodbye','in the morning','in the afternoon','at night','at noon','at midnight'],
+        right:['oi','olá','desculpa','com licença','tchau','de manhã','de tarde','de noite','ao meio dia','à meia noite'],
+        correctIdx:[0,1,2,3,4,5,6,7,8,9]},
+      {type:'unscramble',title:'C · Unscramble',items:[
+        {words:['morning','the','in'],answer:'in the morning'},
+        {words:['afternoon','the','in'],answer:'in the afternoon'},
+        {words:['night','at'],answer:'at night'},
+        {words:['noon','at'],answer:'at noon'},
+        {words:['midnight','at'],answer:'at midnight'},
+        {words:['me','excuse'],answer:'excuse me'}
       ]}
     ]}
   ]
@@ -737,70 +780,83 @@ HOMEWORK['A1-2']={
 HOMEWORK['A1-3']={
   title:'Class 03 — Homework',
   etapas:[
-    {name:'Etapa 1 — I Like / I Go',sections:[
+    {name:'Etapa 1 — Verbs',exercises:[
       {type:'translation',title:'A · Tradução PT → EN',items:[
-        {pt:'Eu gosto de estudar com meu irmão',answer:'I like to study with my brother'},
-        {pt:'Gosto de dormir de manhã',answer:'I like to sleep in the morning'},
-        {pt:'Quero ir amanhã',answer:'I want to go tomorrow'},
-        {pt:'Gosto de falar inglês com você',answer:'I like to speak English with you'},
-        {pt:'Quero estudar com meu irmão de tarde',answer:'I want to study with my brother in the afternoon'},
-        {pt:'Preciso dormir agora',answer:'I need to sleep now'},
-        {pt:'Gosto de beber chá com minha filha',answer:'I like to drink tea with my daughter'},
-        {pt:'Não preciso estudar hoje',answer:"I don't need to study today"},
-        {pt:'Não estudo de noite',answer:"I don't study in the evening"},
-        {pt:'Você gosta de dormir?',answer:'Do you like to sleep?'}
+        {pt:'gostar',en:'to like'},
+        {pt:'eu gosto',en:'I like'},
+        {pt:'você gosta',en:'you like'},
+        {pt:'ir',en:'to go'},
+        {pt:'eu vou',en:'I go'},
+        {pt:'você vai',en:'you go'},
+        {pt:'estudar',en:'to study'},
+        {pt:'eu estudo',en:'I study'},
+        {pt:'dormir',en:'to sleep'},
+        {pt:'eu durmo',en:'I sleep'},
+        {pt:'você dorme',en:'you sleep'}
       ]},
-      {type:'translation',title:'B · Do you...? PT → EN',items:[
-        {pt:'Você bebe suco?',answer:'Do you drink juice?'},
-        {pt:'Você fala inglês?',answer:'Do you speak English?'},
-        {pt:'Você precisa estudar?',answer:'Do you need to study?'},
-        {pt:'Você gosta de estudar de manhã?',answer:'Do you like to study in the morning?'},
-        {pt:'Você quer dormir agora?',answer:'Do you want to sleep now?'},
-        {pt:'Você gosta de brincar?',answer:'Do you like to play?'},
-        {pt:'Você dorme de tarde?',answer:'Do you sleep in the afternoon?'},
-        {pt:'Você quer ir agora?',answer:'Do you want to go now?'},
-        {pt:'Você precisa trabalhar amanhã?',answer:'Do you need to work tomorrow?'},
-        {pt:'Você quer uma xícara de chá?',answer:'Do you want a cup of tea?'}
+      {type:'match',title:'B · Match the Columns',
+        left:['to like','to go','to study','to sleep','I like','you like','I go','you go','I study','I sleep'],
+        right:['gostar','ir','estudar','dormir','eu gosto','você gosta','eu vou','você vai','eu estudo','eu durmo'],
+        correctIdx:[0,1,2,3,4,5,6,7,8,9]},
+      {type:'unscramble',title:'C · Unscramble',items:[
+        {words:['like','I'],answer:'I like'},
+        {words:['go','you'],answer:'you go'},
+        {words:['study','I'],answer:'I study'},
+        {words:['sleep','you'],answer:'you sleep'},
+        {words:['to','like'],answer:'to like'},
+        {words:['to','go'],answer:'to go'}
       ]}
     ]},
-    {name:'Etapa 2 — Prepositions & Places',sections:[
+    {name:'Etapa 2 — Places & People',exercises:[
       {type:'translation',title:'A · Tradução PT → EN',items:[
-        {pt:'Quero ir ao cinema hoje',answer:'I want to go to the movies today'},
-        {pt:'Quero ir à igreja',answer:'I want to go to church'},
-        {pt:'Preciso ir à escola amanhã',answer:'I need to go to school tomorrow'},
-        {pt:'Não gosto de ir à loja',answer:"I don't like to go to the store"},
-        {pt:'Você estuda sozinho?',answer:'Do you study alone?'},
-        {pt:'Durmo na escola',answer:'I sleep at school'},
-        {pt:'Você fala francês?',answer:'Do you speak French?'},
-        {pt:'Gosto de ir à igreja no domingo',answer:'I like to go to church on Sunday'},
-        {pt:'Eu estudo na escola',answer:'I study at school'},
-        {pt:'Vou ao cinema na terça',answer:'I go to the movies on Tuesday'}
+        {pt:'cinema',en:'movies'},
+        {pt:'escola',en:'school'},
+        {pt:'igreja',en:'church'},
+        {pt:'banco',en:'bank'},
+        {pt:'centro',en:'downtown'},
+        {pt:'loja',en:'store'},
+        {pt:'casa',en:'home'},
+        {pt:'professor / professora',en:'teacher'},
+        {pt:'amigo / amiga',en:'friend'},
+        {pt:'fim de semana',en:'weekend'}
       ]},
-      {type:'translation',title:'B · Accessories PT → EN',items:[
-        {pt:'Falo inglês mais ou menos',answer:'I speak English more or less'},
-        {pt:'Com licença, preciso ir agora, até logo',answer:'Excuse me, I need to go now, see you later'},
-        {pt:'Você quer estudar comigo no fim de semana?',answer:'Do you want to study with me on the weekend?'},
-        {pt:'Até logo, preciso ir à escola',answer:'See you later, I need to go to school'},
-        {pt:'Preciso trabalhar agora, até amanhã',answer:'I need to work now, see you tomorrow'},
-        {pt:'Quero ir para casa, até logo',answer:'I want to go home, see you later'},
-        {pt:'Você quer falar inglês comigo?',answer:'Do you want to speak English with me?'},
-        {pt:'Não gosto de beber no feriado',answer:"I don't like to drink on the holiday"},
-        {pt:'Você quer trabalhar comigo no feriado?',answer:'Do you want to work with me on the holiday?'},
-        {pt:'Você gosta de dormir no fim de semana?',answer:'Do you like to sleep on the weekend?'}
+      {type:'match',title:'B · Match the Columns',
+        left:['movies','school','church','bank','downtown','store','home','teacher','friend','weekend'],
+        right:['cinema','escola','igreja','banco','centro','loja','casa','professor / professora','amigo / amiga','fim de semana'],
+        correctIdx:[0,1,2,3,4,5,6,7,8,9]},
+      {type:'unscramble',title:'C · Unscramble',items:[
+        {words:['to','go','school','to'],answer:'to go to school'},
+        {words:['to','go','church','to'],answer:'to go to church'},
+        {words:['to','go','bank','the'],answer:'to go to the bank'},
+        {words:['to','go','downtown'],answer:'to go downtown'},
+        {words:['to','go','store','the'],answer:'to go to the store'},
+        {words:['to','go','home'],answer:'to go home'}
       ]}
     ]},
-    {name:'Etapa 3 — Days & Review',sections:[
-      {type:'translation',title:'A · Dias da semana PT → EN',items:[
-        {pt:'Vou ao banco na segunda-feira',answer:'I go to the bank on Monday'},
-        {pt:'Trabalho na terça-feira',answer:'I work on Tuesday'},
-        {pt:'Estudo na quarta-feira',answer:'I study on Wednesday'},
-        {pt:'Vou ao cinema na quinta-feira',answer:'I go to the movies on Thursday'},
-        {pt:'Não trabalho na sexta-feira',answer:"I don't work on Friday"},
-        {pt:'Gosto de dormir no sábado',answer:'I like to sleep on Saturday'},
-        {pt:'Vou à igreja no domingo',answer:'I go to church on Sunday'},
-        {pt:'Você trabalha no fim de semana?',answer:'Do you work on the weekend?'},
-        {pt:'Gosto de ir à escola de manhã',answer:'I like to go to school in the morning'},
-        {pt:'Você estuda no fim de semana?',answer:'Do you study on the weekend?'}
+    {name:'Etapa 3 — Expressions',exercises:[
+      {type:'translation',title:'A · Tradução PT → EN',items:[
+        {pt:'mais ou menos',en:'more or less'},
+        {pt:'até mais',en:'see you later'},
+        {pt:'até amanhã',en:'see you tomorrow'},
+        {pt:'comigo',en:'with me'},
+        {pt:'no fim de semana',en:'on the weekend'},
+        {pt:'feriado',en:'holiday'},
+        {pt:'segunda-feira',en:'Monday'},
+        {pt:'sexta-feira',en:'Friday'},
+        {pt:'na escola',en:'at school'},
+        {pt:'em casa',en:'at home'}
+      ]},
+      {type:'match',title:'B · Match the Columns',
+        left:['more or less','see you later','see you tomorrow','with me','on the weekend','holiday','Monday','Friday','at school','at home'],
+        right:['mais ou menos','até mais','até amanhã','comigo','no fim de semana','feriado','segunda-feira','sexta-feira','na escola','em casa'],
+        correctIdx:[0,1,2,3,4,5,6,7,8,9]},
+      {type:'unscramble',title:'C · Unscramble',items:[
+        {words:['or','more','less'],answer:'more or less'},
+        {words:['later','you','see'],answer:'see you later'},
+        {words:['tomorrow','you','see'],answer:'see you tomorrow'},
+        {words:['me','with'],answer:'with me'},
+        {words:['the','weekend','on'],answer:'on the weekend'},
+        {words:['home','at'],answer:'at home'}
       ]}
     ]}
   ]
@@ -809,70 +865,83 @@ HOMEWORK['A1-3']={
 HOMEWORK['A1-4']={
   title:'Class 04 — Homework',
   etapas:[
-    {name:'Etapa 1 — Have / Buy / Understand',sections:[
+    {name:'Etapa 1 — Verbs',exercises:[
       {type:'translation',title:'A · Tradução PT → EN',items:[
-        {pt:'Eu entendo você',answer:'I understand you'},
-        {pt:'Tenho um irmão',answer:'I have a brother'},
-        {pt:'Quero comprar pão',answer:'I want to buy bread'},
-        {pt:'Preciso entender inglês',answer:'I need to understand English'},
-        {pt:'Gosto de comprar leite de manhã',answer:'I like to buy milk in the morning'},
-        {pt:'Quero comprar leite na terça',answer:'I want to buy milk on Tuesday'},
-        {pt:'Tenho que vender minha casa agora',answer:'I have to sell my house now'},
-        {pt:'Eu não entendo meu pai',answer:"I don't understand my father"},
-        {pt:'Não tenho filhas',answer:"I don't have daughters"},
-        {pt:'Não vendo, mas eu compro',answer:"I don't sell, but I buy"}
+        {pt:'ter',en:'to have'},
+        {pt:'eu tenho',en:'I have'},
+        {pt:'você tem',en:'you have'},
+        {pt:'entender',en:'to understand'},
+        {pt:'eu entendo',en:'I understand'},
+        {pt:'comprar',en:'to buy'},
+        {pt:'eu compro',en:'I buy'},
+        {pt:'vender',en:'to sell'},
+        {pt:'eu vendo',en:'I sell'},
+        {pt:'ter que',en:'to have to'},
+        {pt:'eu tenho que',en:'I have to'}
       ]},
-      {type:'translation',title:'B · Question Words PT → EN',items:[
-        {pt:'Você quer estudar esta semana?',answer:'Do you want to study this week?'},
-        {pt:'Preciso comprar este livro',answer:'I need to buy this book'},
-        {pt:'Você quer ir à academia comigo?',answer:'Do you want to go to the gym with me?'},
-        {pt:'Não tenho tempo esta semana',answer:"I don't have time this week"},
-        {pt:'Você quer vender seu carro?',answer:'Do you want to sell your car?'},
-        {pt:'Eu tenho uma casa grande',answer:'I have a big house'},
-        {pt:'O que você come de manhã?',answer:'What do you eat in the morning?'},
-        {pt:'Você entende espanhol?',answer:'Do you understand Spanish?'},
-        {pt:'O que você precisa?',answer:'What do you need?'},
-        {pt:'Onde você estuda?',answer:'Where do you study?'}
+      {type:'match',title:'B · Match the Columns',
+        left:['to have','to understand','to buy','to sell','to have to','I have','you have','I understand','I buy','I sell'],
+        right:['ter','entender','comprar','vender','ter que','eu tenho','você tem','eu entendo','eu compro','eu vendo'],
+        correctIdx:[0,1,2,3,4,5,6,7,8,9]},
+      {type:'unscramble',title:'C · Unscramble',items:[
+        {words:['have','I'],answer:'I have'},
+        {words:['understand','you'],answer:'you understand'},
+        {words:['buy','I'],answer:'I buy'},
+        {words:['sell','you'],answer:'you sell'},
+        {words:['to','have'],answer:'to have'},
+        {words:['to','have','to'],answer:'to have to'}
       ]}
     ]},
-    {name:'Etapa 2 — Vocabulary & Adjectives',sections:[
+    {name:'Etapa 2 — Vocabulary',exercises:[
       {type:'translation',title:'A · Tradução PT → EN',items:[
-        {pt:'Quero vender minha casa velha',answer:'I want to sell my old house'},
-        {pt:'Você quer jogar futebol comigo?',answer:'Do you want to play soccer with me?'},
-        {pt:'O que você quer comprar?',answer:'What do you want to buy?'},
-        {pt:'Onde você vende livros?',answer:'Where do you sell books?'},
-        {pt:'Onde você quer ir?',answer:'Where do you want to go?'},
-        {pt:'Quando você gosta de trabalhar?',answer:'When do you like to work?'},
-        {pt:'Quantos livros você tem?',answer:'How many books do you have?'},
-        {pt:'Você joga no fim de semana?',answer:'Do you play on the weekend?'},
-        {pt:'Eu tenho alguns livros para estudar',answer:'I have some books to study'},
-        {pt:'Não trabalho na academia',answer:"I don't work at the gym"}
+        {pt:'farmácia',en:'pharmacy'},
+        {pt:'academia',en:'gym'},
+        {pt:'livro',en:'book'},
+        {pt:'carro',en:'car'},
+        {pt:'café da manhã',en:'breakfast'},
+        {pt:'esposa',en:'wife'},
+        {pt:'marido',en:'husband'},
+        {pt:'futebol',en:'soccer'},
+        {pt:'grande',en:'big'},
+        {pt:'pequeno',en:'small'}
       ]},
-      {type:'translation',title:'B · Expressions PT → EN',items:[
-        {pt:'Eu trabalho todos os dias',answer:'I work every day'},
-        {pt:'Vou ao banco toda semana',answer:'I go to the bank every week'},
-        {pt:'Muito prazer, falo inglês',answer:'Nice to meet you, I speak English'},
-        {pt:'Estudo inglês um dia sim um dia não',answer:'I study English every other day'},
-        {pt:'Gosto muito do meu pai',answer:'I like my father very much'},
-        {pt:'Bebo suco toda noite',answer:'I drink juice every night'},
-        {pt:'O que você come no café da manhã?',answer:'What do you eat for breakfast?'},
-        {pt:'O que você come no almoço?',answer:'What do you eat for lunch?'},
-        {pt:'Eu tenho uma casa muito grande',answer:'I have a very big house'},
-        {pt:'Estou de férias',answer:"I'm on vacation"}
+      {type:'match',title:'B · Match the Columns',
+        left:['pharmacy','gym','book','car','breakfast','wife','husband','soccer','big','small'],
+        right:['farmácia','academia','livro','carro','café da manhã','esposa','marido','futebol','grande','pequeno'],
+        correctIdx:[0,1,2,3,4,5,6,7,8,9]},
+      {type:'unscramble',title:'C · Unscramble',items:[
+        {words:['the','to','pharmacy','go'],answer:'to go to the pharmacy'},
+        {words:['the','to','gym','go'],answer:'to go to the gym'},
+        {words:['a','buy','book'],answer:'buy a book'},
+        {words:['a','have','car'],answer:'have a car'},
+        {words:['breakfast','have'],answer:'have breakfast'},
+        {words:['soccer','play'],answer:'play soccer'}
       ]}
     ]},
-    {name:'Etapa 3 — Have To & Review',sections:[
-      {type:'translation',title:'A · Have to PT → EN',items:[
-        {pt:'Eu tenho que entender',answer:'I have to understand'},
-        {pt:'Eu tenho que comprar',answer:'I have to buy'},
-        {pt:'Eu tenho que vender',answer:'I have to sell'},
-        {pt:'Você tem que comprar mortadela?',answer:'Do you have to buy baloney?'},
-        {pt:'Não tenho que entender',answer:"I don't have to understand"},
-        {pt:'Você entende o professor?',answer:'Do you understand the teacher?'},
-        {pt:'Você gosta de vender?',answer:'Do you like to sell?'},
-        {pt:'Você toma café ou leite de manhã?',answer:'Do you drink coffee or milk in the morning?'},
-        {pt:'Quando você gosta de trabalhar?',answer:'When do you like to work?'},
-        {pt:'Você joga futebol todos os dias?',answer:'Do you play soccer every day?'}
+    {name:'Etapa 3 — Expressions',exercises:[
+      {type:'translation',title:'A · Tradução PT → EN',items:[
+        {pt:'no café da manhã',en:'for breakfast'},
+        {pt:'no almoço',en:'for lunch'},
+        {pt:'no jantar',en:'for dinner'},
+        {pt:'todo dia',en:'every day'},
+        {pt:'de dois em dois dias',en:'every other day'},
+        {pt:'muito prazer',en:'nice to meet you'},
+        {pt:'de férias',en:'on vacation'},
+        {pt:'quantos',en:'how many'},
+        {pt:'no final do ano',en:'at the end of the year'},
+        {pt:'muito',en:'very much'}
+      ]},
+      {type:'match',title:'B · Match the Columns',
+        left:['for breakfast','for lunch','for dinner','every day','every other day','nice to meet you','on vacation','how many','at the end of the year','very much'],
+        right:['no café da manhã','no almoço','no jantar','todo dia','de dois em dois dias','muito prazer','de férias','quantos','no final do ano','muito'],
+        correctIdx:[0,1,2,3,4,5,6,7,8,9]},
+      {type:'unscramble',title:'C · Unscramble',items:[
+        {words:['breakfast','for'],answer:'for breakfast'},
+        {words:['lunch','for'],answer:'for lunch'},
+        {words:['dinner','for'],answer:'for dinner'},
+        {words:['day','every'],answer:'every day'},
+        {words:['day','other','every'],answer:'every other day'},
+        {words:['meet','to','you','nice'],answer:'nice to meet you'}
       ]}
     ]}
   ]
@@ -881,70 +950,82 @@ HOMEWORK['A1-4']={
 HOMEWORK['A1-5']={
   title:'Class 05 — Homework',
   etapas:[
-    {name:'Etapa 1 — Know / Help / Read / Write',sections:[
+    {name:'Etapa 1 — Verbs',exercises:[
       {type:'translation',title:'A · Tradução PT → EN',items:[
-        {pt:'Eu sei escrever',answer:'I know how to write'},
-        {pt:'Eu ajudo minha mãe no fim de semana',answer:'I help my mother on the weekend'},
-        {pt:'Eu conheço sua mãe',answer:'I know your mother'},
-        {pt:'Leio este livro todos os dias',answer:'I read this book everyday'},
-        {pt:'Escrevo para você à noite',answer:'I write to you at night'},
-        {pt:'Preciso ajudar meu amigo',answer:'I need to help my friend'},
-        {pt:'Não ajudo o professor',answer:"I don't help the teacher"},
-        {pt:'Não conheço seu irmão',answer:"I don't know your brother"},
-        {pt:'Não leio no fim de semana',answer:"I don't read on the weekend"},
-        {pt:'Você ajuda sua irmã?',answer:'Do you help your sister?'}
+        {pt:'saber',en:'to know'},
+        {pt:'eu sei',en:'I know'},
+        {pt:'você sabe',en:'you know'},
+        {pt:'ajudar',en:'to help'},
+        {pt:'eu ajudo',en:'I help'},
+        {pt:'ler',en:'to read'},
+        {pt:'eu leio',en:'I read'},
+        {pt:'escrever',en:'to write'},
+        {pt:'eu escrevo',en:'I write'},
+        {pt:'você escreve',en:'you write'}
       ]},
-      {type:'translation',title:'B · Tradução PT → EN',items:[
-        {pt:'Você conhece o professor?',answer:'Do you know the teacher?'},
-        {pt:'Você sabe falar inglês?',answer:'Do you know how to speak English?'},
-        {pt:'Não tenho tempo para escrever',answer:"I don't have time to write"},
-        {pt:'Não ajudo meu pai à noite',answer:"I don't help my father at night"},
-        {pt:'Não quero ler este livro agora',answer:"I don't want to read this book now"},
-        {pt:'Não conheço sua filha',answer:"I don't know your daughter"},
-        {pt:'Não gosto de escrever à noite',answer:"I don't like to write at night"},
-        {pt:'Não quero ler esta semana',answer:"I don't want to read this week"},
-        {pt:'Eu não sei ir à escola sozinho',answer:"I don't know how to go to school alone"},
-        {pt:'Não tenho dinheiro para comprar esta revista',answer:"I don't have money to buy this magazine"}
+      {type:'match',title:'B · Match the Columns',
+        left:['to know','to help','to read','to write','I know','you know','I help','I read','I write','you write'],
+        right:['saber','ajudar','ler','escrever','eu sei','você sabe','eu ajudo','eu leio','eu escrevo','você escreve'],
+        correctIdx:[0,1,2,3,4,5,6,7,8,9]},
+      {type:'unscramble',title:'C · Unscramble',items:[
+        {words:['know','I'],answer:'I know'},
+        {words:['help','you'],answer:'you help'},
+        {words:['read','I'],answer:'I read'},
+        {words:['write','you'],answer:'you write'},
+        {words:['to','know'],answer:'to know'},
+        {words:['to','write'],answer:'to write'}
       ]}
     ]},
-    {name:'Etapa 2 — Vocabulary',sections:[
+    {name:'Etapa 2 — Vocabulary',exercises:[
       {type:'translation',title:'A · Tradução PT → EN',items:[
-        {pt:'Não gosto muito do meu chefe',answer:"I don't like my boss very much"},
-        {pt:'Não conheço o garçom',answer:"I don't know the waiter"},
-        {pt:'Preciso escrever uma carta hoje',answer:'I need to write a letter today'},
-        {pt:'Vou ao correio todos os dias',answer:'I go to the post office everyday'},
-        {pt:'Você quer comprar um cavalo?',answer:'Do you want to buy a horse?'},
-        {pt:'Preciso falar com você lá',answer:'I need to speak with you there'},
-        {pt:'Trabalho à noite este mês',answer:'I work at night this month'},
-        {pt:'Você gosta de bichos de estimação?',answer:'Do you like pets?'},
-        {pt:'Você gosta de frango?',answer:'Do you like chicken?'},
-        {pt:'Você conhece meu chefe?',answer:'Do you know my boss?'}
+        {pt:'chefe',en:'boss'},
+        {pt:'revista',en:'magazine'},
+        {pt:'garçom',en:'waiter'},
+        {pt:'carta',en:'letter'},
+        {pt:'correio',en:'post office'},
+        {pt:'cartão postal',en:'postcard'},
+        {pt:'carteiro',en:'mailman'},
+        {pt:'dinheiro',en:'money'},
+        {pt:'aqui',en:'here'},
+        {pt:'lá',en:'there'}
       ]},
-      {type:'translation',title:'B · Why / Because PT → EN',items:[
-        {pt:'Por que você escreve em inglês?',answer:'Why do you write in English?'},
-        {pt:'Porque eu quero falar',answer:'Because I want to speak'},
-        {pt:'Por que você quer vender seu carro?',answer:'Why do you want to sell your car?'},
-        {pt:'Porque eu preciso de dinheiro',answer:'Because I need money'},
-        {pt:'Eu sei falar inglês',answer:'I know how to speak English'},
-        {pt:'Eu sei que você sabe falar inglês',answer:'I know that you know how to speak English'},
-        {pt:'Eu sei que você joga futebol',answer:'I know that you play soccer'},
-        {pt:'Você quer estudar hoje à noite?',answer:'Do you want to study tonight?'},
-        {pt:'Preciso trabalhar hoje de manhã',answer:'I need to work this morning'},
-        {pt:'Quero ir ao cinema hoje à tarde',answer:'I want to go to the movies this afternoon'}
+      {type:'match',title:'B · Match the Columns',
+        left:['boss','magazine','waiter','letter','post office','postcard','mailman','money','here','there'],
+        right:['chefe','revista','garçom','carta','correio','cartão postal','carteiro','dinheiro','aqui','lá'],
+        correctIdx:[0,1,2,3,4,5,6,7,8,9]},
+      {type:'unscramble',title:'C · Unscramble',items:[
+        {words:['the','to','office','post','go'],answer:'to go to the post office'},
+        {words:['a','read','magazine'],answer:'read a magazine'},
+        {words:['a','write','letter'],answer:'write a letter'},
+        {words:['a','send','postcard'],answer:'send a postcard'},
+        {words:['the','help','waiter'],answer:'help the waiter'},
+        {words:['money','need','I'],answer:'I need money'}
       ]}
     ]},
-    {name:'Etapa 3 — How are you? & Review',sections:[
+    {name:'Etapa 3 — Expressions',exercises:[
       {type:'translation',title:'A · Tradução PT → EN',items:[
-        {pt:'Como você está?',answer:'How are you?'},
-        {pt:'Estou bem, obrigado',answer:"I'm fine, thanks"},
-        {pt:'Estou mais ou menos',answer:"I'm more or less"},
-        {pt:'Não estou bem',answer:"I'm not well"},
-        {pt:'Tenho aproximadamente 10 livros',answer:'I have about 10 books'},
-        {pt:'Preciso comprar aproximadamente cinco livros',answer:'I need to buy about 5 books'},
-        {pt:'Tenho que ajudar meus pais amanhã à noite',answer:'I have to help my parents tomorrow night'},
-        {pt:'Eu quero comprar um apartamento esta manhã',answer:'I want to buy an apartment this morning'},
-        {pt:'Preciso ir ao correio hoje de manhã',answer:'I need to go to the post office this morning'},
-        {pt:'Por que você não quer estudar?',answer:"Why don't you want to study?"}
+        {pt:'essa manhã',en:'this morning'},
+        {pt:'essa tarde',en:'this afternoon'},
+        {pt:'essa noite',en:'tonight'},
+        {pt:'amanhã de manhã',en:'tomorrow morning'},
+        {pt:'amanhã à noite',en:'tomorrow night'},
+        {pt:'sobre',en:'about'},
+        {pt:'por quê?',en:'why?'},
+        {pt:'porque',en:'because'},
+        {pt:'eu sei que...',en:'I know that...'},
+        {pt:'como vai você?',en:'how are you?'}
+      ]},
+      {type:'match',title:'B · Match the Columns',
+        left:['this morning','this afternoon','tonight','tomorrow morning','tomorrow night','about','why?','because','I know that...','how are you?'],
+        right:['essa manhã','essa tarde','essa noite','amanhã de manhã','amanhã à noite','sobre','por quê?','porque','eu sei que...','como vai você?'],
+        correctIdx:[0,1,2,3,4,5,6,7,8,9]},
+      {type:'unscramble',title:'C · Unscramble',items:[
+        {words:['morning','this'],answer:'this morning'},
+        {words:['afternoon','this'],answer:'this afternoon'},
+        {words:['tonight'],answer:'tonight'},
+        {words:['morning','tomorrow'],answer:'tomorrow morning'},
+        {words:['night','tomorrow'],answer:'tomorrow night'},
+        {words:['are','how','you'],answer:'how are you?'}
       ]}
     ]}
   ]
@@ -953,70 +1034,82 @@ HOMEWORK['A1-5']={
 HOMEWORK['A1-6']={
   title:'Class 06 — Homework',
   etapas:[
-    {name:'Etapa 1 — Prefer / Live / Open / Close',sections:[
+    {name:'Etapa 1 — Verbs',exercises:[
       {type:'translation',title:'A · Tradução PT → EN',items:[
-        {pt:'Preciso abrir a loja de manhã',answer:'I need to open the store in the morning'},
-        {pt:'Fecho a casa à noite',answer:'I close the house at night'},
-        {pt:'Prefiro trabalhar lá com meu irmão',answer:'I prefer to work there with my brother'},
-        {pt:'Quero morar aqui com meus pais',answer:'I want to live here with my parents'},
-        {pt:'Prefiro brincar com minhas crianças',answer:'I prefer to play with my children'},
-        {pt:'Não moro com meus parentes lá',answer:"I don't live with my relatives there"},
-        {pt:'Não gosto de morar sozinho',answer:"I don't like to live alone"},
-        {pt:'Você gosta de morar aqui?',answer:'Do you like to live here?'},
-        {pt:'Onde você mora?',answer:'Where do you live?'},
-        {pt:'Onde você prefere morar?',answer:'Where do you prefer to live?'}
+        {pt:'preferir',en:'to prefer'},
+        {pt:'eu prefiro',en:'I prefer'},
+        {pt:'você prefere',en:'you prefer'},
+        {pt:'morar',en:'to live'},
+        {pt:'eu moro',en:'I live'},
+        {pt:'abrir',en:'to open'},
+        {pt:'eu abro',en:'I open'},
+        {pt:'fechar',en:'to close'},
+        {pt:'eu fecho',en:'I close'},
+        {pt:'você fecha',en:'you close'}
       ]},
-      {type:'translation',title:'B · Vocabulary PT → EN',items:[
-        {pt:'Abra a porta, por favor',answer:'Open the door please'},
-        {pt:'Feche a janela para mim, por favor',answer:'Close the window for me please'},
-        {pt:'Preciso falar com meu vizinho hoje',answer:'I need to speak with my neighbor today'},
-        {pt:'Eu geralmente trabalho no fim de semana',answer:'I usually work on the weekend'},
-        {pt:'Quando você quer fechar seu escritório?',answer:'When do you want to close your office?'},
-        {pt:'Eu já entendo inglês',answer:'I already understand English'},
-        {pt:'Tenho um teste amanhã',answer:'I have a test tomorrow'},
-        {pt:'Eu geralmente como arroz com ovos',answer:'I usually eat rice and eggs'},
-        {pt:'Trabalho no interior',answer:'I work in the countryside'},
-        {pt:'Por que você quer trabalhar nesta cidade?',answer:'Why do you want to work in this city?'}
+      {type:'match',title:'B · Match the Columns',
+        left:['to prefer','to live','to open','to close','I prefer','you prefer','I live','I open','I close','you close'],
+        right:['preferir','morar','abrir','fechar','eu prefiro','você prefere','eu moro','eu abro','eu fecho','você fecha'],
+        correctIdx:[0,1,2,3,4,5,6,7,8,9]},
+      {type:'unscramble',title:'C · Unscramble',items:[
+        {words:['prefer','I'],answer:'I prefer'},
+        {words:['live','you'],answer:'you live'},
+        {words:['open','I'],answer:'I open'},
+        {words:['close','you'],answer:'you close'},
+        {words:['to','prefer'],answer:'to prefer'},
+        {words:['to','live'],answer:'to live'}
       ]}
     ]},
-    {name:'Etapa 2 — Numbers & Time',sections:[
-      {type:'translation',title:'A · Números PT → EN',items:[
-        {pt:'Um',answer:'One'},
-        {pt:'Cinco',answer:'Five'},
-        {pt:'Dez',answer:'Ten'},
-        {pt:'Quinze',answer:'Fifteen'},
-        {pt:'Vinte',answer:'Twenty'},
-        {pt:'Trinta',answer:'Thirty'},
-        {pt:'Cinquenta',answer:'Fifty'},
-        {pt:'Cem',answer:'One hundred'},
-        {pt:'Mil',answer:'One thousand'},
-        {pt:'Um milhão',answer:'One million'}
+    {name:'Etapa 2 — Vocabulary',exercises:[
+      {type:'translation',title:'A · Tradução PT → EN',items:[
+        {pt:'mais',en:'more'},
+        {pt:'menos',en:'less'},
+        {pt:'porta',en:'door'},
+        {pt:'janela',en:'window'},
+        {pt:'prova',en:'test'},
+        {pt:'passagem',en:'ticket'},
+        {pt:'vizinho / vizinha',en:'neighbor'},
+        {pt:'escritório',en:'office'},
+        {pt:'geralmente',en:'usually'},
+        {pt:'já',en:'already'}
       ]},
-      {type:'translation',title:'B · Horas EN → PT',items:[
-        {pt:'Que horas são? (What time is it?)',answer:'What time is it?'},
-        {pt:'São uma hora',answer:"It's one o'clock"},
-        {pt:'São duas horas',answer:"It's two o'clock"},
-        {pt:'São três e quinze',answer:"It's three fifteen"},
-        {pt:'São quatro e trinta',answer:"It's four thirty"},
-        {pt:'São cinco e quarenta e cinco',answer:"It's five forty-five"},
-        {pt:'São seis da manhã',answer:"It's six in the morning"},
-        {pt:'São doze horas',answer:"It's twelve o'clock"},
-        {pt:'São oito e cinco',answer:"It's eight o-five"},
-        {pt:'São dez e vinte',answer:"It's ten twenty"}
+      {type:'match',title:'B · Match the Columns',
+        left:['more','less','door','window','test','ticket','neighbor','office','usually','already'],
+        right:['mais','menos','porta','janela','prova','passagem','vizinho / vizinha','escritório','geralmente','já'],
+        correctIdx:[0,1,2,3,4,5,6,7,8,9]},
+      {type:'unscramble',title:'C · Unscramble',items:[
+        {words:['the','open','door'],answer:'open the door'},
+        {words:['the','close','window'],answer:'close the window'},
+        {words:['a','buy','ticket'],answer:'buy a ticket'},
+        {words:['my','neighbor','know','I'],answer:'I know my neighbor'},
+        {words:['the','to','office','go'],answer:'to go to the office'},
+        {words:['already','know','I'],answer:'I already know'}
       ]}
     ]},
-    {name:'Etapa 3 — Before / After & Review',sections:[
-      {type:'translation',title:'A · Before / After PT → EN',items:[
-        {pt:'Estudo depois de trabalhar',answer:'I study after working'},
-        {pt:'Estudo antes de dormir',answer:'I study before sleeping'},
-        {pt:'Como antes de estudar',answer:'I eat before studying'},
-        {pt:'Trabalho na cidade',answer:'I work in the city'},
-        {pt:'Moro no interior',answer:'I live in the countryside'},
-        {pt:'Você quer ir ao banco antes de trabalhar?',answer:'Do you want to go to the bank before working?'},
-        {pt:'Eu geralmente como arroz com feijão',answer:'I usually eat rice and beans'},
-        {pt:'Não quero fechar a loja',answer:"I don't want to close the store"},
-        {pt:'Você prefere beber suco ou vinho?',answer:'Do you prefer to drink juice or wine?'},
-        {pt:'Eu já estudo inglês',answer:'I already study English'}
+    {name:'Etapa 3 — Expressions',exercises:[
+      {type:'translation',title:'A · Tradução PT → EN',items:[
+        {pt:'acordar',en:'to wake up'},
+        {pt:'levantar',en:'to get up'},
+        {pt:'tomar café da manhã',en:'to have breakfast'},
+        {pt:'almoçar',en:'to have lunch'},
+        {pt:'jantar',en:'to have dinner'},
+        {pt:'de carro',en:'by car'},
+        {pt:'de avião',en:'by plane'},
+        {pt:'a pé',en:'on foot'},
+        {pt:'até',en:'until'},
+        {pt:'às + hora',en:'AT + time'}
+      ]},
+      {type:'match',title:'B · Match the Columns',
+        left:['to wake up','to get up','to have breakfast','to have lunch','to have dinner','by car','by plane','on foot','until','AT + time'],
+        right:['acordar','levantar','tomar café da manhã','almoçar','jantar','de carro','de avião','a pé','até','às + hora'],
+        correctIdx:[0,1,2,3,4,5,6,7,8,9]},
+      {type:'unscramble',title:'C · Unscramble',items:[
+        {words:['up','wake'],answer:'wake up'},
+        {words:['up','get'],answer:'get up'},
+        {words:['breakfast','have'],answer:'have breakfast'},
+        {words:['lunch','have'],answer:'have lunch'},
+        {words:['dinner','have'],answer:'have dinner'},
+        {words:['car','by'],answer:'by car'}
       ]}
     ]}
   ]
@@ -1025,70 +1118,82 @@ HOMEWORK['A1-6']={
 HOMEWORK['A1-7']={
   title:'Class 07 — Homework',
   etapas:[
-    {name:'Etapa 1 — He / She / It (3rd person)',sections:[
-      {type:'translation',title:'A · 3ª Pessoa PT → EN',items:[
-        {pt:'Ela começa às 6:00',answer:'She starts at 6am'},
-        {pt:'Ele quer começar no fim de semana',answer:'He wants to start on the weekend'},
-        {pt:'Ela vem aqui todos os dias',answer:'She comes here everyday'},
-        {pt:'Ele precisa vir com meu pai',answer:'He needs to come with my father'},
-        {pt:'Ela diz isto para meu vizinho',answer:'She says this to my neighbor'},
-        {pt:'Ele fica em casa de manhã',answer:'He stays home in the morning'},
-        {pt:'Ela tem que trabalhar na segunda-feira',answer:'She has to work on Monday'},
-        {pt:'Ele não quer estudar na quinta-feira',answer:"He doesn't want to study on Thursday"},
-        {pt:'Ela começa amanhã?',answer:'Does she start tomorrow?'},
-        {pt:'Ele vai de avião?',answer:'Does he go by plane?'}
-      ]},
-      {type:'translation',title:'B · Still / Yet / Many / Much PT → EN',items:[
-        {pt:'Ela ainda não sabe falar inglês',answer:"She doesn't know how to speak English yet"},
-        {pt:'Ele ainda não entende',answer:"He doesn't understand yet"},
-        {pt:'Nós ainda temos uma aula de inglês',answer:'We still have an English class'},
-        {pt:'Ela ainda trabalha na praia?',answer:'Does she still work at the beach?'},
-        {pt:'Ele compra muitos livros',answer:'He buys many books'},
-        {pt:'Ela vem de São Paulo?',answer:'Does she come from São Paulo?'},
-        {pt:'Eu quero vender minhas coisas velhas',answer:'I want to sell my old things'},
-        {pt:'Ela precisa ir para a reunião?',answer:'Does she need to go to the meeting?'},
-        {pt:'Ela começa a trabalhar na próxima semana',answer:'She starts to work next week'},
-        {pt:'Quando ela quer fechar o escritório?',answer:'When does she want to close the office?'}
-      ]}
-    ]},
-    {name:'Etapa 2 — Something / Nothing / A lot',sections:[
+    {name:'Etapa 1 — Verbs (3rd person)',exercises:[
       {type:'translation',title:'A · Tradução PT → EN',items:[
-        {pt:'Tenho alguma coisa para você',answer:'I have something for you'},
-        {pt:'Você entende alguma coisa?',answer:'Do you understand anything?'},
-        {pt:'Ela não diz nada',answer:"She doesn't say anything"},
-        {pt:'Ele não tem nada',answer:'He has nothing'},
-        {pt:'Trabalho muito',answer:'I work a lot'},
-        {pt:'Ela tem tudo',answer:'She has everything'},
-        {pt:'Quero alguma coisa para beber',answer:'I want something to drink'},
-        {pt:'Não tenho nada para fazer',answer:"I don't have anything to do"},
-        {pt:'Ela tem muitos colegas',answer:'She still has many colleagues'},
-        {pt:'Você quer alguma coisa?',answer:'Do you want something?'}
+        {pt:'começar',en:'to start'},
+        {pt:'ele / ela começa',en:'he / she starts'},
+        {pt:'vir',en:'to come'},
+        {pt:'ele / ela vem',en:'he / she comes'},
+        {pt:'falar',en:'to say'},
+        {pt:'ele / ela fala',en:'he / she says'},
+        {pt:'ficar',en:'to stay'},
+        {pt:'ele / ela fica',en:'he / she stays'},
+        {pt:'ele trabalha',en:'he works'},
+        {pt:'ela estuda',en:'she studies'}
       ]},
-      {type:'translation',title:'B · Review PT → EN',items:[
-        {pt:'Ela precisa ir para a reunião?',answer:'Does she need to go to the meeting?'},
-        {pt:'Não tenho tempo de ir à piscina hoje',answer:"I don't have time to go to the pool today"},
-        {pt:'Quero ir para o centro no meu intervalo',answer:'I want to go downtown at my break'},
-        {pt:'Eles gostam de ir para a praia com a família',answer:'They like to go to the beach with the family'},
-        {pt:'Ele ainda quer um intervalo?',answer:'Does he still want a break?'},
-        {pt:'Ele ainda precisa de muito dinheiro?',answer:'Does he still need much money?'},
-        {pt:'Você vem a pé?',answer:'Do you come on foot?'},
-        {pt:'Ela começa a trabalhar na próxima semana',answer:'She starts to work next week'},
-        {pt:'Eles gostam de ir para a praia com a família',answer:'They like to go to the beach with the family'},
-        {pt:'Você tem muito tempo?',answer:'Do you have much time?'}
+      {type:'match',title:'B · Match the Columns',
+        left:['to start','to come','to say','to stay','he / she starts','he / she comes','he / she says','he / she stays','he works','she studies'],
+        right:['começar','vir','falar','ficar','ele / ela começa','ele / ela vem','ele / ela fala','ele / ela fica','ele trabalha','ela estuda'],
+        correctIdx:[0,1,2,3,4,5,6,7,8,9]},
+      {type:'unscramble',title:'C · Unscramble',items:[
+        {words:['starts','he'],answer:'he starts'},
+        {words:['comes','she'],answer:'she comes'},
+        {words:['says','he'],answer:'he says'},
+        {words:['stays','she'],answer:'she stays'},
+        {words:['works','he'],answer:'he works'},
+        {words:['studies','she'],answer:'she studies'}
       ]}
     ]},
-    {name:'Etapa 3 — Review 3rd Person',sections:[
-      {type:'translation',title:'A · Negativa 3ª Pessoa PT → EN',items:[
-        {pt:'Ela não abre o carro para minha irmã',answer:"She doesn't open the car for my sister"},
-        {pt:'Ele não começa às duas horas',answer:"He doesn't start at 2pm"},
-        {pt:'Ela não quer vir com meu pai',answer:"She doesn't want to come with my father"},
-        {pt:'Ele não fica em casa de manhã',answer:"He doesn't stay home in the morning"},
-        {pt:'Ela não diz nada',answer:"She doesn't say anything"},
-        {pt:'Ele não tem muito dinheiro',answer:"He doesn't have much money"},
-        {pt:'Ela não compra muitas coisas',answer:"She doesn't buy many things"},
-        {pt:'Ele não vem aqui todos os dias',answer:"He doesn't come here every day"},
-        {pt:'Ela não quer trabalhar na segunda',answer:"She doesn't want to work on Monday"},
-        {pt:'Ele não precisa ir agora',answer:"He doesn't need to go now"}
+    {name:'Etapa 2 — Vocabulary',exercises:[
+      {type:'translation',title:'A · Tradução PT → EN',items:[
+        {pt:'praia',en:'beach'},
+        {pt:'piscina',en:'pool'},
+        {pt:'colegas',en:'colleagues'},
+        {pt:'intervalo',en:'break'},
+        {pt:'comemoração',en:'celebration'},
+        {pt:'reunião',en:'meeting'},
+        {pt:'coisa',en:'thing'},
+        {pt:'de',en:'from'},
+        {pt:'ainda',en:'still'},
+        {pt:'ainda',en:'yet'}
+      ]},
+      {type:'match',title:'B · Match the Columns',
+        left:['beach','pool','colleagues','break','celebration','meeting','thing','from','still','yet'],
+        right:['praia','piscina','colegas','intervalo','comemoração','reunião','coisa','de','ainda (continuidade)','ainda (negativo)'],
+        correctIdx:[0,1,2,3,4,5,6,7,8,9]},
+      {type:'unscramble',title:'C · Unscramble',items:[
+        {words:['the','to','beach','go'],answer:'to go to the beach'},
+        {words:['the','to','pool','go'],answer:'to go to the pool'},
+        {words:['my','colleagues','know','I'],answer:'I know my colleagues'},
+        {words:['a','have','break'],answer:'have a break'},
+        {words:['a','have','meeting'],answer:'have a meeting'},
+        {words:['a','have','celebration'],answer:'have a celebration'}
+      ]}
+    ]},
+    {name:'Etapa 3 — Expressions',exercises:[
+      {type:'translation',title:'A · Tradução PT → EN',items:[
+        {pt:'tudo',en:'everything'},
+        {pt:'algo / alguma coisa',en:'something'},
+        {pt:'nada',en:'nothing'},
+        {pt:'qualquer coisa',en:'anything'},
+        {pt:'muito',en:'a lot'},
+        {pt:'muito',en:'a lot of'},
+        {pt:'muitos / muitas',en:'many'},
+        {pt:'muito',en:'much'},
+        {pt:'próximo',en:'next'},
+        {pt:'muitas revistas',en:'a lot of magazines'}
+      ]},
+      {type:'match',title:'B · Match the Columns',
+        left:['everything','something','nothing','anything','a lot','a lot of','many','much','next','a lot of magazines'],
+        right:['tudo','algo / alguma coisa','nada','qualquer coisa','muito (sozinho)','muito + substantivo','muitos / muitas','muito (perguntas)','próximo','muitas revistas'],
+        correctIdx:[0,1,2,3,4,5,6,7,8,9]},
+      {type:'unscramble',title:'C · Unscramble',items:[
+        {words:['everything','know','I'],answer:'I know everything'},
+        {words:['something','want','I'],answer:'I want something'},
+        {words:['nothing','have','I'],answer:'I have nothing'},
+        {words:['anything','need','you','do'],answer:'do you need anything?'},
+        {words:['lot','a','work','I'],answer:'I work a lot'},
+        {words:['next','week'],answer:'next week'}
       ]}
     ]}
   ]
@@ -1097,70 +1202,82 @@ HOMEWORK['A1-7']={
 HOMEWORK['A1-8']={
   title:'Class 08 — Homework',
   etapas:[
-    {name:'Etapa 1 — Visit / Cook / Do / Finish',sections:[
+    {name:'Etapa 1 — Verbs + -ing',exercises:[
       {type:'translation',title:'A · Tradução PT → EN',items:[
-        {pt:'Visito minha família toda semana',answer:'I visit my family every week'},
-        {pt:'Faço minhas coisas de noite',answer:'I do my things at night'},
-        {pt:'Preciso visitar minha vizinha amanhã',answer:'I need to visit my neighbor tomorrow'},
-        {pt:'Gosto de cozinhar para meus amigos',answer:'I like to cook for my friends'},
-        {pt:'Ela faz muitas coisas em casa',answer:'She does many things at home'},
-        {pt:'Ela cozinha para minha mãe',answer:'She cooks for my mother'},
-        {pt:'Não gosto de cozinhar aos domingos',answer:"I don't like to cook on Sundays"},
-        {pt:'Você visita seus parentes?',answer:'Do you visit your relatives?'},
-        {pt:'O que você gosta de cozinhar?',answer:'What do you like to cook?'},
-        {pt:'Você cozinha todos os dias?',answer:'Do you cook everyday?'}
+        {pt:'visitar',en:'to visit'},
+        {pt:'fazer',en:'to do'},
+        {pt:'cozinhar',en:'to cook'},
+        {pt:'terminar',en:'to finish'},
+        {pt:'visitando',en:'visiting'},
+        {pt:'fazendo',en:'doing'},
+        {pt:'cozinhando',en:'cooking'},
+        {pt:'terminando',en:'finishing'},
+        {pt:'eu estou visitando',en:'I am visiting'},
+        {pt:'você está fazendo',en:'you are doing'}
       ]},
-      {type:'translation',title:'B · Finish + -ing PT → EN',items:[
-        {pt:'Termino a aula de inglês às dezoito horas',answer:'I finish the English class at 6pm'},
-        {pt:'Ela termina de cozinhar ao meio-dia',answer:'She finishes cooking at noon'},
-        {pt:'Quando você termina de estudar inglês?',answer:'When do you finish studying English?'},
-        {pt:'Você quer terminar de ler agora?',answer:'Do you want to finish reading now?'},
-        {pt:'Ele não quer estudar na quinta-feira',answer:"He doesn't want to study on Thursday"},
-        {pt:'Onde você faz a lição de casa?',answer:'Where do you do the homework?'},
-        {pt:'Você tem alguma coisa para fazer agora?',answer:'Do you have anything to do now?'},
-        {pt:'Ele não tem nada para fazer no domingo',answer:"He doesn't have anything to do on Sunday"},
-        {pt:'Quero terminar este livro às 14:00',answer:'I want to finish this book at 2pm'},
-        {pt:'Ele vai à escola de carro?',answer:'Does he go to school by car?'}
+      {type:'match',title:'B · Match the Columns',
+        left:['to visit','to do','to cook','to finish','visiting','doing','cooking','finishing','I am visiting','you are doing'],
+        right:['visitar','fazer','cozinhar','terminar','visitando','fazendo','cozinhando','terminando','eu estou visitando','você está fazendo'],
+        correctIdx:[0,1,2,3,4,5,6,7,8,9]},
+      {type:'unscramble',title:'C · Unscramble',items:[
+        {words:['visiting','am','I'],answer:'I am visiting'},
+        {words:['doing','are','you'],answer:'you are doing'},
+        {words:['cooking','is','he'],answer:'he is cooking'},
+        {words:['finishing','is','she'],answer:'she is finishing'},
+        {words:['to','visit'],answer:'to visit'},
+        {words:['to','cook'],answer:'to cook'}
       ]}
     ]},
-    {name:'Etapa 2 — Verb To Be & Possessives',sections:[
-      {type:'translation',title:'A · Verb To Be PT → EN',items:[
-        {pt:'Eu estou bem',answer:"I'm fine"},
-        {pt:'Você está bem?',answer:'Are you fine?'},
-        {pt:'Ele está bem',answer:"He's fine"},
-        {pt:'Ela não está bem',answer:"She isn't well"},
-        {pt:'Nós estamos aqui',answer:"We're here"},
-        {pt:'Eles estão em casa',answer:"They're home"},
-        {pt:'Você está cansado?',answer:'Are you tired?'},
-        {pt:'Ela está trabalhando agora',answer:'She is working now'},
-        {pt:'Ele não está dormindo',answer:"He isn't sleeping"},
-        {pt:'Como ele está?',answer:'How is he?'}
+    {name:'Etapa 2 — Vocabulary',exercises:[
+      {type:'translation',title:'A · Tradução PT → EN',items:[
+        {pt:'emprego',en:'job'},
+        {pt:'festa',en:'party'},
+        {pt:'ponte',en:'bridge'},
+        {pt:'empresa',en:'company'},
+        {pt:'sempre',en:'always'},
+        {pt:'nunca',en:'never'},
+        {pt:'às vezes',en:'sometimes'},
+        {pt:'durante',en:'during'},
+        {pt:'perto de',en:'near'},
+        {pt:'longe de',en:'far from'}
       ]},
-      {type:'translation',title:'B · Possessives PT → EN',items:[
-        {pt:'O carro dela',answer:'Her car'},
-        {pt:'A academia dele',answer:'His gym'},
-        {pt:'A nossa empresa',answer:'Our company'},
-        {pt:'A festa do meu pai',answer:"My father's party"},
-        {pt:'A empresa dos meus pais',answer:"My parents' company"},
-        {pt:'Ela tem um serviço para fazer hoje',answer:'She has a job to do today'},
-        {pt:'Ele mora perto da farmácia',answer:'He lives near the drugstore'},
-        {pt:'Ele às vezes vem antes das dez horas',answer:'He sometimes comes before 10am'},
-        {pt:'Ele nunca estuda inglês',answer:'He never studies English'},
-        {pt:'Nós sempre vamos à ponte durante o dia',answer:'We always go to the bridge during the day'}
+      {type:'match',title:'B · Match the Columns',
+        left:['job','party','bridge','company','always','never','sometimes','during','near','far from'],
+        right:['emprego','festa','ponte','empresa','sempre','nunca','às vezes','durante','perto de','longe de'],
+        correctIdx:[0,1,2,3,4,5,6,7,8,9]},
+      {type:'unscramble',title:'C · Unscramble',items:[
+        {words:['a','have','party'],answer:'have a party'},
+        {words:['work','always','I'],answer:'I always work'},
+        {words:['never','go','I'],answer:'I never go'},
+        {words:['sometimes','eat','I'],answer:'I sometimes eat'},
+        {words:['the','near','school'],answer:'near the school'},
+        {words:['the','from','far','school'],answer:'far from the school'}
       ]}
     ]},
-    {name:'Etapa 3 — These / Those / Frequency',sections:[
+    {name:'Etapa 3 — Verb TO BE',exercises:[
       {type:'translation',title:'A · Tradução PT → EN',items:[
-        {pt:'Nós gostamos destas crianças',answer:'We like these kids'},
-        {pt:'Eles querem aquelas empresas',answer:'They want those companies'},
-        {pt:'Ela não quer cozinhar com a mãe dela',answer:"She doesn't want to cook with her mother"},
-        {pt:'Nós temos que fazer muitas coisas com nossa empresa',answer:'We have to do many things with our company'},
-        {pt:'Quanto tempo você tem?',answer:'How much time do you have?'},
-        {pt:'Ele sempre come arroz',answer:'He always eats rice'},
-        {pt:'Ela nunca bebe vinho',answer:'She never drinks wine'},
-        {pt:'Ele às vezes trabalha no fim de semana',answer:'He sometimes works on the weekend'},
-        {pt:'Você sempre estuda de manhã?',answer:'Do you always study in the morning?'},
-        {pt:'Eu nunca como carne',answer:'I never eat meat'}
+        {pt:'eu estou',en:'I am'},
+        {pt:'você está',en:'you are'},
+        {pt:'ele está',en:'he is'},
+        {pt:'ela está',en:'she is'},
+        {pt:'nós estamos',en:'we are'},
+        {pt:'eles / elas estão',en:'they are'},
+        {pt:'eu estou trabalhando',en:'I am working'},
+        {pt:'você está estudando',en:'you are studying'},
+        {pt:'ele está comendo',en:'he is eating'},
+        {pt:'eles estão bebendo',en:'they are drinking'}
+      ]},
+      {type:'match',title:'B · Match the Columns',
+        left:['I am','you are','he is','she is','we are','they are','I am working','you are studying','he is eating','they are drinking'],
+        right:['eu estou','você está','ele está','ela está','nós estamos','eles / elas estão','eu estou trabalhando','você está estudando','ele está comendo','eles estão bebendo'],
+        correctIdx:[0,1,2,3,4,5,6,7,8,9]},
+      {type:'unscramble',title:'C · Unscramble',items:[
+        {words:['am','working','I'],answer:'I am working'},
+        {words:['are','studying','you'],answer:'you are studying'},
+        {words:['is','eating','he'],answer:'he is eating'},
+        {words:['is','cooking','she'],answer:'she is cooking'},
+        {words:['are','drinking','we'],answer:'we are drinking'},
+        {words:['are','working','they'],answer:'they are working'}
       ]}
     ]}
   ]
@@ -1169,70 +1286,82 @@ HOMEWORK['A1-8']={
 HOMEWORK['A1-9']={
   title:'Class 09 — Homework',
   etapas:[
-    {name:'Etapa 1 — Take / Talk / Send / Wash',sections:[
+    {name:'Etapa 1 — Verbs',exercises:[
       {type:'translation',title:'A · Tradução PT → EN',items:[
-        {pt:'Eu quero conversar com você',answer:'I want to talk to you'},
-        {pt:'Eu lavo meu carro no sábado',answer:'I wash my car on Saturday'},
-        {pt:'Ela envia uma carta para o pai dela',answer:'She sends a letter to her father'},
-        {pt:'Ele quer levar o filho dele para escola',answer:'He wants to take his son to school'},
-        {pt:'Ele conversa com meu chefe todos os dias',answer:'He talks to my boss every day'},
-        {pt:'Não quero conversar sobre isso',answer:"I don't want to talk about this"},
-        {pt:'Você quer conversar comigo?',answer:'Do you want to talk to me?'},
-        {pt:'Você gosta de levar seus filhos ao cinema?',answer:'Do you like to take your kids to the movies?'},
-        {pt:'O que você quer levar?',answer:'What do you want to take?'},
-        {pt:'Quando ele lava o carro dele?',answer:'When does he wash his car?'}
+        {pt:'pegar',en:'to take'},
+        {pt:'eu pego',en:'I take'},
+        {pt:'conversar',en:'to talk'},
+        {pt:'eu converso',en:'I talk'},
+        {pt:'mandar',en:'to send'},
+        {pt:'eu mando',en:'I send'},
+        {pt:'lavar',en:'to wash'},
+        {pt:'eu lavo',en:'I wash'},
+        {pt:'você lava',en:'you wash'},
+        {pt:'ele pega',en:'he takes'}
       ]},
-      {type:'translation',title:'B · Present Continuous PT → EN',items:[
-        {pt:'Ele está levando minha irmã para a academia',answer:'He is taking my sister to the gym'},
-        {pt:'Eles não estão conversando sobre nada',answer:"They aren't talking about anything"},
-        {pt:'Ela está lavando a moto dela?',answer:'Is she washing her motorcycle?'},
-        {pt:'O que você está fazendo?',answer:'What are you doing?'},
-        {pt:'Ele está cozinhando agora',answer:'He is cooking now'},
-        {pt:'Ela não está trabalhando hoje',answer:"She isn't working today"},
-        {pt:'Você está estudando inglês?',answer:'Are you studying English?'},
-        {pt:'Eles estão visitando a família deles',answer:'They are visiting their family'},
-        {pt:'Eu estou lendo um livro',answer:'I am reading a book'},
-        {pt:'Ela está enviando uma mensagem',answer:'She is sending a message'}
+      {type:'match',title:'B · Match the Columns',
+        left:['to take','to talk','to send','to wash','I take','I talk','I send','I wash','you wash','he takes'],
+        right:['pegar','conversar','mandar','lavar','eu pego','eu converso','eu mando','eu lavo','você lava','ele pega'],
+        correctIdx:[0,1,2,3,4,5,6,7,8,9]},
+      {type:'unscramble',title:'C · Unscramble',items:[
+        {words:['take','I'],answer:'I take'},
+        {words:['talk','you'],answer:'you talk'},
+        {words:['send','I'],answer:'I send'},
+        {words:['wash','you'],answer:'you wash'},
+        {words:['to','take'],answer:'to take'},
+        {words:['to','send'],answer:'to send'}
       ]}
     ]},
-    {name:'Etapa 2 — Family & Celebrations',sections:[
+    {name:'Etapa 2 — Vocabulary',exercises:[
       {type:'translation',title:'A · Tradução PT → EN',items:[
-        {pt:'Meu primo mora comigo',answer:'My cousin lives with me'},
-        {pt:'Minha sobrinha trabalha lá',answer:'My niece works there'},
-        {pt:'Preciso conversar com meu médico',answer:'I need to talk to my doctor'},
-        {pt:'Eu tenho uma viagem para Rio de Janeiro',answer:'I have a trip to Rio de Janeiro'},
-        {pt:'Quero visitar meu tio no Natal',answer:'I want to visit my uncle at Christmas'},
-        {pt:'As crianças comem frutas',answer:'The kids eat fruit'},
-        {pt:'Ele vai ao clube no fim de semana',answer:'He goes to the club on the weekend'},
-        {pt:'Minha tia gosta de conversar comigo',answer:'My aunt likes to talk to me'},
-        {pt:'Quem você gosta?',answer:'Who do you like?'},
-        {pt:'Você quer comer peru?',answer:'Do you want to eat turkey?'}
+        {pt:'médico / médica',en:'doctor'},
+        {pt:'enfermeiro / enfermeira',en:'nurse'},
+        {pt:'cozinha',en:'kitchen'},
+        {pt:'hospital',en:'hospital'},
+        {pt:'Ação de Graças',en:'Thanksgiving'},
+        {pt:'Natal',en:'Christmas'},
+        {pt:'primo / prima',en:'cousin'},
+        {pt:'centro de saúde',en:'health center'},
+        {pt:'quem',en:'who'},
+        {pt:'pior',en:'worse'}
       ]},
-      {type:'translation',title:'B · Object Pronouns PT → EN',items:[
-        {pt:'Durmo sete horas por dia',answer:'I sleep 7 hours per day'},
-        {pt:'Leio 4 livros por mês',answer:'I read 4 books a month'},
-        {pt:'Ela quer levar ele para a praia',answer:'She wants to take him to the beach'},
-        {pt:'Gosto de conversar com ela',answer:'I like to talk to her'},
-        {pt:'Você quer ir com eles?',answer:'Do you want to go with them?'},
-        {pt:'Eles querem nos levar para o cinema',answer:'They want to take us to the movies'},
-        {pt:'Nós precisamos visitá-los esta semana',answer:'We need to visit them this week'},
-        {pt:'Ele não quer ajudar ela',answer:"He doesn't want to help her"},
-        {pt:'Trabalho cinco dias por semana',answer:'I work five days a week'},
-        {pt:'Você tem tempo para sair agora?',answer:'Do you have time to go out now?'}
+      {type:'match',title:'B · Match the Columns',
+        left:['doctor','nurse','kitchen','hospital','Thanksgiving','Christmas','cousin','health center','who','worse'],
+        right:['médico / médica','enfermeiro / enfermeira','cozinha','hospital','Ação de Graças','Natal','primo / prima','centro de saúde','quem','pior'],
+        correctIdx:[0,1,2,3,4,5,6,7,8,9]},
+      {type:'unscramble',title:'C · Unscramble',items:[
+        {words:['the','to','hospital','go'],answer:'to go to the hospital'},
+        {words:['the','in','kitchen','cook'],answer:'cook in the kitchen'},
+        {words:['a','doctor','is','he'],answer:'he is a doctor'},
+        {words:['a','nurse','is','she'],answer:'she is a nurse'},
+        {words:['my','cousin','know','I'],answer:'I know my cousin'},
+        {words:['worse','feels','she'],answer:'she feels worse'}
       ]}
     ]},
-    {name:'Etapa 3 — Who & Review',sections:[
+    {name:'Etapa 3 — Pronouns & Expressions',exercises:[
       {type:'translation',title:'A · Tradução PT → EN',items:[
-        {pt:'Quem você gosta?',answer:'Who do you like?'},
-        {pt:'Quem gosta de você?',answer:'Who likes you?'},
-        {pt:'Quem você quer levar?',answer:'Who do you want to take?'},
-        {pt:'Quem ele visita?',answer:'Who does he visit?'},
-        {pt:'Quem ela chama?',answer:'Who does she call?'},
-        {pt:'Não quero levar nada',answer:"I don't want to take anything"},
-        {pt:'Ela não quer lavar a louça',answer:"She doesn't want to wash the dishes"},
-        {pt:'Ele precisa lavar o carro dele amanhã',answer:'He needs to wash his car tomorrow'},
-        {pt:'Você gosta de lavar a cozinha?',answer:'Do you like to wash the kitchen?'},
-        {pt:'Estou melhor hoje',answer:"I'm better today"}
+        {pt:'me / mim',en:'me'},
+        {pt:'te / você',en:'you'},
+        {pt:'ele',en:'him'},
+        {pt:'ela',en:'her'},
+        {pt:'nós',en:'us'},
+        {pt:'eles / elas',en:'them'},
+        {pt:'uma vez',en:'once'},
+        {pt:'duas vezes',en:'twice'},
+        {pt:'por semana',en:'a week'},
+        {pt:'sair',en:'to go out'}
+      ]},
+      {type:'match',title:'B · Match the Columns',
+        left:['me','you','him','her','us','them','once','twice','a week','to go out'],
+        right:['me / mim','te / você','ele','ela','nós','eles / elas','uma vez','duas vezes','por semana','sair'],
+        correctIdx:[0,1,2,3,4,5,6,7,8,9]},
+      {type:'unscramble',title:'C · Unscramble',items:[
+        {words:['me','helps','she'],answer:'she helps me'},
+        {words:['him','know','I'],answer:'I know him'},
+        {words:['her','see','I'],answer:'I see her'},
+        {words:['us','helps','he'],answer:'he helps us'},
+        {words:['week','a','once'],answer:'once a week'},
+        {words:['week','a','twice'],answer:'twice a week'}
       ]}
     ]}
   ]
@@ -1241,70 +1370,82 @@ HOMEWORK['A1-9']={
 HOMEWORK['A1-10']={
   title:'Class 10 — Homework',
   etapas:[
-    {name:'Etapa 1 — Simple Past',sections:[
-      {type:'translation',title:'A · Passado Simples PT → EN',items:[
-        {pt:'Meu tio levou as crianças à fazenda',answer:'My uncle took the children to the farm'},
-        {pt:'Minha tia trabalhou no banco na segunda',answer:'My aunt worked at the bank on Monday'},
-        {pt:'Eu comi toda a comida',answer:'I ate all the food'},
-        {pt:'Nós bebemos todo o vinho',answer:'We drank all the wine'},
-        {pt:'Meu primo não gostava de laranja',answer:"My cousin didn't like orange"},
-        {pt:'Você gostava de morangos?',answer:'Did you like strawberries?'},
-        {pt:'O gato não comeu toda a comida ontem de manhã',answer:"The cat didn't eat all the food yesterday morning"},
-        {pt:'Seu tio gostava de cavalos?',answer:'Did your uncle like horses?'},
-        {pt:'Bebi muita cerveja ontem à noite',answer:'I drank a lot of beer last night'},
-        {pt:'Ele foi ao clube no fim de semana',answer:'He went to the club on the weekend'}
-      ]},
-      {type:'translation',title:'B · Past Negativa PT → EN',items:[
-        {pt:'Eu não falei inglês',answer:"I didn't speak English"},
-        {pt:'Ela não comeu carne',answer:"She didn't eat meat"},
-        {pt:'Ele não foi ao banco',answer:"He didn't go to the bank"},
-        {pt:'Eles não beberam vinho',answer:"They didn't drink wine"},
-        {pt:'Você não trabalhou?',answer:"Didn't you work?"},
-        {pt:'Ela não quis ir',answer:"She didn't want to go"},
-        {pt:'Ele não vendeu o carro',answer:"He didn't sell the car"},
-        {pt:'Não fui à escola ontem',answer:"I didn't go to school yesterday"},
-        {pt:'Não dormi bem ontem',answer:"I didn't sleep well yesterday"},
-        {pt:'Ela não entendeu o professor',answer:"She didn't understand the teacher"}
-      ]}
-    ]},
-    {name:'Etapa 2 — Learn / Teach / Listen / Watch',sections:[
+    {name:'Etapa 1 — Verbs',exercises:[
       {type:'translation',title:'A · Tradução PT → EN',items:[
-        {pt:'Eu quero aprender inglês',answer:'I want to learn English'},
-        {pt:'Ele gosta de ensinar francês',answer:'He likes to teach French'},
-        {pt:'Não quero aprender sozinho',answer:"I don't want to learn alone"},
-        {pt:'Você gosta de aprender inglês com ele?',answer:'Do you like to learn English with him?'},
-        {pt:'Não quero assistir nada sobre isso',answer:"I don't want to watch anything about this"},
-        {pt:'Não quero aprender nada',answer:"I don't want to learn anything"},
-        {pt:'Por que ele precisa aprender inglês?',answer:'Why does he need to learn English?'},
-        {pt:'Você quer escutar ela?',answer:'Do you want to listen to her?'},
-        {pt:'O que você quer escutar?',answer:'What do you want to listen to?'},
-        {pt:'Ele está assistindo muitas coisas',answer:"He's watching many things"}
+        {pt:'aprender',en:'to learn'},
+        {pt:'eu aprendo',en:'I learn'},
+        {pt:'ensinar',en:'to teach'},
+        {pt:'eu ensino',en:'I teach'},
+        {pt:'ouvir',en:'to listen'},
+        {pt:'eu ouço',en:'I listen'},
+        {pt:'assistir',en:'to watch'},
+        {pt:'eu assisto',en:'I watch'},
+        {pt:'você assiste',en:'you watch'},
+        {pt:'ele ensina',en:'he teaches'}
       ]},
-      {type:'translation',title:'B · Past Vocabulary PT → EN',items:[
-        {pt:'Comi algumas bolachas semana passada',answer:'I ate some cookies last week'},
-        {pt:'Queria um copo de água com gelo na sexta passada',answer:'I wanted a glass of water with ice last Friday'},
-        {pt:'Precisei levar este cheque ao banco',answer:'I needed to take this check to the bank'},
-        {pt:'As crianças pobres precisavam de comida',answer:'The poor children needed food'},
-        {pt:'Eu só comi carne há 1 semana atrás',answer:'I only ate meat one week ago'},
-        {pt:'Fui ao cinema antes de ontem',answer:'I went to the movies the day before yesterday'},
-        {pt:'Gostava de comer sobremesa todos os dias',answer:'I liked to eat dessert every day'},
-        {pt:'Minha sobrinha gostava de morar na esquina',answer:'My niece liked to live on the corner'},
-        {pt:'Você teve problemas com seu vizinho ontem?',answer:'Did you have problems with your neighbor yesterday?'},
-        {pt:'Minha tia gostava de conversar comigo',answer:'My aunt liked to talk to me'}
+      {type:'match',title:'B · Match the Columns',
+        left:['to learn','to teach','to listen','to watch','I learn','I teach','I listen','I watch','you watch','he teaches'],
+        right:['aprender','ensinar','ouvir','assistir','eu aprendo','eu ensino','eu ouço','eu assisto','você assiste','ele ensina'],
+        correctIdx:[0,1,2,3,4,5,6,7,8,9]},
+      {type:'unscramble',title:'C · Unscramble',items:[
+        {words:['learn','I'],answer:'I learn'},
+        {words:['teach','you'],answer:'you teach'},
+        {words:['listen','I'],answer:'I listen'},
+        {words:['watch','you'],answer:'you watch'},
+        {words:['to','learn'],answer:'to learn'},
+        {words:['to','teach'],answer:'to teach'}
       ]}
     ]},
-    {name:'Etapa 3 — Past Questions',sections:[
-      {type:'translation',title:'A · Perguntas no Passado PT → EN',items:[
-        {pt:'Você falou inglês?',answer:'Did you speak English?'},
-        {pt:'Ela comeu peixe?',answer:'Did she eat fish?'},
-        {pt:'Ele foi ao banco?',answer:'Did he go to the bank?'},
-        {pt:'Eles beberam vinho?',answer:'Did they drink wine?'},
-        {pt:'O que você fez ontem?',answer:'What did you do yesterday?'},
-        {pt:'Onde você foi ontem?',answer:'Where did you go yesterday?'},
-        {pt:'Quando você dormiu?',answer:'When did you sleep?'},
-        {pt:'Quem você visitou?',answer:'Who did you visit?'},
-        {pt:'Por que você não foi?',answer:"Why didn't you go?"},
-        {pt:'Como você se sentiu?',answer:'How did you feel?'}
+    {name:'Etapa 2 — Past Simple',exercises:[
+      {type:'translation',title:'A · Tradução PT → EN',items:[
+        {pt:'falei',en:'spoke'},
+        {pt:'comi',en:'ate'},
+        {pt:'fui',en:'went'},
+        {pt:'bebi',en:'drank'},
+        {pt:'peguei',en:'took'},
+        {pt:'tive',en:'had'},
+        {pt:'comprei',en:'bought'},
+        {pt:'soube',en:'knew'},
+        {pt:'dormi',en:'slept'},
+        {pt:'ensinei',en:'taught'}
+      ]},
+      {type:'match',title:'B · Match the Columns',
+        left:['spoke','ate','went','drank','took','had','bought','knew','slept','taught'],
+        right:['falei','comi','fui','bebi','peguei','tive','comprei','soube','dormi','ensinei'],
+        correctIdx:[0,1,2,3,4,5,6,7,8,9]},
+      {type:'unscramble',title:'C · Unscramble',items:[
+        {words:['yesterday','spoke','I'],answer:'I spoke yesterday'},
+        {words:['yesterday','ate','she'],answer:'she ate yesterday'},
+        {words:['yesterday','went','we'],answer:'we went yesterday'},
+        {words:['yesterday','drank','he'],answer:'he drank yesterday'},
+        {words:['yesterday','bought','I'],answer:'I bought yesterday'},
+        {words:['yesterday','slept','she'],answer:'she slept yesterday'}
+      ]}
+    ]},
+    {name:'Etapa 3 — Expressions',exercises:[
+      {type:'translation',title:'A · Tradução PT → EN',items:[
+        {pt:'um pouco',en:'a little'},
+        {pt:'alguns / algumas',en:'a few'},
+        {pt:'ontem',en:'yesterday'},
+        {pt:'ontem à noite',en:'last night'},
+        {pt:'depois de amanhã',en:'day after tomorrow'},
+        {pt:'antes de ontem',en:'day before yesterday'},
+        {pt:'atrás',en:'ago'},
+        {pt:'último / última',en:'last'},
+        {pt:'sobremesa',en:'dessert'},
+        {pt:'e aí?',en:'what about?'}
+      ]},
+      {type:'match',title:'B · Match the Columns',
+        left:['a little','a few','yesterday','last night','day after tomorrow','day before yesterday','ago','last','dessert','what about?'],
+        right:['um pouco','alguns / algumas','ontem','ontem à noite','depois de amanhã','antes de ontem','atrás','último / última','sobremesa','e aí?'],
+        correctIdx:[0,1,2,3,4,5,6,7,8,9]},
+      {type:'unscramble',title:'C · Unscramble',items:[
+        {words:['little','a','eat','I'],answer:'I eat a little'},
+        {words:['few','a','have','I'],answer:'I have a few'},
+        {words:['yesterday','went','I'],answer:'I went yesterday'},
+        {words:['night','last','slept','I'],answer:'I slept last night'},
+        {words:['tomorrow','after','day'],answer:'day after tomorrow'},
+        {words:['yesterday','before','day'],answer:'day before yesterday'}
       ]}
     ]}
   ]
@@ -1313,70 +1454,82 @@ HOMEWORK['A1-10']={
 HOMEWORK['A1-11']={
   title:'Class 11 — Homework',
   etapas:[
-    {name:'Etapa 1 — Can / Could & New Verbs',sections:[
-      {type:'translation',title:'A · Can / Could PT → EN',items:[
-        {pt:'Eu tentei visitar minha família a semana toda',answer:'I tried to visit my family all week'},
-        {pt:'Eu consegui fazer muitas coisas em casa',answer:'I could do many things at home'},
-        {pt:'Eu usei meu inglês no escritório a semana toda',answer:'I used my English at the office all week'},
-        {pt:'Ela conseguiu pedir muitas coisas',answer:'She could ask many things'},
-        {pt:'Ele conseguiu cozinhar para a mãe dela',answer:'He could cook for her mother'},
-        {pt:'Eu não tentei pedir nada de manhã',answer:"I didn't try to ask anything in the morning"},
-        {pt:'Ela conseguiu um carro novo',answer:'She got a new car'},
-        {pt:'Não consigo brincar com minhas crianças',answer:"I can't play with my kids"},
-        {pt:'Ele não conseguiu comprar um carro novo',answer:"He couldn't buy a new car"},
-        {pt:'Ela não consegue entender o professor',answer:"She can't understand the teacher"}
+    {name:'Etapa 1 — Verbs + can / could',exercises:[
+      {type:'translation',title:'A · Tradução PT → EN',items:[
+        {pt:'tentar',en:'to try'},
+        {pt:'conseguir',en:'to get'},
+        {pt:'usar',en:'to use'},
+        {pt:'vestir',en:'to wear'},
+        {pt:'sentir',en:'to feel'},
+        {pt:'perguntar',en:'to ask'},
+        {pt:'posso',en:'I can'},
+        {pt:'você pode',en:'you can'},
+        {pt:'poderia',en:'could'},
+        {pt:'eu poderia',en:'I could'}
       ]},
-      {type:'translation',title:'B · Feel / Get / Wear PT → EN',items:[
-        {pt:'Eu não me senti rico',answer:"I didn't feel rich"},
-        {pt:'Aquela mulher se sentiu triste de novo',answer:'That woman felt sad again'},
-        {pt:'Eles se sentiram descansados após o feriado',answer:'They felt rested after the holiday'},
-        {pt:'Ela usou minha informação para conseguir dinheiro',answer:'She used my information to get money'},
-        {pt:'Eu me senti feliz com minha empresa',answer:'I felt happy with my company'},
-        {pt:'Consegui ir ao dentista ontem de manhã',answer:'I could go to the dentist yesterday morning'},
-        {pt:'Não consegui pedir por dólares',answer:"I couldn't ask for dollars"},
-        {pt:'As crianças tentaram ir ao parque no sábado',answer:'The kids tried to go to the park on Saturday'},
-        {pt:'Você tinha alguma coisa para vestir ontem?',answer:'Did you have anything to wear yesterday?'},
-        {pt:'Aquelas mulheres altas trabalhavam muito',answer:'Those tall women worked a lot'}
+      {type:'match',title:'B · Match the Columns',
+        left:['to try','to get','to use','to wear','to feel','to ask','I can','you can','could','I could'],
+        right:['tentar','conseguir','usar','vestir','sentir','perguntar','posso','você pode','poderia','eu poderia'],
+        correctIdx:[0,1,2,3,4,5,6,7,8,9]},
+      {type:'unscramble',title:'C · Unscramble',items:[
+        {words:['try','I','can'],answer:'I can try'},
+        {words:['use','you','can'],answer:'you can use'},
+        {words:['wear','I','could'],answer:'I could wear'},
+        {words:['feel','she','can'],answer:'she can feel'},
+        {words:['ask','you','could'],answer:'you could ask'},
+        {words:['get','he','can'],answer:'he can get'}
       ]}
     ]},
-    {name:'Etapa 2 — Adjectives & Nouns',sections:[
+    {name:'Etapa 2 — Vocabulary',exercises:[
       {type:'translation',title:'A · Tradução PT → EN',items:[
-        {pt:'Uma menina bonita',answer:'A pretty girl'},
-        {pt:'Um homem alto',answer:'A tall man'},
-        {pt:'Uma mulher baixa',answer:'A short woman'},
-        {pt:'Um outro dentista',answer:'Another dentist'},
-        {pt:'Outros campos',answer:'Other fields'},
-        {pt:'Queria ir para casa logo',answer:'I wanted to go home soon'},
-        {pt:'Meu sobrinho pediu para eles jogarem tênis',answer:'My nephew asked them to play tennis'},
-        {pt:'Eles conseguiram outro dentista na última temporada',answer:'They got another dentist last season'},
-        {pt:'Meu pai trabalhou durante o dia no prédio empresarial',answer:'My father worked during the day at the office building'},
-        {pt:'Aqueles homens não conseguiram outra moeda',answer:"Those men didn't get another currency"}
+        {pt:'bonita / bonito',en:'pretty'},
+        {pt:'alto / alta',en:'tall'},
+        {pt:'campo',en:'field'},
+        {pt:'quadra',en:'court'},
+        {pt:'homem',en:'man'},
+        {pt:'mulher',en:'woman'},
+        {pt:'outro / outra',en:'another'},
+        {pt:'outro / outra',en:'other'},
+        {pt:'cansado / cansada',en:'tired'},
+        {pt:'descansado / descansada',en:'rested'}
       ]},
-      {type:'translation',title:'B · Sports & Feelings PT → EN',items:[
-        {pt:'Você gosta de jogar tênis?',answer:'Do you like to play tennis?'},
-        {pt:'Ele joga basquete no fim de semana',answer:'He plays basketball on the weekend'},
-        {pt:'Ela gosta de assistir futebol americano',answer:'She likes to watch American football'},
-        {pt:'Eu me sinto cansado depois de trabalhar',answer:'I feel tired after working'},
-        {pt:'Ele ficou feliz com o resultado',answer:'He got happy with the result'},
-        {pt:'Ela ficou triste ontem',answer:'She got sad yesterday'},
-        {pt:'Você consegue jogar futebol?',answer:'Can you play soccer?'},
-        {pt:'Eu conseguia jogar tênis quando era jovem',answer:'I could play tennis when I was young'},
-        {pt:'Ela não consegue entender alemão',answer:"She can't understand German"},
-        {pt:'Quando você consegue estudar?',answer:'When can you study?'}
+      {type:'match',title:'B · Match the Columns',
+        left:['pretty','tall','field','court','man','woman','another','other','tired','rested'],
+        right:['bonita / bonito','alto / alta','campo','quadra','homem','mulher','outro / outra (um novo)','outro / outra (diferente)','cansado / cansada','descansado / descansada'],
+        correctIdx:[0,1,2,3,4,5,6,7,8,9]},
+      {type:'unscramble',title:'C · Unscramble',items:[
+        {words:['pretty','she','is'],answer:'she is pretty'},
+        {words:['tall','he','is'],answer:'he is tall'},
+        {words:['the','on','field','play'],answer:'play on the field'},
+        {words:['the','on','court','play'],answer:'play on the court'},
+        {words:['tired','am','I'],answer:'I am tired'},
+        {words:['rested','feel','I'],answer:'I feel rested'}
       ]}
     ]},
-    {name:'Etapa 3 — All Morning / Let Me',sections:[
+    {name:'Etapa 3 — Expressions',exercises:[
       {type:'translation',title:'A · Tradução PT → EN',items:[
-        {pt:'A manhã toda',answer:'All morning long'},
-        {pt:'O sábado todo',answer:'All Saturday long'},
-        {pt:'Deixe-me ajudar você',answer:'Let me help you'},
-        {pt:'Deixe-me entender isso',answer:'Let me understand this'},
-        {pt:'Deixe-me falar com ela',answer:'Let me speak with her'},
-        {pt:'Ficou cansado depois de trabalhar',answer:'He got tired after working'},
-        {pt:'Ficou satisfeito com o resultado',answer:'He got satisfied with the result'},
-        {pt:'Ela ficou feliz com a notícia',answer:'She got happy with the news'},
-        {pt:'Eles ficaram descansados após as férias',answer:'They got rested after the vacation'},
-        {pt:'Consegui usar aqueles dólares',answer:'I could use those dollars'}
+        {pt:'a manhã toda',en:'all morning long'},
+        {pt:'fazer uma pergunta',en:'ask a question'},
+        {pt:'me deixa',en:'let me'},
+        {pt:'se cansar',en:'to get tired'},
+        {pt:'ela ficou satisfeita',en:'she got satisfied'},
+        {pt:'ele ficou feliz',en:'he got happy'},
+        {pt:'eles ficaram tristes',en:'they got sad'},
+        {pt:'o dia todo',en:'all day long'},
+        {pt:'a noite toda',en:'all night long'},
+        {pt:'deixa ela comprar',en:'let her buy'}
+      ]},
+      {type:'match',title:'B · Match the Columns',
+        left:['all morning long','ask a question','let me','to get tired','she got satisfied','he got happy','they got sad','all day long','all night long','let her buy'],
+        right:['a manhã toda','fazer uma pergunta','me deixa','se cansar','ela ficou satisfeita','ele ficou feliz','eles ficaram tristes','o dia todo','a noite toda','deixa ela comprar'],
+        correctIdx:[0,1,2,3,4,5,6,7,8,9]},
+      {type:'unscramble',title:'C · Unscramble',items:[
+        {words:['morning','long','all'],answer:'all morning long'},
+        {words:['question','a','ask'],answer:'ask a question'},
+        {words:['me','let'],answer:'let me'},
+        {words:['day','long','all'],answer:'all day long'},
+        {words:['night','long','all'],answer:'all night long'},
+        {words:['her','buy','let'],answer:'let her buy'}
       ]}
     ]}
   ]
@@ -1385,70 +1538,82 @@ HOMEWORK['A1-11']={
 HOMEWORK['A1-12']={
   title:'Class 12 — Homework',
   etapas:[
-    {name:'Etapa 1 — Give / Bring / Put / Move / Arrive',sections:[
+    {name:'Etapa 1 — Verbs',exercises:[
       {type:'translation',title:'A · Tradução PT → EN',items:[
-        {pt:'Eu dei aulas de inglês na escola',answer:'I gave English classes at school'},
-        {pt:'Eu trouxe meu almoço para o escritório',answer:'I brought my lunch to the office'},
-        {pt:'Ele moveu o carro dele ontem',answer:'He moved his car yesterday'},
-        {pt:'Minha mãe me deu uma casa',answer:'My mother gave me a house'},
-        {pt:'A mãe dele trouxe um bolo',answer:'His mother brought a cake'},
-        {pt:'Eu dei meu carro para minha esposa',answer:'I gave my car to my wife'},
-        {pt:'Ela trouxe suas amigas para minha festa',answer:'She brought her friends to my party'},
-        {pt:'Ele pediu para ela trazer um peru',answer:'He asked her to bring a turkey'},
-        {pt:'Ele não conseguiu chegar para a minha festa',answer:"He couldn't arrive for my party"},
-        {pt:'O que ela trouxe?',answer:'What did she bring?'}
+        {pt:'dar',en:'to give'},
+        {pt:'eu dou',en:'I give'},
+        {pt:'trazer',en:'to bring'},
+        {pt:'eu trago',en:'I bring'},
+        {pt:'colocar',en:'to put'},
+        {pt:'eu coloco',en:'I put'},
+        {pt:'mover',en:'to move'},
+        {pt:'eu movo',en:'I move'},
+        {pt:'chegar',en:'to arrive'},
+        {pt:'eu chego',en:'I arrive'}
       ]},
-      {type:'translation',title:'B · Clothes & Weather PT → EN',items:[
-        {pt:'Eu gosto de dormir em clima quente',answer:'I like to sleep in hot weather'},
-        {pt:'Não consegui usar uma gravata',answer:"I couldn't wear a tie"},
-        {pt:'Nós gostamos de usar um paletó para trabalhar',answer:'We like to wear a blazer to work'},
-        {pt:'Eles usam roupas caras',answer:'They wear expensive clothes'},
-        {pt:'Ela gostava de comprar uma marca barata de roupa',answer:'She liked to buy a cheap brand of clothes'},
-        {pt:'Minha filha gosta de comprar roupa com meu crédito',answer:'My daughter likes to buy clothes with my credit'},
-        {pt:'A loja precisa vender roupa com um desconto grande',answer:'The store needs to sell clothes with a large discount'},
-        {pt:'Minha amiga chegou no shopping com dinheiro',answer:'My friend arrived at the mall with cash'},
-        {pt:'Você gostou do meu estilo de roupa ontem?',answer:'Did you like my style of clothes yesterday?'},
-        {pt:'Aquela mulher alta comprou um cachecol grande',answer:'That tall woman bought a large scarf'}
+      {type:'match',title:'B · Match the Columns',
+        left:['to give','to bring','to put','to move','to arrive','I give','I bring','I put','I move','I arrive'],
+        right:['dar','trazer','colocar','mover','chegar','eu dou','eu trago','eu coloco','eu movo','eu chego'],
+        correctIdx:[0,1,2,3,4,5,6,7,8,9]},
+      {type:'unscramble',title:'C · Unscramble',items:[
+        {words:['give','I'],answer:'I give'},
+        {words:['bring','you'],answer:'you bring'},
+        {words:['put','I'],answer:'I put'},
+        {words:['move','you'],answer:'you move'},
+        {words:['arrive','I'],answer:'I arrive'},
+        {words:['to','give'],answer:'to give'}
       ]}
     ]},
-    {name:'Etapa 2 — Seasons & More',sections:[
-      {type:'translation',title:'A · Estações e clima PT → EN',items:[
-        {pt:'Inverno',answer:'Winter'},
-        {pt:'Verão',answer:'Summer'},
-        {pt:'Primavera',answer:'Spring'},
-        {pt:'Outono',answer:'Fall'},
-        {pt:'O clima está quente',answer:'The weather is warm'},
-        {pt:'O clima está frio',answer:'The weather is cold'},
-        {pt:'O clima está fresco',answer:'The weather is cool'},
-        {pt:'Eu gosto do inverno',answer:'I like winter'},
-        {pt:'Ela prefere o verão',answer:'She prefers summer'},
-        {pt:'No inverno eu uso casaco',answer:'In winter I wear a coat'}
+    {name:'Etapa 2 — Shopping & Clothes',exercises:[
+      {type:'translation',title:'A · Tradução PT → EN',items:[
+        {pt:'tempo / clima',en:'weather'},
+        {pt:'desconto',en:'discount'},
+        {pt:'marca',en:'brand'},
+        {pt:'tamanho',en:'size'},
+        {pt:'shopping',en:'mall'},
+        {pt:'roupas',en:'clothes'},
+        {pt:'dinheiro (pagamento)',en:'cash'},
+        {pt:'caro',en:'expensive'},
+        {pt:'barato',en:'cheap'},
+        {pt:'estilo',en:'style'}
       ]},
-      {type:'translation',title:'B · Some more / Another PT → EN',items:[
-        {pt:'Deixe-me usar roupas casuais',answer:'Let me wear casual clothes'},
-        {pt:'Tenho que usar roupas sociais no meu trabalho',answer:'I have to wear social clothes at work'},
-        {pt:'Eles me deram mais um pouco de água',answer:'They gave me some more water'},
-        {pt:'Ela quer beber mais um copo de café',answer:'She wants to drink another glass of coffee'},
-        {pt:'Quero mais um pouco de comida e mais um copo de vinho',answer:'I want some more food and another glass of wine'},
-        {pt:'Minha tia quer sair quando o clima está fresco',answer:'My aunt wants to go out when the weather is cool'},
-        {pt:'Quando você consegue chegar?',answer:'When can you arrive?'},
-        {pt:'Você deu alguma coisa para elas?',answer:'Did you give anything to them?'},
-        {pt:'Deixe-me colocar estas coisas na mesa',answer:'Let me put these things on the table'},
-        {pt:'Ela não consegue fazer uma pergunta',answer:"She can't ask a question"}
+      {type:'match',title:'B · Match the Columns',
+        left:['weather','discount','brand','size','mall','clothes','cash','expensive','cheap','style'],
+        right:['tempo / clima','desconto','marca','tamanho','shopping','roupas','dinheiro (pagamento)','caro','barato','estilo'],
+        correctIdx:[0,1,2,3,4,5,6,7,8,9]},
+      {type:'unscramble',title:'C · Unscramble',items:[
+        {words:['the','to','mall','go'],answer:'to go to the mall'},
+        {words:['clothes','buy'],answer:'buy clothes'},
+        {words:['a','get','discount'],answer:'get a discount'},
+        {words:['cash','pay','in'],answer:'pay in cash'},
+        {words:['expensive','is','it'],answer:'it is expensive'},
+        {words:['cheap','is','it'],answer:'it is cheap'}
       ]}
     ]},
-    {name:'Etapa 3 — Give / Bring Review',sections:[
+    {name:'Etapa 3 — Seasons & Expressions',exercises:[
       {type:'translation',title:'A · Tradução PT → EN',items:[
-        {pt:'Eu dei para ela um carro',answer:'I gave her a car'},
-        {pt:'Eu dei um carro para ela',answer:'I gave a car to her'},
-        {pt:'Ele me deu dinheiro',answer:'He gave me money'},
-        {pt:'Ela trouxe o almoço para mim',answer:'She brought the lunch to me'},
-        {pt:'Ele me trouxe um presente',answer:'He brought me a present'},
-        {pt:'Eles nos deram desconto',answer:'They gave us a discount'},
-        {pt:'Eu trouxe você algo',answer:'I brought you something'},
-        {pt:'Ela deu o livro para o professor',answer:'She gave the book to the teacher'},
-        {pt:'Ele trouxe o carro para a empresa',answer:'He brought the car to the company'},
-        {pt:'Nós demos tudo para eles',answer:'We gave everything to them'}
+        {pt:'roupas casuais',en:'casual clothes'},
+        {pt:'roupas sociais',en:'social clothes'},
+        {pt:'inverno',en:'winter'},
+        {pt:'verão',en:'summer'},
+        {pt:'primavera',en:'spring'},
+        {pt:'outono',en:'fall'},
+        {pt:'mais um pouco de água',en:'some more water'},
+        {pt:'mais um copo',en:'another glass'},
+        {pt:'o tempo está quente',en:'weather is warm'},
+        {pt:'o tempo está fresco',en:'weather is cool'}
+      ]},
+      {type:'match',title:'B · Match the Columns',
+        left:['casual clothes','social clothes','winter','summer','spring','fall','some more water','another glass','weather is warm','weather is cool'],
+        right:['roupas casuais','roupas sociais','inverno','verão','primavera','outono','mais um pouco de água','mais um copo','o tempo está quente','o tempo está fresco'],
+        correctIdx:[0,1,2,3,4,5,6,7,8,9]},
+      {type:'unscramble',title:'C · Unscramble',items:[
+        {words:['clothes','casual'],answer:'casual clothes'},
+        {words:['clothes','social'],answer:'social clothes'},
+        {words:['winter','in'],answer:'in winter'},
+        {words:['summer','in'],answer:'in summer'},
+        {words:['warm','is','weather'],answer:'weather is warm'},
+        {words:['cool','is','weather'],answer:'weather is cool'}
       ]}
     ]}
   ]
@@ -1457,70 +1622,82 @@ HOMEWORK['A1-12']={
 HOMEWORK['A1-13']={
   title:'Class 13 — Homework',
   etapas:[
-    {name:'Etapa 1 — Enjoy / Call / Meet / Receive',sections:[
-      {type:'translation',title:'A · Passado PT → EN',items:[
-        {pt:'Eu desfrutei minhas aulas de inglês',answer:'I enjoyed my English classes'},
-        {pt:'Eu liguei para minha mãe no final de semana',answer:'I called my mother on the weekend'},
-        {pt:'Eles se encontraram com os parentes deles',answer:'They met their relatives'},
-        {pt:'Ele recebeu seus filhos no escritório',answer:'He received his sons at the office'},
-        {pt:'Minha mãe desfrutou de beber chá de tarde',answer:'My mother enjoyed drinking tea in the afternoon'},
-        {pt:'O gerente se encontrou com o chefe dele',answer:'The manager met his boss'},
-        {pt:'Meu pai recebeu dinheiro da empresa',answer:'My father received money from the company'},
-        {pt:'Ela se encontrou com as amigas dela antes da reunião',answer:'She met her friends before the meeting'},
-        {pt:'Ele recebeu uma carta do filho dele',answer:'He received a letter from his son'},
-        {pt:'Ninguém respondeu quando eu chamei',answer:'Nobody answered when I called'}
+    {name:'Etapa 1 — Verbs',exercises:[
+      {type:'translation',title:'A · Tradução PT → EN',items:[
+        {pt:'gostar / aproveitar',en:'to enjoy'},
+        {pt:'ligar',en:'to call'},
+        {pt:'encontrar',en:'to meet'},
+        {pt:'receber',en:'to receive'},
+        {pt:'atender',en:'to answer'},
+        {pt:'achar',en:'to think'},
+        {pt:'eu aproveito',en:'I enjoy'},
+        {pt:'eu ligo',en:'I call'},
+        {pt:'eu encontro',en:'I meet'},
+        {pt:'você recebe',en:'you receive'}
       ]},
-      {type:'translation',title:'B · Future - Will PT → EN',items:[
-        {pt:'Eu vou desfrutar minhas aulas de inglês',answer:"I'll enjoy my English classes"},
-        {pt:'Eu vou ligar para minha mãe no final de semana',answer:"I'll call my mother on the weekend"},
-        {pt:'Eles vão se encontrar com os parentes deles',answer:"They'll meet their relatives"},
-        {pt:'Ele vai receber seus filhos no escritório',answer:"He'll receive his sons at the office"},
-        {pt:'O gerente vai se encontrar com o chefe dele',answer:'The manager will meet his boss'},
-        {pt:'Meu pai vai receber dinheiro da empresa',answer:'My father will receive money from the company'},
-        {pt:'Ela vai se encontrar com as amigas dela antes da reunião',answer:"She'll meet her friends before the meeting"},
-        {pt:'Ninguém vai responder quando eu chamar',answer:"Nobody will answer when I call"},
-        {pt:'Quem você vai chamar no fim de semana?',answer:'Who will you call on the weekend?'},
-        {pt:'Quando ele vai chegar?',answer:'When will she arrive?'}
+      {type:'match',title:'B · Match the Columns',
+        left:['to enjoy','to call','to meet','to receive','to answer','to think','I enjoy','I call','I meet','you receive'],
+        right:['gostar / aproveitar','ligar','encontrar','receber','atender','achar','eu aproveito','eu ligo','eu encontro','você recebe'],
+        correctIdx:[0,1,2,3,4,5,6,7,8,9]},
+      {type:'unscramble',title:'C · Unscramble',items:[
+        {words:['enjoy','I'],answer:'I enjoy'},
+        {words:['call','you'],answer:'you call'},
+        {words:['meet','I'],answer:'I meet'},
+        {words:['receive','you'],answer:'you receive'},
+        {words:['to','enjoy'],answer:'to enjoy'},
+        {words:['to','call'],answer:'to call'}
       ]}
     ]},
-    {name:'Etapa 2 — Be Going To',sections:[
-      {type:'translation',title:'A · Be Going To PT → EN',items:[
-        {pt:'Eu vou ligar (be going to)',answer:"I'm going to call"},
-        {pt:'Eu não vou ligar (be going to)',answer:"I'm not going to call"},
-        {pt:'Você vai ligar? (be going to)',answer:'Are you going to call?'},
-        {pt:'Ela vai desfrutar das férias',answer:"She's going to enjoy her vacation"},
-        {pt:'Eles vão se encontrar amanhã',answer:"They're going to meet tomorrow"},
-        {pt:'Ele não vai receber nada',answer:"He's not going to receive anything"},
-        {pt:'Você vai ligar para ele?',answer:'Are you going to call him?'},
-        {pt:'Quando você vai ligar?',answer:'When are you going to call?'},
-        {pt:'Eu não vou conseguir responder',answer:"I won't be able to answer"},
-        {pt:'Que cidade você vai desfrutar?',answer:'What city will you enjoy?'}
+    {name:'Etapa 2 — Future Tense',exercises:[
+      {type:'translation',title:'A · Tradução PT → EN',items:[
+        {pt:'eu vou ligar',en:"I'll call"},
+        {pt:'ela vai aproveitar',en:"she'll enjoy"},
+        {pt:'eles vão se encontrar',en:"they'll meet"},
+        {pt:'eu não vou me encontrar',en:"I won't meet"},
+        {pt:'vou',en:'will'},
+        {pt:'vai',en:'will (he/she)'},
+        {pt:'vão',en:'will (they)'},
+        {pt:'não vou',en:"won't"},
+        {pt:'vou ligar para você',en:"I'll call you"},
+        {pt:'ela vai receber',en:"she'll receive"}
       ]},
-      {type:'translation',title:'B · Think / Answer / Vocabulary PT → EN',items:[
-        {pt:'Eu acho que ele vai desfrutar da sua festa',answer:'I think that he will enjoy your party'},
-        {pt:'Não consegui responder a mensagem',answer:"I couldn't answer the message"},
-        {pt:'Deixe-me desfrutar das minhas férias',answer:'Let me enjoy my vacation'},
-        {pt:'Quando ele chegar, peça para ele ligar para mim',answer:'When he arrives, ask him to call me'},
-        {pt:'Quem você chamou no fim de semana?',answer:'Who did you call on the weekend?'},
-        {pt:'Eu não me encontrei com os meus amigos',answer:"I didn't meet my friends"},
-        {pt:'Ele não chamou os colegas dele?',answer:"Didn't he call his colleagues?"},
-        {pt:'Você quer ir ao posto de gasolina?',answer:'Do you want to go to the gas station?'},
-        {pt:'Ela gosta de ouvir música',answer:'She likes to listen to music'},
-        {pt:'Você vai jogar golfe no fim de semana?',answer:'Are you going to play golf on the weekend?'}
+      {type:'match',title:'B · Match the Columns',
+        left:["I'll call","she'll enjoy","they'll meet","I won't meet",'will','will (he/she)','will (they)',"won't","I'll call you","she'll receive"],
+        right:['eu vou ligar','ela vai aproveitar','eles vão se encontrar','eu não vou me encontrar','vou','vai','vão','não vou','vou ligar para você','ela vai receber'],
+        correctIdx:[0,1,2,3,4,5,6,7,8,9]},
+      {type:'unscramble',title:'C · Unscramble',items:[
+        {words:["I'll",'call'],answer:"I'll call"},
+        {words:["she'll",'enjoy'],answer:"she'll enjoy"},
+        {words:["they'll",'meet'],answer:"they'll meet"},
+        {words:["I",'call','you',"'ll"],answer:"I'll call you"},
+        {words:["she'll",'receive'],answer:"she'll receive"},
+        {words:["I",'meet',"won't"],answer:"I won't meet"}
       ]}
     ]},
-    {name:'Etapa 3 — Future Review',sections:[
-      {type:'translation',title:'A · Will / Going To Review PT → EN',items:[
-        {pt:'Vou chamar você amanhã',answer:"I'll call you tomorrow"},
-        {pt:'Não vou ligar para ela',answer:"I won't call her"},
-        {pt:'Você vai ligar?',answer:'Will you call?'},
-        {pt:'Estou planejando ir ao cinema',answer:"I'm going to go to the movies"},
-        {pt:'Ela não vai receber nada',answer:"She's not going to receive anything"},
-        {pt:'Você vai se encontrar com ele?',answer:'Are you going to meet him?'},
-        {pt:'Eles vão curtir as férias',answer:"They'll enjoy the vacation"},
-        {pt:'Não vou conseguir chegar',answer:"I won't be able to arrive"},
-        {pt:'Vou poder ajudar você amanhã',answer:"I'll be able to help you tomorrow"},
-        {pt:'Ela vai poder vir na sexta?',answer:'Will she be able to come on Friday?'}
+    {name:'Etapa 3 — There is / There are',exercises:[
+      {type:'translation',title:'A · Tradução PT → EN',items:[
+        {pt:'tem / há (singular)',en:'there is'},
+        {pt:'tem / há (plural)',en:'there are'},
+        {pt:'do lado de',en:'next to'},
+        {pt:'na frente de',en:'in front of'},
+        {pt:'embaixo de',en:'under'},
+        {pt:'entre',en:'between'},
+        {pt:'na internet',en:'on the internet'},
+        {pt:'entrar na internet',en:'to get online'},
+        {pt:'sair da internet',en:'to get offline'},
+        {pt:'dentro',en:'inside'}
+      ]},
+      {type:'match',title:'B · Match the Columns',
+        left:['there is','there are','next to','in front of','under','between','on the internet','to get online','to get offline','inside'],
+        right:['tem / há (singular)','tem / há (plural)','do lado de','na frente de','embaixo de','entre','na internet','entrar na internet','sair da internet','dentro'],
+        correctIdx:[0,1,2,3,4,5,6,7,8,9]},
+      {type:'unscramble',title:'C · Unscramble',items:[
+        {words:['is','there','a','school'],answer:'there is a school'},
+        {words:['are','there','two','schools'],answer:'there are two schools'},
+        {words:['to','next','the','school'],answer:'next to the school'},
+        {words:['of','front','in','the','school'],answer:'in front of the school'},
+        {words:['the','under','table'],answer:'under the table'},
+        {words:['online','get'],answer:'get online'}
       ]}
     ]}
   ]
@@ -1589,8 +1766,11 @@ function doLogin(){
 }
 
 function startApp(sub,color,badgeTxt,badgeCls){
-  document.getElementById('loginScreen').className='screen';
-  document.getElementById('appScreen').className='screen active';
+  var ls=document.getElementById('loginScreen');
+  var as=document.getElementById('appScreen');
+  ls.className='screen leaving';
+  setTimeout(function(){ls.className='screen';},220);
+  as.className='screen active';
   document.getElementById('hLogo').style.background=color;
   document.getElementById('hSub').textContent=sub;
   document.getElementById('hBadge').textContent=badgeTxt;
@@ -1607,8 +1787,10 @@ function startApp(sub,color,badgeTxt,badgeCls){
 
 function doLogout(){
   CU=null;CR=null;CL=null;
-  document.getElementById('loginScreen').className='screen active';
-  document.getElementById('appScreen').className='screen';
+  var as=document.getElementById('appScreen');
+  var ls=document.getElementById('loginScreen');
+  as.className='screen leaving';
+  setTimeout(function(){as.className='screen';ls.className='screen active';},220);
   document.getElementById('loginUser').value='';
   document.getElementById('loginPass').value='';
   document.getElementById('loginErr').style.display='none';
@@ -1749,12 +1931,10 @@ function openAudio(ck){
   cd.audios.forEach(function(a){
     html+='<div class="audio-item">';
     html+='<div class="audio-item-title">🎵 '+esc(a.title)+'</div>';
-    // Use Drive embed player
-    html+='<audio controls style="width:100%">';
-    html+='<source src="'+audioStreamUrl(a.id)+'" type="audio/mpeg">';
-    html+='<a href="'+pdfUrl(a.id)+'" target="_blank">Abrir no Drive</a>';
-    html+='</audio>';
-    html+='<div style="margin-top:6px;font-size:11px;color:var(--muted);">Se o áudio não carregar, <a href="'+pdfUrl(a.id)+'" target="_blank" style="color:var(--teal)">abra no Drive</a>.</div>';
+    // Use Google Drive embedded player — plays directly without opening Drive
+    html+='<iframe src="https://drive.google.com/file/d/'+a.id+'/preview" ';
+    html+='width="100%" height="80" frameborder="0" allow="autoplay" ';
+    html+='style="border-radius:8px;border:1px solid var(--border);display:block;"></iframe>';
     html+='</div>';
   });
   document.getElementById('audioList').innerHTML=html;
@@ -1797,83 +1977,251 @@ function openHW(ck){
 
 function renderHWBody(hw,saved,isSubmitted){
   var sAns=(saved&&saved.answers)?saved.answers:{};
+  var exDone=(saved&&saved.exDone)?saved.exDone:{};
 
-  // Feedback from teacher
+  // feedback from teacher
   var fbHtml='';
   var fb=loadFb(hwClassKey,CU);
   if(fb) fbHtml='<div class="fb-student"><strong>💬 Feedback do professor:</strong>'+esc(fb)+'</div>';
 
-  // Stepper — navegação simples, sem lock
-  var stHtml='<div class="stepper">';
-  hw.etapas.forEach(function(e,i){
-    var cls=i===hwStep?'step-btn current':'step-btn';
-    stHtml+='<button class="'+cls+'" onclick="goStep('+i+')">'+(i+1)+'. '+(e.name.split(' — ')[1]||e.name)+'</button>';
-  });
-  stHtml+='</div>';
-
-  // Etapas — campos sempre editáveis (bloqueados só após envio)
-  var eHtml='';
+  // build body: 3 etapas, each with 3 exercise tabs (A/B/C)
+  var body='';
   hw.etapas.forEach(function(etapa,ei){
-    var dis=isSubmitted; // só bloqueia se já enviado
-    eHtml+='<div class="etapa-panel'+(ei===hwStep?' active':'')+'" id="ep_'+ei+'">';
-    eHtml+='<div class="etapa-header">'+etapa.name+'</div>';
-    var si=0;
-    etapa.sections.forEach(function(sec){
-      eHtml+='<div class="section-title">'+sec.title+'</div>';
-      if(sec.type==='translation'){
-        eHtml+='<table class="ex-table"><thead><tr><th style="width:28px">#</th><th>Português</th><th>Inglês</th></tr></thead><tbody>';
-        sec.items.forEach(function(item,i){
-          var k='e'+ei+'_s'+si+'_i'+i;
-          eHtml+='<tr><td style="color:var(--muted);font-size:11px;font-weight:600;">'+(i+1).toString().padStart(2,'0')+'</td>';
-          eHtml+='<td style="font-size:12px;color:#555;">'+esc(item.pt)+'</td>';
-          eHtml+='<td><textarea class="ans-field" id="'+k+'" rows="1"'+(dis?' disabled':'')+' placeholder="...">'+esc(sAns[k]||'')+'</textarea></td></tr>';
-        });
-        eHtml+='</tbody></table>';
-      }else if(sec.type==='match'){
-        var dispRight=shuffleArr(sec.right,ei*10+si);
-        eHtml+='<div class="match-ref-box"><b>Coluna B (Português):</b> ';
-        dispRight.forEach(function(pt,idx){eHtml+='<b style="color:var(--teal)">'+(idx+1)+'.</b> '+esc(pt)+'&ensp;';});
-        eHtml+='</div>';
-        eHtml+='<table class="ex-table"><thead><tr><th style="width:28px">#</th><th>Coluna A (Inglês)</th><th style="width:80px">Nº da coluna B</th></tr></thead><tbody>';
-        sec.left.forEach(function(en,i){
-          var k='e'+ei+'_s'+si+'_i'+i;
-          var val=sAns[k]||'';
-          eHtml+='<tr><td style="color:var(--muted);font-size:11px;font-weight:600;">'+(i+1).toString().padStart(2,'0')+'</td>';
-          eHtml+='<td>'+esc(en)+'</td>';
-          eHtml+='<td><select class="match-sel" id="'+k+'"'+(dis?' disabled':'')+'>';
-          eHtml+='<option value="">—</option>';
-          for(var x=1;x<=sec.right.length;x++) eHtml+='<option value="'+x+'"'+(val==String(x)?' selected':'')+'>'+x+'</option>';
-          eHtml+='</select></td></tr>';
-        });
-        eHtml+='</tbody></table>';
-        window['mdisp_'+ei+'_'+si]=dispRight;
-      }else if(sec.type==='unscramble'){
-        eHtml+='<table class="ex-table"><thead><tr><th style="width:28px">#</th><th>Palavras</th><th>Resposta</th></tr></thead><tbody>';
-        sec.items.forEach(function(item,i){
-          var k='e'+ei+'_s'+si+'_i'+i;
-          eHtml+='<tr><td style="color:var(--muted);font-size:11px;font-weight:600;">'+(i+1).toString().padStart(2,'0')+'</td>';
-          eHtml+='<td style="font-size:11px;color:#666;">'+esc(item.words)+'</td>';
-          eHtml+='<td><textarea class="ans-field" id="'+k+'" rows="1"'+(dis?' disabled':'')+' placeholder="...">'+esc(sAns[k]||'')+'</textarea></td></tr>';
-        });
-        eHtml+='</tbody></table>';
-      }
-      si++;
+    var exs=etapa.exercises; // [{type,title,items}]
+    var labels=['A','B','C'];
+    var typeNames={translation:'Tradução PT→EN',match:'Match the Columns',unscramble:'Unscramble',findmistake:'Find the Mistake',multiplechoice:'Choose the Correct Option'};
+
+    body+='<div class="etapa-label">'+etapa.name+'</div>';
+
+    // exercise tabs
+    body+='<div class="hw-ex-tabs" id="extabs_'+ei+'">';
+    exs.forEach(function(ex,xi){
+      var isDoneEx=exDone['e'+ei+'x'+xi]==='done';
+      var cls='hw-ex-tab'+(isDoneEx?' done':'')+(xi===0?' active':'');
+      body+='<button class="'+cls+'" onclick="hwSelEx('+ei+','+xi+')">';
+      body+=labels[xi]+' — '+(typeNames[ex.type]||ex.type);
+      if(isDoneEx) body+=' ✓';
+      body+='</button>';
     });
-    eHtml+='</div>'; // etapa-panel
+    body+='</div>';
+
+    // exercise panels
+    exs.forEach(function(ex,xi){
+      var isDoneEx=exDone['e'+ei+'x'+xi]==='done';
+      var dis=isSubmitted||isDoneEx;
+      body+='<div class="hw-ex-panel'+(xi===0?' active':'')+'" id="exp_'+ei+'_'+xi+'">';
+      body+='<div class="ex-header">';
+      body+='<div><div class="ex-header-title">'+labels[xi]+' — '+(typeNames[ex.type]||ex.type)+'</div>';
+      body+='<div class="ex-header-sub">'+etapa.name+'</div></div>';
+      if(!isSubmitted&&!isDoneEx){
+        body+='<button class="btn-redo" onclick="redoEx('+ei+','+xi+')">🔄 Refazer</button>';
+      }
+      body+='</div>';
+
+      // render exercise by type
+      if(ex.type==='translation'){
+        body+='<table class="ex-table"><thead><tr><th style="width:26px">#</th><th>Português</th><th>Inglês</th></tr></thead><tbody>';
+        ex.items.forEach(function(item,i){
+          var k='e'+ei+'x'+xi+'i'+i;
+          body+='<tr><td style="color:var(--muted);font-size:11px;font-weight:700;">'+(i+1).toString().padStart(2,'0')+'</td>';
+          body+='<td style="font-size:12px;color:#555;">'+esc(item.pt)+'</td>';
+          body+='<td><textarea class="ans-field" id="'+k+'" rows="1"'+(dis?' disabled':'')+' placeholder="...">'+esc(sAns[k]||'')+'</textarea></td></tr>';
+        });
+        body+='</tbody></table>';
+
+      }else if(ex.type==='match'){
+        var dispR=shuffleArr(ex.right,ei*100+xi*10);
+        body+='<div class="match-ref-box"><b>Coluna B:</b> ';
+        dispR.forEach(function(pt,idx){body+='<b style="color:var(--teal)">'+(idx+1)+'.</b> '+esc(pt)+'&ensp;';});
+        body+='</div>';
+        body+='<table class="ex-table"><thead><tr><th style="width:26px">#</th><th>Coluna A</th><th style="width:70px">Nº</th></tr></thead><tbody>';
+        ex.left.forEach(function(en,i){
+          var k='e'+ei+'x'+xi+'i'+i;
+          var val=sAns[k]||'';
+          body+='<tr><td style="color:var(--muted);font-size:11px;font-weight:700;">'+(i+1).toString().padStart(2,'0')+'</td>';
+          body+='<td>'+esc(en)+'</td>';
+          body+='<td><select class="match-sel" id="'+k+'"'+(dis?' disabled':'')+'>';
+          body+='<option value="">—</option>';
+          for(var x=1;x<=ex.right.length;x++) body+='<option value="'+x+'"'+(val==String(x)?' selected':'')+'>'+x+'</option>';
+          body+='</select></td></tr>';
+        });
+        body+='</tbody></table>';
+        window['mdisp_'+ei+'_'+xi]=dispR;
+
+      }else if(ex.type==='unscramble'){
+        body+='<table class="ex-table"><thead><tr><th style="width:26px">#</th><th>Palavras</th><th>Resposta</th></tr></thead><tbody>';
+        ex.items.forEach(function(item,i){
+          var k='e'+ei+'x'+xi+'i'+i;
+          body+='<tr><td style="color:var(--muted);font-size:11px;font-weight:700;">'+(i+1).toString().padStart(2,'0')+'</td>';
+          body+='<td style="font-size:11px;color:#777;font-style:italic;">'+esc(item.words)+'</td>';
+          body+='<td><textarea class="ans-field" id="'+k+'" rows="1"'+(dis?' disabled':'')+' placeholder="...">'+esc(sAns[k]||'')+'</textarea></td></tr>';
+        });
+        body+='</tbody></table>';
+
+      }else if(ex.type==='findmistake'){
+        body+='<table class="ex-table"><thead><tr><th style="width:26px">#</th><th>Frase incorreta</th><th>Correção</th></tr></thead><tbody>';
+        ex.items.forEach(function(item,i){
+          var k='e'+ei+'x'+xi+'i'+i;
+          body+='<tr><td style="color:var(--muted);font-size:11px;font-weight:700;">'+(i+1).toString().padStart(2,'0')+'</td>';
+          body+='<td style="font-size:12px;color:#c0392b;font-style:italic;">'+esc(item.wrong)+'</td>';
+          body+='<td><textarea class="ans-field" id="'+k+'" rows="1"'+(dis?' disabled':'')+' placeholder="Versão correta...">'+esc(sAns[k]||'')+'</textarea></td></tr>';
+        });
+        body+='</tbody></table>';
+
+      }else if(ex.type==='multiplechoice'){
+        body+='<div style="display:flex;flex-direction:column;gap:10px;">';
+        ex.items.forEach(function(item,i){
+          var k='e'+ei+'x'+xi+'i'+i;
+          var saved_val=sAns[k]||'';
+          body+='<div style="background:#fafbfc;border:1px solid var(--border);border-radius:9px;padding:10px 12px;">';
+          body+='<div style="font-size:13px;font-weight:600;margin-bottom:7px;">'+(i+1).toString().padStart(2,'0')+'. '+esc(item.sentence)+'</div>';
+          body+='<div class="mc-opts">';
+          item.options.forEach(function(opt,oi){
+            var optId=k+'o'+oi;
+            var checked=saved_val===opt?' checked':'';
+            body+='<label class="mc-opt'+(dis?' disabled':'')+'" for="'+optId+'">';
+            body+='<input type="radio" name="'+k+'" id="'+optId+'" value="'+esc(opt)+'"'+checked+(dis?' disabled':'')+'>'+esc(opt)+'</label>';
+          });
+          body+='</div></div>';
+        });
+        body+='</div>';
+      }
+
+      // footer
+      body+='<div class="ex-footer">';
+      if(!isSubmitted&&!isDoneEx){
+        body+='<button class="btn btn-teal" style="font-size:12px;padding:8px 18px;" onclick="doneEx('+ei+','+xi+')">✅ Finalizar '+labels[xi]+'</button>';
+      }else if(isDoneEx){
+        body+='<span class="ex-done-badge">✓ Exercício '+labels[xi]+' finalizado</span>';
+      }
+      body+='</div>';
+      body+='</div>'; // hw-ex-panel
+    });
+    body+='<div style="margin-bottom:1.5rem"></div>';
   });
 
-  document.getElementById('hwBody').innerHTML=fbHtml+stHtml+eHtml;
+  document.getElementById('hwBody').innerHTML=fbHtml+body;
+
+  // collect radio answers (not captured by collectAnswers which only reads value)
+  // handled at collect time
 
   // Actions
   var actHtml='<button class="btn btn-outline" onclick="closeHW()">Fechar</button>';
   if(!isSubmitted){
     actHtml+='<button class="btn btn-navy" onclick="saveHW()">💾 Salvar Rascunho</button>';
     actHtml+='<button class="btn btn-teal" onclick="submitHW()">📤 Enviar ao Professor</button>';
-  } else {
+  }else{
     actHtml+='<button class="btn" style="background:#fff3cd;color:#856404;border:1px solid #ffc107;" onclick="resetHW(hwClassKey)">🔄 Refazer Homework</button>';
   }
   document.getElementById('hwActions').innerHTML=actHtml;
 }
+
+function hwSelEx(ei,xi){
+  // switch tab
+  document.querySelectorAll('#extabs_'+ei+' .hw-ex-tab').forEach(function(b,i){
+    if(!b.classList.contains('done')) b.classList.toggle('active',i===xi);
+    else b.classList.remove('active');
+    if(i===xi&&!b.classList.contains('done')) b.classList.add('active');
+  });
+  // fix: just toggle active on all
+  document.querySelectorAll('#extabs_'+ei+' .hw-ex-tab').forEach(function(b,i){
+    b.classList.toggle('active',i===xi);
+  });
+  // show panel
+  var hw=HOMEWORK[hwClassKey];
+  hw.etapas[ei].exercises.forEach(function(ex,i){
+    var p=document.getElementById('exp_'+ei+'_'+i);
+    if(p) p.classList.toggle('active',i===xi);
+  });
+}
+
+function doneEx(ei,xi){
+  var saved=loadSub(CU,hwClassKey)||{};
+  saved.answers=collectAnswers();
+  if(!saved.exDone) saved.exDone={};
+  saved.exDone['e'+ei+'x'+xi]='done';
+  saved.savedAt=new Date().toISOString();
+  saveSub(CU,hwClassKey,saved);
+  var panel=document.getElementById('exp_'+ei+'_'+xi);
+  // show green/red per field WITHOUT revealing the correct answer
+  var hw=HOMEWORK[hwClassKey];
+  var ex=hw.etapas[ei].exercises[xi];
+  if(panel&&ex){
+    if(ex.type==='translation'||ex.type==='unscramble'||ex.type==='findmistake'){
+      (ex.items||[]).forEach(function(item,i){
+        var k='e'+ei+'x'+xi+'i'+i;
+        var field=document.getElementById(k);
+        var ans=(saved.answers&&saved.answers[k])||'';
+        if(field){
+          if(ans.trim()===''){field.style.background='#fff3cd';field.style.borderColor='#ffc107';}
+          else if(norm(ans)===norm(item.en||item.answer)){field.style.background='#d4edda';field.style.borderColor='#28a745';}
+          else{field.style.background='#f8d7da';field.style.borderColor='#dc3545';}
+        }
+      });
+    }else if(ex.type==='match'){
+      var dispR=shuffleArr(ex.right,ei*100+xi*10);
+      (ex.left||[]).forEach(function(en,i){
+        var k='e'+ei+'x'+xi+'i'+i;
+        var field=document.getElementById(k);
+        var ansNum=parseInt((saved.answers&&saved.answers[k])||0);
+        var stuPt=ansNum>0?dispR[ansNum-1]:'';
+        var corrPt=ex.right[ex.correctIdx[i]];
+        if(field){
+          if(!stuPt||ansNum===0){field.style.background='#fff3cd';field.style.borderColor='#ffc107';}
+          else if(stuPt===corrPt){field.style.background='#d4edda';field.style.borderColor='#28a745';}
+          else{field.style.background='#f8d7da';field.style.borderColor='#dc3545';}
+        }
+      });
+    }else if(ex.type==='multiplechoice'){
+      (ex.items||[]).forEach(function(item,i){
+        var k='e'+ei+'x'+xi+'i'+i;
+        var ans=(saved.answers&&saved.answers[k])||'';
+        var isOk=norm(ans)===norm(item.correct);
+        panel.querySelectorAll('input[name="'+k+'"]').forEach(function(inp){
+          if(inp.checked){
+            var lbl=inp.closest('label')||inp.parentElement;
+            lbl.style.background=isOk?'#d4edda':'#f8d7da';
+            lbl.style.borderColor=isOk?'#28a745':'#dc3545';
+          }
+        });
+      });
+    }
+  }
+  // disable fields in this panel
+  if(panel){
+    panel.querySelectorAll('.ans-field,.match-sel,input[type=radio]').forEach(function(el){el.disabled=true;});
+    panel.querySelector('.ex-footer').innerHTML='<span class="ex-done-badge">✓ Exercício finalizado</span>';
+    var hdr=panel.querySelector('.ex-header');
+    if(hdr) hdr.innerHTML=hdr.innerHTML.replace(/<button class="btn-redo"[^>]*>.*?<\/button>/,'');
+  }
+  // mark tab done
+  var tabs=document.querySelectorAll('#extabs_'+ei+' .hw-ex-tab');
+  if(tabs[xi]) tabs[xi].className='hw-ex-tab done';
+  // auto-advance to next exercise
+  var nexXi=xi+1;
+  if(nexXi<hw.etapas[ei].exercises.length) hwSelEx(ei,nexXi);
+  showToast('Exercício finalizado!');
+}
+
+function redoEx(ei,xi){
+  if(!confirm('Refazer este exercício? As respostas serão apagadas.')) return;
+  var saved=loadSub(CU,hwClassKey)||{};
+  if(!saved.exDone) saved.exDone={};
+  delete saved.exDone['e'+ei+'x'+xi];
+  // clear answers for this exercise
+  var hw=HOMEWORK[hwClassKey];
+  var ex=hw.etapas[ei].exercises[xi];
+  if(!saved.answers) saved.answers={};
+  var items=ex.items||ex.left||[];
+  items.forEach(function(item,i){delete saved.answers['e'+ei+'x'+xi+'i'+i];});
+  saved.savedAt=new Date().toISOString();
+  saveSub(CU,hwClassKey,saved);
+  var isSubmitted=saved.submitted;
+  renderHWBody(hw,saved,isSubmitted);
+  hwSelEx(ei,xi);
+  showToast('Exercício refeito!');
+}
+
 
 function goStep(i){
   hwStep=i;
@@ -1885,7 +2233,17 @@ function goStep(i){
 
 function collectAnswers(){
   var ans={};
-  document.querySelectorAll('#hwBody [id^="e"]').forEach(function(el){ans[el.id]=el.value||'';});
+  // text/select fields
+  document.querySelectorAll('#hwBody textarea, #hwBody select').forEach(function(el){
+    if(el.id) ans[el.id]=el.value||'';
+  });
+  // radio buttons — get checked value per question group
+  var seen={};
+  document.querySelectorAll('#hwBody input[type=radio]:checked').forEach(function(el){
+    // name is the question key (e.g. e0x2i3)
+    ans[el.name]=el.value;
+    seen[el.name]=true;
+  });
   return ans;
 }
 
@@ -1984,29 +2342,36 @@ function _renderCorr(){
       html+='<div class="corr-etapa-view'+(ei===etIdx?' active':'')+'" id="cev_'+si+'_'+ei+'">';
       html+='<div class="corr-etapa-block">';
       html+='<div class="corr-etapa-header">'+etapa.name+'</div>';
-      var sec_i=0;
-      etapa.sections.forEach(function(sec){
-        html+='<div class="corr-section-header">'+sec.title+'</div>';
+      (etapa.exercises||[]).forEach(function(ex,xi){
+        html+='<div class="corr-section-header">'+esc(ex.title)+'</div>';
         html+='<div class="corr-rows">';
-        if(sec.type==='match'){
-          var dispR=shuffleArr(sec.right,ei*10+sec_i);
-          sec.left.forEach(function(en,i){
-            var k='e'+ei+'_s'+sec_i+'_i'+i;
+        if(ex.type==='match'){
+          var dispR=shuffleArr(ex.right,ei*100+xi*10);
+          ex.left.forEach(function(en,i){
+            var k='e'+ei+'x'+xi+'i'+i;
             var ansNum=parseInt((sub.data.answers&&sub.data.answers[k])||0);
             var stuPt=ansNum>0?dispR[ansNum-1]:'';
-            var corrPt=sec.right[sec.correctIdx[i]];
+            var corrPt=ex.right[ex.correctIdx[i]];
             var isEmpty=!stuPt,isOk=!isEmpty&&stuPt===corrPt;
             html+=mkCorrRow(i+1,en,stuPt||'—',corrPt,isEmpty,isOk);
           });
-        }else{
-          (sec.items||[]).forEach(function(item,i){
-            var k='e'+ei+'_s'+sec_i+'_i'+i;
+        }else if(ex.type==='multiplechoice'){
+          (ex.items||[]).forEach(function(item,i){
+            var k='e'+ei+'x'+xi+'i'+i;
             var ans=(sub.data.answers&&sub.data.answers[k])||'';
-            var isEmpty=ans.trim()==='',isOk=norm(ans)===norm(item.answer);
-            html+=mkCorrRow(i+1,item.pt||item.words||'',ans||'—',item.answer,isEmpty,isOk);
+            var isEmpty=ans.trim()==='',isOk=norm(ans)===norm(item.correct);
+            html+=mkCorrRow(i+1,item.sentence||'',ans||'—',item.correct,isEmpty,isOk);
+          });
+        }else{
+          (ex.items||[]).forEach(function(item,i){
+            var k='e'+ei+'x'+xi+'i'+i;
+            var ans=(sub.data.answers&&sub.data.answers[k])||'';
+            var correctVal=item.en||item.answer;
+            var isEmpty=ans.trim()==='',isOk=norm(ans)===norm(correctVal);
+            html+=mkCorrRow(i+1,item.pt||item.words||'',ans||'—',correctVal,isEmpty,isOk);
           });
         }
-        html+='</div>';sec_i++;
+        html+='</div>';
       });
       html+='</div></div>';
     });
@@ -2068,27 +2433,33 @@ function shuffleArr(arr,seed){
 }
 
 function calcScore(hw,answers){
-  var total=0,correct=0,si=0;
+  var total=0,correct=0;
   hw.etapas.forEach(function(etapa,ei){
-    etapa.sections.forEach(function(sec){
-      if(sec.type==='match'){
-        var dispR=shuffleArr(sec.right,ei*10+si);
-        sec.left.forEach(function(en,i){
+    (etapa.exercises||etapa.sections||[]).forEach(function(ex,xi){
+      if(ex.type==='match'){
+        var dispR=shuffleArr(ex.right,ei*100+xi*10);
+        (ex.left||[]).forEach(function(en,i){
           total++;
-          var k='e'+ei+'_s'+si+'_i'+i;
+          var k='e'+ei+'x'+xi+'i'+i;
           var ansNum=parseInt((answers&&answers[k])||0);
           var stuPt=ansNum>0?dispR[ansNum-1]:'';
-          if(stuPt===sec.right[sec.correctIdx[i]]) correct++;
+          if(stuPt===ex.right[ex.correctIdx[i]]) correct++;
+        });
+      }else if(ex.type==='multiplechoice'){
+        (ex.items||[]).forEach(function(item,i){
+          total++;
+          var k='e'+ei+'x'+xi+'i'+i;
+          var ans=(answers&&answers[k])||'';
+          if(norm(ans)===norm(item.correct)) correct++;
         });
       }else{
-        (sec.items||[]).forEach(function(item,i){
+        (ex.items||[]).forEach(function(item,i){
           total++;
-          var k='e'+ei+'_s'+si+'_i'+i;
+          var k='e'+ei+'x'+xi+'i'+i;
           var ans=(answers&&answers[k])||'';
-          if(norm(ans)===norm(item.answer)) correct++;
+          if(norm(ans)===norm(item.en||item.answer)) correct++;
         });
       }
-      si++;
     });
   });
   return{total:total,correct:correct};
