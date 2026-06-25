@@ -3,303 +3,577 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UpFront · Class Control 2026</title>
+<title>UpFront · Class Control</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{
-  --ink:#070c18;--ink2:#0d1422;--ink3:#121b2e;--ink4:#1a2540;--ink5:#243050;
-  --line:#1a2438;--line2:#243258;
-  --g:#00e5a0;--g2:#00b87d;--g3:#006b48;--gd:rgba(0,229,160,.07);
-  --r:#ff4d6d;--r2:#b32240;--rd:rgba(255,77,109,.07);
-  --y:#ffbe00;--yd:rgba(255,190,0,.06);
-  --b:#4d94ff;--bd:rgba(77,148,255,.06);
-  --p:#b36eff;--o:#ff8c42;
-  --t1:#dce8ff;--t2:#6e87b0;--t3:#364e72;--t4:#1a2d45;
-  --f:'Inter',sans-serif;--fm:'JetBrains Mono',monospace;
-  --r1:8px;--r2:12px;--r3:16px;
+/* ── TOKENS ──────────────────────────────────────────── */
+:root {
+  --bg:      #07091a;
+  --s1:      #0d1228;
+  --s2:      #111930;
+  --s3:      #182038;
+  --s4:      #1e2842;
+  --border:  #1e2d4a;
+  --border2: #2a3f6f;
+  --g:    #00d68f; --g2:#00a86b; --g3:#005a3a; --gd:rgba(0,214,143,.08);
+  --r:    #ff3d71; --r2:#cc2255; --rd:rgba(255,61,113,.08);
+  --y:    #ffaa00; --yd:rgba(255,170,0,.08);
+  --b:    #4189ff; --bd:rgba(65,137,255,.08);
+  --p:    #a259ff; --o:#ff6b3d;
+  --t1:#e8f0ff; --t2:#7b93bc; --t3:#3d5070; --t4:#1e2d45;
+  --f:'Inter',sans-serif; --fm:'JetBrains Mono',monospace;
+  --rad:10px; --rad2:14px; --rad3:20px;
+  --shadow:0 4px 24px rgba(0,0,0,.5);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{font-size:13px}
-body{background:var(--ink);color:var(--t1);font-family:var(--f);line-height:1.5;min-height:100vh}
-::-webkit-scrollbar{width:4px;height:4px}::-webkit-scrollbar-thumb{background:var(--ink5);border-radius:4px}
+html{font-size:13px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--t1);font-family:var(--f);line-height:1.5;min-height:100vh}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:var(--s1)}
+::-webkit-scrollbar-thumb{background:var(--s4);border-radius:5px}
+a{color:inherit;text-decoration:none}
 
-.topbar{position:sticky;top:0;z-index:200;background:rgba(7,12,24,.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);padding:0 22px;height:54px;display:flex;align-items:center;gap:12px}
-.logo-ic{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--g),var(--g2));display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.logo-ic svg{width:15px;height:15px;stroke:#000;fill:none;stroke-width:2.2}
-.logo-n{font-size:14px;font-weight:800;letter-spacing:-.3px}
-.logo-s{font-size:9px;color:var(--t3);font-family:var(--fm)}
-.vdiv{width:1px;height:26px;background:var(--line2)}
-.tb-sub{font-size:12px;font-weight:500;color:var(--t2)}
-.tb-r{margin-left:auto;display:flex;align-items:center;gap:8px}
-.sync-btn{display:flex;align-items:center;gap:6px;padding:6px 14px;border-radius:99px;background:var(--gd);border:1px solid var(--g3);color:var(--g2);font:600 10px var(--fm);cursor:pointer;transition:all .15s}
-.sync-btn:hover{background:rgba(0,229,160,.12);border-color:var(--g2);color:var(--g)}
-.sync-btn.sy{color:var(--y);background:rgba(255,190,0,.06);border-color:#664d00;pointer-events:none}
-.sync-btn.er{color:var(--r);background:var(--rd);border-color:var(--r2)}
-.sdot{width:6px;height:6px;border-radius:50%;background:var(--g);flex-shrink:0}
-.sync-btn.sy .sdot{background:var(--y);animation:blink 1s infinite}
-.sync-btn.er .sdot{background:var(--r)}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
-.icon-btn{padding:5px 12px;border-radius:var(--r1);border:1px solid var(--line2);background:var(--ink3);color:var(--t2);font:500 11px var(--f);cursor:pointer;transition:all .12s}
-.icon-btn:hover{background:var(--ink4);color:var(--t1)}
+/* ── TOPBAR ──────────────────────────────────────────── */
+.topbar {
+  position:sticky;top:0;z-index:300;
+  background:rgba(7,9,26,.92);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  height:58px;padding:0 24px;
+  display:flex;align-items:center;gap:14px;
+}
+.logo {display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo-box {
+  width:32px;height:32px;border-radius:9px;
+  background:linear-gradient(135deg,var(--g),var(--g2));
+  display:flex;align-items:center;justify-content:center;
+}
+.logo-box svg{width:16px;height:16px;stroke:#000;fill:none;stroke-width:2.5}
+.logo-title{font-size:15px;font-weight:800;letter-spacing:-.4px}
+.logo-sub{font-size:9px;color:var(--t3);font-family:var(--fm);letter-spacing:.3px}
+.topbar-sep{width:1px;height:28px;background:var(--border2);flex-shrink:0}
 
-.ab{margin:14px 22px 0;padding:11px 16px;border-radius:var(--r2);background:rgba(255,77,109,.05);border:1px solid var(--r2);display:flex;align-items:center;gap:10px}
-.ab.hidden{display:none}
-.ab-pulse{width:9px;height:9px;border-radius:50%;background:var(--r);flex-shrink:0;animation:pulse 1.5s infinite}
-@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,77,109,.5)}50%{box-shadow:0 0 0 8px rgba(255,77,109,0)}}
-.ab-txt{flex:1;font-size:12px}
-.ab-c{font:800 18px var(--fm);color:var(--r);background:rgba(255,77,109,.1);padding:2px 10px;border-radius:6px}
+/* Period filter chips in topbar */
+.period-group{display:flex;gap:4px;align-items:center}
+.period-label{font:600 9px var(--fm);color:var(--t3);text-transform:uppercase;letter-spacing:.6px;margin-right:6px}
+.pchip {
+  padding:5px 13px;border-radius:99px;
+  border:1px solid var(--border);background:transparent;
+  color:var(--t3);font:600 11px var(--f);cursor:pointer;
+  transition:all .15s;white-space:nowrap;
+}
+.pchip:hover{border-color:var(--border2);color:var(--t2);background:var(--s2)}
+.pchip.active{background:var(--gd);border-color:var(--g3);color:var(--g)}
 
-.tabs{padding:14px 22px 0;display:flex;gap:5px;flex-wrap:wrap}
-.tab{padding:6px 14px;border-radius:99px;border:1px solid var(--line);background:var(--ink2);color:var(--t2);font:600 11px var(--f);cursor:pointer;transition:all .12s;display:flex;align-items:center;gap:5px}
-.tab:hover{border-color:var(--line2);color:var(--t1)}
-.tab.on{background:var(--gd);border-color:var(--g3);color:var(--g)}
-.tcnt{display:inline-flex;align-items:center;justify-content:center;min-width:16px;height:16px;border-radius:99px;font:700 9px var(--fm);padding:0 4px}
-.tcnt.a{background:rgba(255,77,109,.2);color:var(--r)}
-.tcnt.w{background:rgba(255,190,0,.18);color:var(--y)}
-.tcnt.ok{background:rgba(0,229,160,.1);color:var(--g)}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.sync-status {
+  display:flex;align-items:center;gap:7px;
+  padding:5px 14px;border-radius:99px;
+  background:var(--gd);border:1px solid var(--g3);
+  color:var(--g2);font:600 10px var(--fm);cursor:pointer;
+  transition:all .15s;
+}
+.sync-status:hover{background:rgba(0,214,143,.14);color:var(--g)}
+.sync-status.loading{color:var(--y);background:var(--yd);border-color:#664d00;pointer-events:none}
+.sync-status.error{color:var(--r);background:var(--rd);border-color:var(--r2)}
+.sdot{width:7px;height:7px;border-radius:50%;background:var(--g);flex-shrink:0}
+.sync-status.loading .sdot{background:var(--y);animation:pulse-dot 1s infinite}
+.sync-status.error .sdot{background:var(--r)}
+@keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:.2}}
+.icon-btn{
+  padding:6px 13px;border-radius:var(--rad);
+  border:1px solid var(--border);background:var(--s2);
+  color:var(--t2);font:500 11px var(--f);cursor:pointer;transition:all .12s;
+}
+.icon-btn:hover{background:var(--s3);color:var(--t1);border-color:var(--border2)}
 
-.kpi{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:9px;padding:14px 22px 0}
-.kc{background:var(--ink2);border:1px solid var(--line);border-radius:var(--r2);padding:14px 16px;position:relative;overflow:hidden}
-.kc::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:2px 2px 0 0}
-.kc.g::after{background:linear-gradient(90deg,var(--g),var(--g2))}.kc.r::after{background:linear-gradient(90deg,var(--r),var(--r2))}.kc.y::after{background:linear-gradient(90deg,var(--y),#cc9900)}.kc.b::after{background:linear-gradient(90deg,var(--b),#1a66cc)}.kc.p::after{background:linear-gradient(90deg,var(--p),#7733cc)}
-.kl{font:500 9px var(--fm);color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
-.kv{font:800 24px var(--fm);line-height:1;margin-bottom:3px}
-.kc.g .kv{color:var(--g)}.kc.r .kv{color:var(--r)}.kc.y .kv{color:var(--y)}.kc.b .kv{color:var(--b)}.kc.p .kv{color:var(--p)}
-.ks{font-size:10px;color:var(--t3)}
+/* ── ALERT BANNER ────────────────────────────────────── */
+.alert-banner {
+  margin:16px 24px 0;padding:12px 18px;
+  border-radius:var(--rad2);
+  background:rgba(255,61,113,.06);border:1px solid var(--r2);
+  display:flex;align-items:center;gap:12px;
+}
+.alert-banner.hidden{display:none}
+.alert-pulse{
+  width:10px;height:10px;border-radius:50%;background:var(--r);flex-shrink:0;
+  animation:pulse-ring 1.5s infinite;
+}
+@keyframes pulse-ring{0%,100%{box-shadow:0 0 0 0 rgba(255,61,113,.5)}50%{box-shadow:0 0 0 9px rgba(255,61,113,0)}}
+.alert-text{flex:1;font-size:12px;font-weight:500}
+.alert-count{
+  font:800 20px var(--fm);color:var(--r);
+  background:rgba(255,61,113,.12);padding:2px 12px;border-radius:8px;
+}
 
-.content{padding:14px 22px 40px}
-.panel{display:none}.panel.on{display:block}
+/* ── KPI ROW ─────────────────────────────────────────── */
+.kpi-row{
+  display:grid;grid-template-columns:repeat(5,1fr);
+  gap:10px;padding:16px 24px 0;
+}
+@media(max-width:900px){.kpi-row{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:600px){.kpi-row{grid-template-columns:repeat(2,1fr)}}
+.kcard{
+  background:var(--s1);border:1px solid var(--border);
+  border-radius:var(--rad2);padding:16px 18px;
+  position:relative;overflow:hidden;
+}
+.kcard::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:2px 2px 0 0;
+}
+.kcard.blue::before{background:linear-gradient(90deg,var(--b),#1a5fd4)}
+.kcard.green::before{background:linear-gradient(90deg,var(--g),var(--g2))}
+.kcard.red::before{background:linear-gradient(90deg,var(--r),var(--r2))}
+.kcard.yellow::before{background:linear-gradient(90deg,var(--y),#cc8800)}
+.kcard.purple::before{background:linear-gradient(90deg,var(--p),#7733cc)}
+.kcard-label{font:500 9px var(--fm);color:var(--t3);text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px}
+.kcard-value{font:800 28px var(--fm);line-height:1;margin-bottom:4px}
+.kcard.blue .kcard-value{color:var(--b)}
+.kcard.green .kcard-value{color:var(--g)}
+.kcard.red .kcard-value{color:var(--r)}
+.kcard.yellow .kcard-value{color:var(--y)}
+.kcard.purple .kcard-value{color:var(--p)}
+.kcard-sub{font-size:10px;color:var(--t3)}
 
-.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(265px,1fr));gap:9px}
-.tcard{background:var(--ink2);border:1px solid var(--line);border-radius:var(--r2);padding:14px;cursor:pointer;transition:all .15s;position:relative}
-.tcard:hover{border-color:var(--g3);transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,0,0,.4)}
-.tcard.al{border-color:var(--r2);background:rgba(255,77,109,.03)}
-.tcard.wn{border-color:#664d00;background:rgba(255,190,0,.02)}
-.tch{display:flex;align-items:center;gap:9px;margin-bottom:10px}
-.tav{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,var(--g3),var(--ink4));display:flex;align-items:center;justify-content:center;font:800 12px var(--f);color:var(--g);flex-shrink:0}
-.tn{font-size:14px;font-weight:700}
-.tm{font-size:10px;color:var(--t3);font-family:var(--fm)}
-.tstats{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:8px}
-.ts{text-align:center}
-.tsv{font:700 15px var(--fm)}
-.tsl{font-size:9px;color:var(--t3);text-transform:uppercase;margin-top:1px}
-.tprog{height:3px;background:var(--ink5);border-radius:2px;margin-top:8px}
-.tpf{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--g),var(--g2))}
-.tchip{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:99px;font:700 9px var(--fm)}
-.tchip.a{background:var(--rd);color:var(--r);border:1px solid var(--r2)}
-.tchip.w{background:var(--yd);color:var(--y);border:1px solid #664d00}
-.tchip.ok{background:var(--gd);color:var(--g);border:1px solid var(--g3)}
+/* ── TABS ────────────────────────────────────────────── */
+.tab-bar{
+  display:flex;align-items:center;gap:5px;
+  padding:14px 24px 0;overflow-x:auto;
+  scrollbar-width:none;
+}
+.tab-bar::-webkit-scrollbar{display:none}
+.tab-btn{
+  flex-shrink:0;padding:6px 14px;border-radius:99px;
+  border:1px solid var(--border);background:var(--s1);
+  color:var(--t2);font:600 11px var(--f);cursor:pointer;
+  transition:all .12s;display:flex;align-items:center;gap:6px;
+  white-space:nowrap;
+}
+.tab-btn:hover{border-color:var(--border2);color:var(--t1);background:var(--s2)}
+.tab-btn.active{background:var(--gd);border-color:var(--g3);color:var(--g)}
+.tab-badge{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-width:17px;height:17px;border-radius:99px;
+  font:700 9px var(--fm);padding:0 4px;
+}
+.tab-badge.ok{background:rgba(0,214,143,.12);color:var(--g)}
+.tab-badge.warn{background:rgba(255,170,0,.18);color:var(--y)}
+.tab-badge.alert{background:rgba(255,61,113,.2);color:var(--r)}
+.tab-bar-sep{width:1px;height:22px;background:var(--border2);flex-shrink:0;margin:0 4px}
 
-.ph{display:flex;align-items:center;gap:12px;margin-bottom:12px;flex-wrap:wrap}
-.phav{width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,var(--g3),var(--ink4));display:flex;align-items:center;justify-content:center;font:800 16px var(--f);color:var(--g);flex-shrink:0}
-.phn{font-size:17px;font-weight:800}
-.phs{font-size:10px;color:var(--t2);font-family:var(--fm);margin-top:1px}
-.phst{margin-left:auto;display:flex;gap:10px}
-.phsv{font:700 16px var(--fm);color:var(--t1)}
-.phsl{font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;text-align:right}
-.ach-row{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}
-.ach{display:flex;align-items:center;gap:7px;padding:8px 14px;border-radius:var(--r1);font-size:12px;border:1px solid transparent}
-.ach.a{background:rgba(255,77,109,.07);border-color:var(--r2);color:var(--r)}
-.ach.w{background:rgba(255,190,0,.05);border-color:#664d00;color:var(--y)}
-.ach.ok{background:var(--gd);border-color:var(--g3);color:var(--g2)}
-.ach-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
-.ach.a .ach-dot{background:var(--r);animation:pulse 1.5s infinite}
-.ach.w .ach-dot{background:var(--y)}
-.ach.ok .ach-dot{background:var(--g)}
+/* ── MAIN CONTENT ────────────────────────────────────── */
+.main{padding:16px 24px 48px}
 
-.card{background:var(--ink2);border:1px solid var(--line);border-radius:var(--r2);margin-bottom:11px}
-.card-h{padding:11px 15px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
-.card-t{font-size:13px;font-weight:700}
-.card-s{font-size:10px;color:var(--t3);font-family:var(--fm)}
-.tw{overflow-x:auto}
+/* Teacher overview grid */
+.t-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:10px}
+.t-card{
+  background:var(--s1);border:1px solid var(--border);
+  border-radius:var(--rad2);padding:16px;cursor:pointer;
+  transition:all .18s;position:relative;overflow:hidden;
+}
+.t-card:hover{border-color:var(--g3);transform:translateY(-3px);box-shadow:var(--shadow)}
+.t-card.has-alert{border-color:var(--r2);background:rgba(255,61,113,.03)}
+.t-card.has-warn{border-color:#554200;background:rgba(255,170,0,.02)}
+.t-card-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.t-avatar{
+  width:38px;height:38px;border-radius:10px;flex-shrink:0;
+  background:linear-gradient(135deg,var(--g3),var(--s4));
+  display:flex;align-items:center;justify-content:center;
+  font:800 13px var(--f);color:var(--g);
+}
+.t-name{font-size:14px;font-weight:700}
+.t-meta{font-size:10px;color:var(--t3);font-family:var(--fm);margin-top:1px}
+.t-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px}
+.t-stat{text-align:center}
+.t-stat-v{font:700 16px var(--fm)}
+.t-stat-l{font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.3px;margin-top:1px}
+.t-prog-bar{height:3px;background:var(--s4);border-radius:3px;margin-top:10px}
+.t-prog-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--g),var(--g2))}
+.t-chip{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:3px 10px;border-radius:99px;font:700 9px var(--fm);
+}
+.t-chip.ok{background:var(--gd);color:var(--g);border:1px solid var(--g3)}
+.t-chip.warn{background:var(--yd);color:var(--y);border:1px solid #554200}
+.t-chip.alert{background:var(--rd);color:var(--r);border:1px solid var(--r2)}
+
+/* Teacher detail panel */
+.panel-head{display:flex;align-items:center;gap:14px;margin-bottom:14px;flex-wrap:wrap}
+.panel-avatar{
+  width:50px;height:50px;border-radius:13px;flex-shrink:0;
+  background:linear-gradient(135deg,var(--g3),var(--s4));
+  display:flex;align-items:center;justify-content:center;
+  font:800 18px var(--f);color:var(--g);
+}
+.panel-name{font-size:20px;font-weight:800;letter-spacing:-.3px}
+.panel-meta{font-size:11px;color:var(--t2);font-family:var(--fm);margin-top:2px}
+.panel-stats{margin-left:auto;display:flex;gap:16px}
+.panel-stat{text-align:right}
+.panel-stat-v{font:700 18px var(--fm)}
+.panel-stat-l{font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.5px}
+
+.status-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.status-chip{
+  display:flex;align-items:center;gap:8px;
+  padding:9px 16px;border-radius:var(--rad);font-size:12px;font-weight:500;
+  border:1px solid transparent;
+}
+.status-chip.ok{background:var(--gd);border-color:var(--g3);color:var(--g)}
+.status-chip.warn{background:var(--yd);border-color:#554200;color:var(--y)}
+.status-chip.alert{background:var(--rd);border-color:var(--r2);color:var(--r)}
+.status-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.status-chip.alert .status-dot{background:var(--r);animation:pulse-ring 1.5s infinite}
+.status-chip.warn .status-dot{background:var(--y)}
+.status-chip.ok .status-dot{background:var(--g)}
+
+/* Table */
+.table-card{
+  background:var(--s1);border:1px solid var(--border);
+  border-radius:var(--rad2);overflow:hidden;margin-bottom:12px;
+}
+.table-header{
+  padding:12px 16px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;
+}
+.table-title{font-size:13px;font-weight:700}
+.table-sub{font-size:10px;color:var(--t3);font-family:var(--fm)}
+.table-wrap{overflow-x:auto}
 table{width:100%;border-collapse:collapse;font-size:12px}
-th{text-align:left;padding:8px 12px;font:600 9px var(--fm);color:var(--t3);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--line);white-space:nowrap}
-td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
+th{
+  padding:9px 13px;
+  font:600 9px var(--fm);color:var(--t3);
+  text-transform:uppercase;letter-spacing:.5px;
+  border-bottom:1px solid var(--border);
+  text-align:left;white-space:nowrap;background:var(--s2);
+}
+td{padding:10px 13px;border-bottom:1px solid var(--border);vertical-align:middle}
 tbody tr:last-child td{border-bottom:none}
-tbody tr.ral td{background:rgba(255,77,109,.04)}
-tbody tr.rwn td{background:rgba(255,190,0,.03)}
-.nm{font-weight:700;color:var(--t1)}
-.mo{font-family:var(--fm);color:var(--t2)}
+tbody tr{transition:background .1s;cursor:pointer}
+tbody tr:hover td{background:var(--s2)}
+tbody tr.row-alert td{background:rgba(255,61,113,.04)}
+tbody tr.row-warn td{background:rgba(255,170,0,.03)}
+.cell-name{font-weight:700;color:var(--t1)}
+.cell-code{font:9px var(--fm);color:var(--t3);margin-top:1px}
 
-.bk{display:inline-flex;align-items:center;gap:3px;padding:2px 7px;border-radius:4px;font:600 9px var(--fm);white-space:nowrap}
-.bk::before{content:'';width:4px;height:4px;border-radius:50%}
-.bg{background:var(--gd);color:var(--g);border:1px solid var(--g3)}.bg::before{background:var(--g)}
-.br{background:var(--rd);color:var(--r);border:1px solid var(--r2)}.br::before{background:var(--r)}
-.by{background:var(--yd);color:var(--y);border:1px solid #664d00}.by::before{background:var(--y)}
-.bb{background:var(--bd);color:var(--b);border:1px solid #093366}.bb::before{background:var(--b)}
-.bx{background:var(--ink4);color:var(--t2);border:1px solid var(--line2)}.bx::before{background:var(--t2)}
-.at-a{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:var(--r1);background:var(--rd);color:var(--r);border:1px solid var(--r2);font:700 10px var(--fm)}
-.at-w{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:var(--r1);background:var(--yd);color:var(--y);border:1px solid #664d00;font:700 10px var(--fm)}
+/* Badges */
+.badge{
+  display:inline-flex;align-items:center;gap:3px;
+  padding:2px 8px;border-radius:5px;font:600 9px var(--fm);white-space:nowrap;
+}
+.badge::before{content:'';width:4px;height:4px;border-radius:50%}
+.badge-green{background:var(--gd);color:var(--g);border:1px solid var(--g3)}.badge-green::before{background:var(--g)}
+.badge-red{background:var(--rd);color:var(--r);border:1px solid var(--r2)}.badge-red::before{background:var(--r)}
+.badge-yellow{background:var(--yd);color:var(--y);border:1px solid #554200}.badge-yellow::before{background:var(--y)}
+.badge-blue{background:var(--bd);color:var(--b);border:1px solid #0d3a99}.badge-blue::before{background:var(--b)}
+.badge-gray{background:var(--s3);color:var(--t2);border:1px solid var(--border)}.badge-gray::before{background:var(--t2)}
+.tag-alert{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:3px 9px;border-radius:6px;
+  background:var(--rd);color:var(--r);border:1px solid var(--r2);font:700 10px var(--fm);
+}
+.tag-warn{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:3px 9px;border-radius:6px;
+  background:var(--yd);color:var(--y);border:1px solid #554200;font:700 10px var(--fm);
+}
 
-.hrow{display:flex;gap:3px;flex-wrap:wrap}
-.hp{width:22px;height:22px;border-radius:5px;display:flex;align-items:center;justify-content:center;font:700 8px var(--fm);cursor:default;flex-shrink:0;position:relative}
-.hp:hover::after{content:attr(title);position:absolute;bottom:26px;left:50%;transform:translateX(-50%);background:var(--ink5);color:var(--t1);padding:3px 7px;border-radius:5px;font:10px var(--f);white-space:nowrap;pointer-events:none;z-index:20;border:1px solid var(--line2)}
-.hp.ok{background:rgba(0,229,160,.14);color:var(--g)}
-.hp.nc{background:rgba(255,77,109,.15);color:var(--r);border:1px solid rgba(255,77,109,.3)}
-.hp.ca{background:rgba(255,190,0,.14);color:var(--y);border:1px solid rgba(255,190,0,.3)}
-.hp.cp{background:rgba(255,140,66,.14);color:var(--o);border:1px solid rgba(255,140,66,.3)}
-.hp.f{background:var(--ink4);color:var(--t3)}
-.hp.r{background:rgba(77,148,255,.14);color:var(--b)}
-.hp.vc{background:rgba(179,110,255,.12);color:var(--p)}
-.hp.em{background:var(--ink3);color:var(--t4)}
-.legend{display:flex;gap:12px;flex-wrap:wrap;padding:10px 15px;border-top:1px solid var(--line)}
-.li{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--t2)}
-.ld{width:14px;height:14px;border-radius:3px;flex-shrink:0}
+/* History pills */
+.pills{display:flex;gap:3px;flex-wrap:wrap;max-width:420px}
+.pill{
+  width:23px;height:23px;border-radius:6px;
+  display:flex;align-items:center;justify-content:center;
+  font:700 8px var(--fm);cursor:default;flex-shrink:0;position:relative;
+}
+.pill:hover::after{
+  content:attr(title);position:absolute;bottom:27px;left:50%;transform:translateX(-50%);
+  background:var(--s4);color:var(--t1);padding:4px 8px;border-radius:6px;
+  font:11px var(--f);white-space:nowrap;pointer-events:none;z-index:50;
+  border:1px solid var(--border2);box-shadow:var(--shadow);
+}
+.pill.ok{background:rgba(0,214,143,.14);color:var(--g)}
+.pill.nc{background:rgba(255,61,113,.16);color:var(--r);border:1px solid rgba(255,61,113,.3)}
+.pill.ca{background:rgba(255,170,0,.14);color:var(--y);border:1px solid rgba(255,170,0,.3)}
+.pill.cp{background:rgba(255,107,61,.14);color:var(--o);border:1px solid rgba(255,107,61,.3)}
+.pill.r{background:rgba(65,137,255,.14);color:var(--b)}
+.pill.vc{background:rgba(162,89,255,.12);color:var(--p)}
+.pill.f{background:var(--s3);color:var(--t3)}
+.pill.em{background:var(--s2);color:var(--t4);border:1px solid var(--border)}
+.pill.resolved-trigger{opacity:.4;text-decoration:line-through}
+.pill.resolved-r{box-shadow:0 0 0 1.5px var(--g)}
 
-.del-btn{width:24px;height:24px;border-radius:5px;border:1px solid var(--line2);background:var(--ink4);color:var(--t3);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:14px;transition:all .12s;flex-shrink:0;line-height:1}
-.del-btn:hover{background:var(--rd);border-color:var(--r2);color:var(--r)}
-.dismiss-btn{display:inline-flex;align-items:center;padding:2px 8px;border-radius:4px;background:var(--ink4);border:1px solid var(--line2);color:var(--t3);font:600 9px var(--fm);cursor:pointer;transition:all .12s;white-space:nowrap}
-.dismiss-btn:hover{background:var(--yd);border-color:#664d00;color:var(--y)}
-.del-teacher-btn{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border-radius:var(--r1);border:1px solid var(--r2);background:var(--rd);color:var(--r);font:600 10px var(--f);cursor:pointer;transition:all .12s}
-.del-teacher-btn:hover{background:rgba(255,77,109,.15)}
-.paused-row{padding:8px 15px;border-top:1px solid var(--line);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.prl{font:600 9px var(--fm);color:var(--t3);text-transform:uppercase}
+.paused-section{
+  padding:9px 16px;border-top:1px solid var(--border);
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+}
+.paused-label{font:600 9px var(--fm);color:var(--t3);text-transform:uppercase;letter-spacing:.5px}
 
-.mov{position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:500;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
-.mov.on{display:flex}
-.mo{background:var(--ink2);border:1px solid var(--line2);border-radius:var(--r3);width:100%;max-width:600px;max-height:88vh;overflow-y:auto;box-shadow:0 16px 60px rgba(0,0,0,.8);animation:si .2s ease}
-@keyframes si{from{transform:translateY(16px);opacity:0}to{transform:translateY(0);opacity:1}}
-.mh{padding:15px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--ink2);z-index:5}
-.mt{font-size:15px;font-weight:700}
-.mc{width:28px;height:28px;border-radius:7px;border:1px solid var(--line2);background:var(--ink3);color:var(--t2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:all .12s}
-.mc:hover{background:var(--ink5);color:var(--t1)}
-.mb{padding:18px 20px}
+.table-legend{
+  display:flex;gap:14px;flex-wrap:wrap;
+  padding:10px 16px;border-top:1px solid var(--border);
+}
+.legend-item{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--t2)}
+.legend-swatch{width:15px;height:15px;border-radius:4px;flex-shrink:0}
 
-.cfm{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:600;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(6px)}
-.cfm.on{display:flex}
-.cfm-box{background:var(--ink2);border:1px solid var(--line2);border-radius:var(--r2);padding:24px;max-width:360px;width:100%;box-shadow:0 16px 60px rgba(0,0,0,.9);animation:si .2s ease}
-.cfm-ic{font-size:28px;margin-bottom:10px}
-.cfm-t{font-size:15px;font-weight:700;margin-bottom:6px}
-.cfm-s{font-size:12px;color:var(--t2);margin-bottom:20px;line-height:1.6}
-.cfm-btns{display:flex;gap:8px}
+/* Dismiss / action buttons in table */
+.btn-dismiss{
+  padding:2px 9px;border-radius:5px;
+  background:var(--s3);border:1px solid var(--border);
+  color:var(--t3);font:600 9px var(--fm);cursor:pointer;transition:all .12s;
+  white-space:nowrap;
+}
+.btn-dismiss:hover{background:var(--yd);border-color:#554200;color:var(--y)}
+.sheet-link{
+  padding:4px 10px;border-radius:6px;
+  border:1px solid var(--g3);background:var(--gd);
+  color:var(--g);font:600 10px var(--f);text-decoration:none;
+  transition:all .12s;white-space:nowrap;
+}
+.sheet-link:hover{background:rgba(0,214,143,.14);color:var(--g)}
 
-.surl{width:100%;padding:8px 12px;border-radius:var(--r1);border:1px solid var(--line2);background:var(--ink3);color:var(--t1);font:11px var(--fm);outline:none;margin:8px 0;transition:border-color .15s}
-.surl:focus{border-color:var(--g3)}.surl::placeholder{color:var(--t4)}
+/* ── MODALS ──────────────────────────────────────────── */
+.overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.85);
+  z-index:500;display:none;align-items:center;justify-content:center;
+  padding:20px;backdrop-filter:blur(6px);
+}
+.overlay.open{display:flex}
+.modal{
+  background:var(--s1);border:1px solid var(--border2);
+  border-radius:var(--rad3);width:100%;max-width:620px;
+  max-height:90vh;overflow-y:auto;
+  box-shadow:0 24px 80px rgba(0,0,0,.8);
+  animation:modal-in .2s ease;
+}
+@keyframes modal-in{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal-head{
+  padding:16px 22px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;background:var(--s1);z-index:5;
+}
+.modal-title{font-size:15px;font-weight:700}
+.modal-close{
+  width:30px;height:30px;border-radius:8px;
+  border:1px solid var(--border);background:var(--s2);
+  color:var(--t2);cursor:pointer;display:flex;align-items:center;
+  justify-content:center;font-size:16px;transition:all .12s;
+}
+.modal-close:hover{background:var(--s3);color:var(--t1)}
+.modal-body{padding:20px 22px}
 
-.btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:var(--r1);border:none;cursor:pointer;font:600 11px var(--f);transition:all .12s}
-.btn-p{background:var(--g);color:#000}.btn-p:hover{background:var(--g2)}
-.btn-g{background:var(--ink4);color:var(--t2);border:1px solid var(--line2)}.btn-g:hover{background:var(--ink5);color:var(--t1)}
-.btn-r{background:var(--rd);color:var(--r);border:1px solid var(--r2)}.btn-r:hover{background:rgba(255,77,109,.15)}
+/* Settings form */
+.field-label{font:600 9px var(--fm);color:var(--t3);text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px;display:block}
+.field-input{
+  width:100%;padding:9px 13px;border-radius:var(--rad);
+  border:1px solid var(--border);background:var(--s2);
+  color:var(--t1);font:11px var(--fm);outline:none;transition:border-color .15s;
+}
+.field-input:focus{border-color:var(--g3)}
+.field-input::placeholder{color:var(--t4)}
+.code-block{
+  background:var(--s2);border-radius:var(--rad);border:1px solid var(--border);
+  padding:12px 14px;overflow-x:auto;margin:8px 0;
+}
+.code-block pre{font:11px/1.8 var(--fm);color:var(--g2);white-space:pre-wrap}
+.btn{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:8px 16px;border-radius:var(--rad);border:none;
+  cursor:pointer;font:600 12px var(--f);transition:all .12s;
+}
+.btn-primary{background:var(--g);color:#000}.btn-primary:hover{background:var(--g2)}
+.btn-secondary{background:var(--s3);color:var(--t2);border:1px solid var(--border)}.btn-secondary:hover{background:var(--s4);color:var(--t1)}
+.btn-danger{background:var(--rd);color:var(--r);border:1px solid var(--r2)}.btn-danger:hover{background:rgba(255,61,113,.15)}
 
-.toast{position:fixed;bottom:20px;right:20px;z-index:9999;padding:9px 16px;border-radius:var(--r1);background:var(--ink2);border:1px solid var(--line2);border-left:3px solid var(--g);font:12px var(--f);color:var(--t1);box-shadow:0 4px 24px rgba(0,0,0,.5);animation:si .2s ease}
-.toast.e{border-left-color:var(--r)}.toast.i{border-left-color:var(--b)}
-.empty{text-align:center;padding:28px;color:var(--t3);font:11px var(--fm)}
+/* Confirm modal */
+.cfm-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.9);
+  z-index:600;display:none;align-items:center;justify-content:center;padding:20px;
+}
+.cfm-overlay.open{display:flex}
+.cfm-box{
+  background:var(--s1);border:1px solid var(--border2);
+  border-radius:var(--rad2);padding:26px;max-width:360px;width:100%;
+  box-shadow:0 24px 80px rgba(0,0,0,.9);animation:modal-in .2s ease;
+}
+.cfm-icon{font-size:30px;margin-bottom:10px}
+.cfm-title{font-size:16px;font-weight:700;margin-bottom:6px}
+.cfm-sub{font-size:12px;color:var(--t2);margin-bottom:22px;line-height:1.7}
 
-/* Period filter chips inside tab bar */
-.tab-divider{width:1px;height:20px;background:var(--line2);margin:0 4px;flex-shrink:0;align-self:center}
-.fb{padding:6px 14px;border-radius:99px;border:1px solid var(--line);background:var(--ink2);color:var(--t3);font:600 11px var(--f);cursor:pointer;transition:all .12s}
-.fb:hover{border-color:var(--line2);color:var(--t1)}
-.fb.on{background:rgba(77,148,255,.1);border-color:#093366;color:var(--b)}
+/* Toast */
+.toast{
+  position:fixed;bottom:22px;right:22px;z-index:9999;
+  padding:10px 18px;border-radius:var(--rad);
+  background:var(--s2);border:1px solid var(--border2);
+  border-left:3px solid var(--g);
+  font:12px var(--f);color:var(--t1);
+  box-shadow:var(--shadow);animation:modal-in .2s ease;
+}
+.toast.err{border-left-color:var(--r)}
+.toast.info{border-left-color:var(--b)}
 
 /* Empty state */
-.empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 20px;text-align:center;gap:14px}
-.empty-state-icon{font-size:40px;opacity:.5}
-.empty-state-title{font-size:16px;font-weight:700;color:var(--t1)}
-.empty-state-sub{font-size:12px;color:var(--t3);max-width:360px;line-height:1.7}
-.sync-highlight{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:99px;background:var(--gd);border:1px solid var(--g3);color:var(--g);font:600 10px var(--fm)}
+.empty-state{
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:center;padding:70px 20px;text-align:center;gap:16px;
+}
+.empty-icon{font-size:44px;opacity:.4}
+.empty-title{font-size:18px;font-weight:700}
+.empty-sub{font-size:12px;color:var(--t3);max-width:380px;line-height:1.8}
 
-@media(max-width:640px){
-  .topbar{padding:0 14px}.tabs,.content,.kpi{padding-left:14px;padding-right:14px}
-  .kpi{grid-template-columns:repeat(2,1fr)}.tgrid{grid-template-columns:1fr}
+/* Responsive */
+@media(max-width:700px){
+  .topbar{padding:0 16px;height:52px}
+  .period-group{display:none}
+  .main,.tab-bar,.kpi-row,.alert-banner{padding-left:16px;padding-right:16px}
+  .kpi-row{grid-template-columns:repeat(2,1fr)}
+  .t-grid{grid-template-columns:1fr}
+  .panel-stats{display:none}
 }
 </style>
 </head>
 <body>
 
-<div class="topbar">
-  <div class="logo-ic"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
-  <div><div class="logo-n">UpFront · Class Control</div><div class="logo-s">2026 · CP/NC Alert System</div></div>
-  <div class="vdiv"></div>
-  <div class="tb-sub" id="tb-sub">Visão geral · todos os professores</div>
-  <div class="tb-r">
-    <div id="sync-btn" class="sync-btn" onclick="openModal('sync')"><div class="sdot"></div><span id="sync-txt">Sincronizar</span></div>
-    <button class="icon-btn" onclick="openModal('leg')">📖 Legenda</button>
+<!-- ═══ TOPBAR ════════════════════════════════════════════════ -->
+<header class="topbar">
+  <div class="logo">
+    <div class="logo-box">
+      <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+    </div>
+    <div>
+      <div class="logo-title">UpFront · Class Control</div>
+      <div class="logo-sub">2026 · CP/NC Alert System</div>
+    </div>
   </div>
+
+  <div class="topbar-sep"></div>
+
+  <div class="period-group">
+    <span class="period-label">Período</span>
+    <button class="pchip active" id="pchip-all"   onclick="setPeriod('all',this)">Tudo</button>
+    <button class="pchip"        id="pchip-year"  onclick="setPeriod('year',this)">Este ano</button>
+    <button class="pchip"        id="pchip-month" onclick="setPeriod('month',this)">Este mês</button>
+    <button class="pchip"        id="pchip-week"  onclick="setPeriod('week',this)">Esta semana</button>
+  </div>
+
+  <div class="topbar-right">
+    <span id="sync-time" style="font:500 9px var(--fm);color:var(--t3)"></span>
+    <button id="sync-btn" class="sync-status" onclick="triggerSync()">
+      <span class="sdot"></span>
+      <span id="sync-label">Sincronizar</span>
+    </button>
+    <button class="icon-btn" onclick="openModal('settings')">⚙ Configurar</button>
+    <button class="icon-btn" onclick="openModal('legend')">📖 Legenda</button>
+  </div>
+</header>
+
+<!-- ═══ ALERT BANNER ══════════════════════════════════════════ -->
+<div class="alert-banner hidden" id="alert-banner">
+  <div class="alert-pulse"></div>
+  <div class="alert-text">
+    <strong id="alert-banner-text"></strong> — 2+ CP/NC consecutivos ou no mesmo mês
+  </div>
+  <div class="alert-count" id="alert-banner-count">0</div>
 </div>
 
-<div class="ab hidden" id="ab">
-  <div class="ab-pulse"></div>
-  <div class="ab-txt"><strong id="ab-title"></strong> — <span id="ab-desc"></span></div>
-  <div class="ab-c" id="ab-c">0</div>
+<!-- ═══ KPI ROW ═══════════════════════════════════════════════ -->
+<div class="kpi-row" id="kpi-row"></div>
+
+<!-- ═══ TAB BAR ═══════════════════════════════════════════════ -->
+<div class="tab-bar" id="tab-bar">
+  <button class="tab-btn active" id="tab-all" onclick="goPanel('all',this)">
+    Todos <span class="tab-badge ok" id="badge-all">0</span>
+  </button>
 </div>
 
-<div class="tabs" id="tabs">
-  <button class="tab on" onclick="goPanel('all',this)" id="tab-all">Todos <span class="tcnt ok" id="cnt-all">0</span></button>
-  <div class="tab-divider" id="tabs-end-divider"></div>
-  <button class="fb on" id="fb-all"  onclick="setFilter('all',this)">Tudo</button>
-  <button class="fb"    id="fb-year" onclick="setFilter('year',this)">Este ano</button>
-  <button class="fb"    id="fb-month"onclick="setFilter('month',this)">Este mês</button>
-  <button class="fb"    id="fb-week" onclick="setFilter('week',this)">Esta semana</button>
-  <span id="fbar-info" style="font:500 9px var(--fm);color:var(--t3);margin-left:4px;align-self:center"></span>
-</div>
-<div class="kpi" id="kpi"></div>
-<div class="content">
-  <div class="panel on" id="panel-all">
-    <div class="tgrid" id="all-grid"></div>
+<!-- ═══ MAIN CONTENT ══════════════════════════════════════════ -->
+<main class="main">
+  <div id="panel-all" class="panel active">
+    <div class="t-grid" id="all-grid"></div>
   </div>
   <div id="teacher-panels"></div>
-</div>
+</main>
 
-<!-- LEGEND MODAL -->
-<div class="mov" id="mov-leg" onclick="if(event.target===this)closeModal('leg')">
-  <div class="mo">
-    <div class="mh"><div class="mt">📖 Legenda de Códigos</div><button class="mc" onclick="closeModal('leg')">✕</button></div>
-    <div class="mb">
+<!-- ═══ LEGEND MODAL ══════════════════════════════════════════ -->
+<div class="overlay" id="overlay-legend" onclick="if(event.target===this)closeModal('legend')">
+  <div class="modal" style="max-width:520px">
+    <div class="modal-head">
+      <div class="modal-title">📖 Legenda de Códigos</div>
+      <button class="modal-close" onclick="closeModal('legend')">✕</button>
+    </div>
+    <div class="modal-body">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
-        <div style="background:var(--ink3);border-radius:8px;padding:12px">
-          <div style="font:700 11px var(--fm);color:var(--g);margin-bottom:8px">✓ CONTA COMO AULA</div>
-          <div style="display:flex;flex-direction:column;gap:6px;font-size:11px">
-            <div style="display:flex;align-items:center;gap:8px"><span class="hp ok" style="flex-shrink:0">OK</span>Aula dada normalmente</div>
-            <div style="display:flex;align-items:center;gap:8px"><span class="hp r" style="flex-shrink:0;font-size:8px">R</span>Reposição realizada</div>
+        <div style="background:var(--s2);border-radius:10px;padding:13px">
+          <div style="font:700 10px var(--fm);color:var(--g);margin-bottom:9px;text-transform:uppercase;letter-spacing:.5px">✓ CONTA COMO AULA</div>
+          <div style="display:flex;flex-direction:column;gap:7px;font-size:11px">
+            <div style="display:flex;align-items:center;gap:9px"><span class="pill ok" style="flex-shrink:0">OK</span>Aula dada normalmente</div>
+            <div style="display:flex;align-items:center;gap:9px"><span class="pill r" style="flex-shrink:0;font-size:7px">R</span>Reposição realizada</div>
           </div>
         </div>
-        <div style="background:var(--ink3);border-radius:8px;padding:12px">
-          <div style="font:700 11px var(--fm);color:var(--r);margin-bottom:8px">✗ PRECISA REPOR</div>
-          <div style="display:flex;flex-direction:column;gap:6px;font-size:11px">
-            <div style="display:flex;align-items:center;gap:8px"><span class="hp nc" style="flex-shrink:0">NC</span>Não compareceu</div>
-            <div style="display:flex;align-items:center;gap:8px"><span class="hp ca" style="flex-shrink:0">CA</span>Cancelamento aluno</div>
-            <div style="display:flex;align-items:center;gap:8px"><span class="hp cp" style="flex-shrink:0">CP</span>Cancelamento professor</div>
-            <div style="display:flex;align-items:center;gap:8px"><span class="hp vc" style="flex-shrink:0;font-size:8px">VC</span>Vacation cancel</div>
+        <div style="background:var(--s2);border-radius:10px;padding:13px">
+          <div style="font:700 10px var(--fm);color:var(--r);margin-bottom:9px;text-transform:uppercase;letter-spacing:.5px">✗ GERA ALERTA</div>
+          <div style="display:flex;flex-direction:column;gap:7px;font-size:11px">
+            <div style="display:flex;align-items:center;gap:9px"><span class="pill nc" style="flex-shrink:0">NC</span>Não compareceu (R não cancela)</div>
+            <div style="display:flex;align-items:center;gap:9px"><span class="pill ca" style="flex-shrink:0">CA</span>Cancelamento aluno (R cancela)</div>
+            <div style="display:flex;align-items:center;gap:9px"><span class="pill cp" style="flex-shrink:0">CP</span>Cancelamento professor (R cancela)</div>
+            <div style="display:flex;align-items:center;gap:9px"><span class="pill vc" style="flex-shrink:0;font-size:7px">VC</span>Vacation cancel</div>
           </div>
         </div>
       </div>
-      <div style="background:var(--rd);border:1px solid var(--r2);border-radius:8px;padding:12px;margin-bottom:10px">
-        <div style="font:700 11px var(--fm);color:var(--r);margin-bottom:5px">🔴 ALERTA — ENTRAR EM CONTATO</div>
-        <div style="font-size:11px;color:var(--t1);line-height:1.7">• <strong>2 CP/NC sem reposição consecutivos</strong> nas ocorrências mais recentes<br>• <strong>2+ CP/NC sem reposição no mesmo mês</strong> em qualquer mês de 2026</div>
+      <div style="background:var(--rd);border:1px solid var(--r2);border-radius:10px;padding:13px;margin-bottom:10px">
+        <div style="font:700 10px var(--fm);color:var(--r);margin-bottom:5px;text-transform:uppercase">🔴 ALERTA — ENTRAR EM CONTATO</div>
+        <div style="font-size:11px;line-height:1.8">• <strong>2 não-respostos consecutivos</strong> sem reposição<br>• <strong>2+ no mesmo mês</strong> sem reposição</div>
       </div>
-      <div style="background:rgba(77,148,255,.06);border:1px solid #093366;border-radius:8px;padding:12px;margin-bottom:10px">
-        <div style="font:700 11px var(--fm);color:var(--b);margin-bottom:5px">🔵 REPOSIÇÃO (R) — ANULA O ALERTA</div>
-        <div style="font-size:11px;color:var(--t1);line-height:1.7">Se um CP ou NC for seguido de um <strong>R (reposição)</strong>, a ocorrência é considerada resolvida e <strong>não gera alerta</strong>.</div>
-      </div>
-      <div style="background:var(--yd);border:1px solid #664d00;border-radius:8px;padding:12px">
-        <div style="font:700 11px var(--fm);color:var(--y);margin-bottom:5px">🟡 ATENÇÃO — MONITORAR</div>
-        <div style="font-size:11px;color:var(--t1)">1 CP/NC sem reposição recente — observar na próxima aula.</div>
+      <div style="background:var(--yd);border:1px solid #554200;border-radius:10px;padding:13px">
+        <div style="font:700 10px var(--fm);color:var(--y);margin-bottom:5px;text-transform:uppercase">🟡 ATENÇÃO — MONITORAR</div>
+        <div style="font-size:11px">1 CA/NC/CP sem reposição — observar na próxima aula.</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- STUDENT DETAIL MODAL -->
-<div class="mov" id="mov-stud" onclick="if(event.target===this)closeModal('stud')">
-  <div class="mo">
-    <div class="mh"><div class="mt" id="sm-t">Detalhes</div><button class="mc" onclick="closeModal('stud')">✕</button></div>
-    <div class="mb" id="sm-b"></div>
+<!-- ═══ STUDENT DETAIL MODAL ══════════════════════════════════ -->
+<div class="overlay" id="overlay-student" onclick="if(event.target===this)closeModal('student')">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-title" id="student-modal-title">Detalhes</div>
+      <button class="modal-close" onclick="closeModal('student')">✕</button>
+    </div>
+    <div class="modal-body" id="student-modal-body"></div>
   </div>
 </div>
 
-<!-- SYNC MODAL -->
-<div class="mov" id="mov-sync" onclick="if(event.target===this)closeModal('sync')">
-  <div class="mo" style="max-width:520px">
-    <div class="mh"><div class="mt">🔄 Sincronizar com Google Sheets</div><button class="mc" onclick="closeModal('sync')">✕</button></div>
-    <div class="mb">
-      <div style="font-size:11px;color:var(--t2);line-height:1.7;margin-bottom:12px">
-        O dashboard lê os dados <strong>exclusivamente</strong> das control sheets e sincroniza automaticamente ao abrir em qualquer dispositivo.<br><br>
-        <strong style="color:var(--g)">Para acesso universal:</strong> após obter a URL do Apps Script, cole-a no campo <code style="background:var(--ink4);padding:1px 5px;border-radius:3px">FIXED_APPS_URL</code> no início do arquivo HTML e faça upload novamente. Todos os dispositivos sincronizarão automaticamente ao abrir.
+<!-- ═══ SETTINGS MODAL ════════════════════════════════════════ -->
+<div class="overlay" id="overlay-settings" onclick="if(event.target===this)closeModal('settings')">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-title">⚙ Configurações · Sincronização</div>
+      <button class="modal-close" onclick="closeModal('settings')">✕</button>
+    </div>
+    <div class="modal-body">
+
+      <div style="background:var(--s2);border-radius:10px;padding:13px;margin-bottom:16px;font-size:11px;color:var(--t2);line-height:1.8">
+        O dashboard sincroniza <strong style="color:var(--t1)">automaticamente ao abrir</strong> e a cada <strong style="color:var(--t1)">5 minutos</strong> enquanto estiver aberto.<br>
+        Para funcionar em qualquer dispositivo: cole a URL do Apps Script abaixo e salve o arquivo HTML com essa URL já preenchida.
       </div>
 
-      <div style="background:var(--ink3);border-radius:8px;padding:11px;margin-bottom:12px;overflow-x:auto">
-        <div style="font:700 9px var(--fm);color:var(--g);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Código Apps Script (Cole em script.google.com → Novo projeto)</div>
-        <pre style="font:11px var(--fm);color:var(--g2);line-height:1.8;white-space:pre-wrap">function doGet(e) {
+      <label class="field-label">URL do Apps Script (Web App)</label>
+      <input class="field-input" id="settings-url" placeholder="https://script.google.com/macros/s/.../exec">
+
+      <div style="display:flex;gap:8px;margin:10px 0 18px;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="saveAndSync()">🔄 Salvar e sincronizar</button>
+        <button class="btn btn-danger" onclick="clearAllData()">🗑 Limpar todos os dados</button>
+        <button class="btn btn-secondary" onclick="closeModal('settings')">Fechar</button>
+      </div>
+
+      <div id="settings-result" style="font-size:11px;color:var(--t3);margin-bottom:18px"></div>
+
+      <details style="margin-bottom:12px">
+        <summary style="font:600 11px var(--fm);color:var(--g);cursor:pointer;margin-bottom:8px;user-select:none">
+          📋 Código do Apps Script (clique para ver)
+        </summary>
+        <div style="display:flex;justify-content:flex-end;margin-bottom:4px">
+          <button class="btn btn-secondary" style="font-size:10px;padding:4px 10px" onclick="copyScript()">📋 Copiar código</button>
+        </div>
+        <div class="code-block" id="script-code-block">
+<pre>function doGet(e) {
   var SHEETS = {
     'Samu':     '1RIj9z-c0e6NWdSaX2SevN-jDoJruPknoBqTC2J-KKBo',
     'Angie':    '1tfPDgsKygQy_cE_RKfjALUBqZtbVTOj-Tbwl_C6vC5c',
@@ -311,791 +585,830 @@ tbody tr.rwn td{background:rgba(255,190,0,.03)}
     'Laura':    '1XNHgIKalR7-IDDWia8WpQEmbCUlr-Er2AR4ugvBoBg4',
     'Juliana':  '1EW5niOgx5VAZSqlb46v-UlzRl3ewTjsmIhD5xknA0eE',
     'Alesson':  '1oqVLjEERQk9VVvK7G7pz4OlQHfE3NmqOCQf0M9ZUVMI'
-    // Helen removida
   };
-  var result = { teachers: {}, updated: new Date().toISOString() };
+  var result = { teachers:{}, updated:new Date().toISOString() };
   for (var t in SHEETS) {
     try {
       var ss = SpreadsheetApp.openById(SHEETS[t]);
       var td = {};
-      ss.getSheets().forEach(function(sh) {
+      ss.getSheets().forEach(function(sh){
         td[sh.getName()] = sh.getDataRange().getValues();
       });
       result.teachers[t] = td;
-    } catch(e) { result.teachers[t] = { error: e.toString() }; }
+    } catch(e){ result.teachers[t]={error:e.toString()}; }
   }
   return ContentService
     .createTextOutput(JSON.stringify(result))
     .setMimeType(ContentService.MimeType.JSON);
 }</pre>
-      </div>
+        </div>
+      </details>
 
-      <label style="font:600 9px var(--fm);color:var(--t3);text-transform:uppercase;letter-spacing:.5px">URL do Apps Script (após publicar como Web App)</label>
-      <input class="surl" id="apps-url" placeholder="https://script.google.com/macros/s/.../exec">
-
-      <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
-        <button class="btn btn-p" onclick="doSync()">🔄 Sincronizar agora</button>
-        <button class="btn btn-g" onclick="closeModal('sync')">Fechar</button>
-        <button class="btn" style="background:var(--rd);color:var(--r);border:1px solid var(--r2)" onclick="clearCache()">🗑 Limpar cache</button>
-      </div>
-
-      <div id="sync-result" style="margin-top:10px;font-size:11px;color:var(--t3)"></div>
-
-      <div style="margin-top:14px;padding:10px;border-radius:8px;background:var(--ink3);font-size:10px;color:var(--t3);line-height:1.8">
+      <div style="background:var(--s2);border-radius:10px;padding:12px;font-size:10px;color:var(--t3);line-height:1.9">
         <strong style="color:var(--t2)">Como publicar o Apps Script:</strong><br>
         1. Acesse <strong>script.google.com</strong> → Novo projeto<br>
         2. Cole o código acima e salve<br>
-        3. Clique em <strong>Implantar → Nova implantação</strong><br>
-        4. Tipo: <strong>Aplicativo da Web</strong> · Executar como: <strong>Minha conta</strong> · Quem pode acessar: <strong>Qualquer pessoa</strong><br>
-        5. Copie a URL gerada e cole acima
+        3. <strong>Implantar → Nova implantação → Aplicativo da Web</strong><br>
+        4. Executar como: <strong>Minha conta</strong> · Quem acessa: <strong>Qualquer pessoa</strong><br>
+        5. Copie a URL gerada e cole no campo acima
       </div>
     </div>
   </div>
 </div>
 
-<!-- CONFIRM MODAL -->
-<div class="cfm" id="cfm">
+<!-- ═══ CONFIRM MODAL ═════════════════════════════════════════ -->
+<div class="cfm-overlay" id="cfm-overlay">
   <div class="cfm-box">
-    <div class="cfm-ic" id="cfm-ic">⚠️</div>
-    <div class="cfm-t" id="cfm-t">Confirmar</div>
-    <div class="cfm-s" id="cfm-s"></div>
-    <div class="cfm-btns">
-      <button class="btn btn-r" id="cfm-ok">Confirmar</button>
-      <button class="btn btn-g" onclick="closeCfm()">Cancelar</button>
+    <div class="cfm-icon" id="cfm-icon">⚠️</div>
+    <div class="cfm-title" id="cfm-title">Confirmar</div>
+    <div class="cfm-sub" id="cfm-sub"></div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-danger" id="cfm-ok">Confirmar</button>
+      <button class="btn btn-secondary" onclick="closeCfm()">Cancelar</button>
     </div>
   </div>
 </div>
 
 <script>
-// ═══════════════════════════════════════════════════
-// URL FIXA DO APPS SCRIPT
-// Preencha aqui após criar o Apps Script — qualquer
-// dispositivo que abrir o dashboard sincroniza automaticamente.
-// ═══════════════════════════════════════════════════
-const FIXED_APPS_URL = ''; // <- cole sua URL aqui
-const MN=['','Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+'use strict';
+// ════════════════════════════════════════════════════════════
+// CONFIG — cole sua URL aqui para sync automático em qualquer dispositivo
+// ════════════════════════════════════════════════════════════
+const FIXED_URL = ''; // ex: 'https://script.google.com/macros/s/XXX/exec'
 
-const MONTH_MAP={
-  'janeiro':1,'fevereiro':2,'março':3,'marco':3,'abril':4,'maio':5,'junho':6,
-  'julho':7,'agosto':8,'setembro':9,'outubro':10,'novembro':11,'dezembro':12,
-  'jan':1,'fev':2,'feb':2,'mar':3,'abr':4,'apr':4,'may':5,'mai':5,'jun':6,
-  'jul':7,'aug':8,'ago':8,'sep':9,'set':9,'oct':10,'out':10,'nov':11,'dec':12,'dez':12
+// ════════════════════════════════════════════════════════════
+// CONSTANTES
+// ════════════════════════════════════════════════════════════
+const MONTH_NAMES = ['','Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+const MONTH_MAP = {
+  janeiro:1,fevereiro:2,'março':3,marco:3,abril:4,maio:5,junho:6,
+  julho:7,agosto:8,setembro:9,outubro:10,novembro:11,dezembro:12,
+  jan:1,fev:2,feb:2,mar:3,abr:4,apr:4,may:5,mai:5,jun:6,
+  jul:7,aug:8,ago:8,sep:9,set:9,oct:10,out:10,nov:11,dec:12,dez:12
 };
-
-// Tabs de sistema e professores removidos que não devem ser importados
-const SKIP_TAB_NAMES = new Set([
-  'stats','stats 2026','stats2026','list of students','listofstudents',
-  'reposições','reposicoes','dashboard','painel','resumo','legenda','legend',
-  'configurações','configuracoes','config','sheet1','folha1','inicio','home'
+const SKIP_TABS = new Set([
+  'stats','stats2026','listofstudents','reposições','reposicoes',
+  'dashboard','painel','resumo','legenda','legend','config',
+  'configurações','configuracoes','sheet1','folha1','inicio','home'
 ]);
-
-// Helen removida da sincronização
 const EXCLUDED_TEACHERS = new Set(['helen','Helen']);
-
-const TEACHER_IDS = {
-  'Samu':     '1RIj9z-c0e6NWdSaX2SevN-jDoJruPknoBqTC2J-KKBo',
-  'Angie':    '1tfPDgsKygQy_cE_RKfjALUBqZtbVTOj-Tbwl_C6vC5c',
-  'Gabriela': '1Rhk8pcvTFxtOduGFEgBpA3GtR8V1Lh92kDDFYg1mEY0',
-  'Flavia':   '1Y2m6-2l-DEnZzxJ3iE7v1033tE02jldkjKVwycm6RK8',
-  'Gabes':    '1XXdbvagMUoCjHjAZmJD9iz6Rh9XtvrV18WEzYWDzUPM',
-  'Patricia': '1ZNDyNV4JyooZCnKqeloop_GNZGGmzR0ZF011BRZqaCs',
-  'Eliza':    '1GgmPfRHaVoS9EiSLt8kvMUBDgDk2upi9LY9sHQEgsNo',
-  'Laura':    '1XNHgIKalR7-IDDWia8WpQEmbCUlr-Er2AR4ugvBoBg4',
-  'Juliana':  '1EW5niOgx5VAZSqlb46v-UlzRl3ewTjsmIhD5xknA0eE',
-  'Alesson':  '1oqVLjEERQk9VVvK7G7pz4OlQHfE3NmqOCQf0M9ZUVMI'
+const SHEET_IDS = {
+  Samu:'1RIj9z-c0e6NWdSaX2SevN-jDoJruPknoBqTC2J-KKBo',
+  Angie:'1tfPDgsKygQy_cE_RKfjALUBqZtbVTOj-Tbwl_C6vC5c',
+  Gabriela:'1Rhk8pcvTFxtOduGFEgBpA3GtR8V1Lh92kDDFYg1mEY0',
+  Flavia:'1Y2m6-2l-DEnZzxJ3iE7v1033tE02jldkjKVwycm6RK8',
+  Gabes:'1XXdbvagMUoCjHjAZmJD9iz6Rh9XtvrV18WEzYWDzUPM',
+  Patricia:'1ZNDyNV4JyooZCnKqeloop_GNZGGmzR0ZF011BRZqaCs',
+  Eliza:'1GgmPfRHaVoS9EiSLt8kvMUBDgDk2upi9LY9sHQEgsNo',
+  Laura:'1XNHgIKalR7-IDDWia8WpQEmbCUlr-Er2AR4ugvBoBg4',
+  Juliana:'1EW5niOgx5VAZSqlb46v-UlzRl3ewTjsmIhD5xknA0eE',
+  Alesson:'1oqVLjEERQk9VVvK7G7pz4OlQHfE3NmqOCQf0M9ZUVMI'
 };
+const AUTO_REFRESH_MS = 5 * 60 * 1000; // 5 minutos
 
-// ═══════════════════════════════════════════════════
-// ESTADO GLOBAL — populado exclusivamente via sync
-// ═══════════════════════════════════════════════════
-let TEACHERS = [];
-let dismissedAlerts = JSON.parse(localStorage.getItem('uf_dismissed')||'{}');
-let appsUrl = FIXED_APPS_URL || localStorage.getItem('uf_apps_url')||'';
-let lastSync = localStorage.getItem('uf_last_sync')||'';
-let activeFilter = 'all'; // 'all' | 'year' | 'month' | 'week'
+// ════════════════════════════════════════════════════════════
+// STATE
+// ════════════════════════════════════════════════════════════
+let DATA = [];          // [{name, students:[{n,cod,plan,st,hist}]}]
+let dismissed = {};
+let syncUrl = '';
+let lastSyncAt = '';
+let activePeriod = 'all'; // 'all'|'year'|'month'|'week'
+let activeTab = 'all';
+let refreshTimer = null;
 
-// ═══════════════════════════════════════════════════
-// FILTRO POR PERÍODO
-// ═══════════════════════════════════════════════════
-function setFilter(f, btn){
-  activeFilter=f;
-  document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));
-  if(btn)btn.classList.add('on');
-  const info=document.getElementById('fbar-info');
-  const now=new Date();
-  if(f==='week'){
-    const d=now.getDay(),mon=new Date(now);
-    mon.setDate(now.getDate()-(d===0?6:d-1));
-    const fmt=d=>`${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}`;
-    info.textContent=`${fmt(mon)} – ${fmt(now)}`;
-  } else if(f==='month'){
-    info.textContent=MN[now.getMonth()+1]+' '+now.getFullYear();
-  } else if(f==='year'){
-    info.textContent=''+now.getFullYear();
-  } else {
-    info.textContent='';
-  }
+// ════════════════════════════════════════════════════════════
+// STATUS CODES
+// ════════════════════════════════════════════════════════════
+function normalizeCode(raw) {
+  const c = (raw||'').toString().toUpperCase().trim().replace(/\s+/g,'');
+  if (['OK','AB'].includes(c)) return 'ok';
+  if (c === 'NC') return 'nc';
+  if (c === 'CA') return 'ca';
+  if (c === 'CP') return 'cp';
+  if (['R','REP','REPO','REPOSIÇÃO'].includes(c)) return 'r';
+  if (['F','HC','FER'].includes(c)) return 'f';
+  if (['VC','CF'].includes(c)) return 'vc';
+  return 'em';
+}
+// NC always triggers; CA and CP trigger but can be resolved by R
+function isTrigger(c) { const n=normalizeCode(c); return n==='nc'||n==='cp'||n==='ca'; }
+function isRResolvable(c) { const n=normalizeCode(c); return n==='cp'||n==='ca'; } // NC never resolved by R
+
+// ════════════════════════════════════════════════════════════
+// PERIOD FILTER
+// ════════════════════════════════════════════════════════════
+function setPeriod(p, btn) {
+  activePeriod = p;
+  document.querySelectorAll('.pchip').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
   renderAll();
 }
 
-function applyFilter(hist){
-  if(activeFilter==='all')return hist;
-  const now=new Date();
-  const curY=now.getFullYear(); // assume all dates are current year
-  return hist.filter(h=>{
-    if(!h.d)return activeFilter!=='week'; // future slots: show in year/month/all, hide in week
-    const parts=h.d.split('/');
-    if(parts.length<2)return false;
-    const day=parseInt(parts[0]),mon=parseInt(parts[1]);
-    if(activeFilter==='year')return true;
-    if(activeFilter==='month')return mon===(now.getMonth()+1);
-    if(activeFilter==='week'){
-      const cd=new Date(curY,mon-1,day);
-      const dow=now.getDay();
-      const mon2=new Date(now);mon2.setDate(now.getDate()-(dow===0?6:dow-1));mon2.setHours(0,0,0,0);
-      const sun=new Date(mon2);sun.setDate(mon2.getDate()+6);sun.setHours(23,59,59,999);
-      return cd>=mon2&&cd<=sun;
-    }
-    return true;
+function filterHist(hist) {
+  if (activePeriod === 'all' || activePeriod === 'year') return hist;
+  const now = new Date();
+  const cutoff = new Date(now);
+  if (activePeriod === 'month') cutoff.setDate(now.getDate() - 30);
+  if (activePeriod === 'week')  cutoff.setDate(now.getDate() - 7);
+  cutoff.setHours(0,0,0,0);
+  return hist.filter(h => {
+    if (!h.d) return false;
+    const parts = h.d.split('/').map(Number);
+    if (parts.length < 2) return false;
+    const [dd, mm, yyyy] = parts;
+    if (isNaN(dd)||isNaN(mm)) return false;
+    const yr = yyyy || (mm > now.getMonth()+1 ? now.getFullYear()-1 : now.getFullYear());
+    return new Date(yr, mm-1, dd) >= cutoff;
   });
 }
 
-// ═══════════════════════════════════════════════════
-// LÓGICA CP/NC
-// ═══════════════════════════════════════════════════
-function norm(c){
-  const u=(c||'').toUpperCase().trim().replace(/\s+/g,'');
-  if(['OK','AB'].includes(u))return'ok';
-  if(u==='NC')return'nc';
-  if(u==='CA')return'ca';
-  if(u==='CP')return'cp';
-  if(['F','HC','FER'].includes(u))return'f';
-  if(['R','REP','REPO','REPOSIÇÃO'].includes(u))return'r';
-  if(['VC','CF'].includes(u))return'vc';
-  return'em';
-}
-// NC sempre gera alerta (não pode ser cancelado por R)
-// CA e CP podem ser cancelados por R (reposição)
-function isTrig(c){const n=norm(c);return n==='nc'||n==='cp'||n==='ca';}
-function isResolvableByR(c){const n=norm(c);return n==='cp'||n==='ca';}
-
-// Retorna índices marcados como "resolvidos por R" — apenas CA e CP
-function resolvedByR(hist){
-  const done=hist.map((h,i)=>({...h,_i:i})).filter(h=>h.c&&h.c.trim()!=='');
-  const resolvedIdx=new Set();
-  for(let i=0;i<done.length;i++){
-    if(isResolvableByR(done[i].c)){
-      const next=done[i+1];
-      if(next&&norm(next.c)==='r'){
-        resolvedIdx.add(done[i]._i);
-        resolvedIdx.add(done[i+1]._i);
-      }
+// ════════════════════════════════════════════════════════════
+// ALERT LOGIC (operates on FILTERED history)
+// ════════════════════════════════════════════════════════════
+function getUnresolved(hist) {
+  const coded = hist.filter(h => h.c && h.c.trim() !== '');
+  const out = [];
+  for (let i=0; i<coded.length; i++) {
+    if (isTrigger(coded[i].c)) {
+      const next = coded[i+1];
+      const resolved = isRResolvable(coded[i].c) && next && normalizeCode(next.c)==='r';
+      if (!resolved) out.push(coded[i]);
     }
   }
-  return resolvedIdx;
+  return out;
 }
 
-function getUnresolvedTriggers(hist){
-  const done=hist.filter(h=>h.c&&h.c.trim()!=='');
-  const unresolved=[];
-  for(let i=0;i<done.length;i++){
-    if(isTrig(done[i].c)){
-      const next=done[i+1];
-      // NC nunca é resolvido por R; CA e CP sim
-      const resolved=isResolvableByR(done[i].c)&&next&&norm(next.c)==='r';
-      if(!resolved)unresolved.push(done[i]);
+function checkAlert(tName, s) {
+  const key = tName+'__'+s.n;
+  if (dismissed[key]) return { lv:'none', reason:'dispensado' };
+  const hist = filterHist(s.hist);
+  if (!hist.filter(h=>h.c&&h.c.trim()).length) return { lv:'none', reason:'' };
+  const unres = getUnresolved(hist);
+  if (!unres.length) return { lv:'none', reason:'' };
+  const last2 = unres.slice(-2);
+  const consec = last2.length === 2;
+  const byMonth = {};
+  unres.forEach(h => { byMonth[h.m] = (byMonth[h.m]||[]); byMonth[h.m].push(h); });
+  const monthAlert = Object.values(byMonth).some(a=>a.length>=2);
+  if (consec || monthAlert) {
+    const rs = [];
+    if (consec) rs.push('2 consecutivos sem reposição');
+    if (monthAlert) {
+      const ms = Object.entries(byMonth).filter(([,a])=>a.length>=2).map(([m])=>MONTH_NAMES[+m]||m);
+      rs.push('2+ em '+ms.join(', '));
+    }
+    return { lv:'alert', reason:rs.join(' · ') };
+  }
+  return { lv:'warn', reason:'1 CP/NC sem reposição' };
+}
+
+function alertLevel(tName, s) {
+  const lv = checkAlert(tName, s).lv;
+  return lv==='alert'?2 : lv==='warn'?1 : 0;
+}
+
+// Resolved pairs (for visual pill decoration)
+function resolvedPairs(hist) {
+  const coded = hist.map((h,i)=>({...h,_i:i})).filter(h=>h.c&&h.c.trim());
+  const set = new Set();
+  for (let i=0; i<coded.length; i++) {
+    if (isRResolvable(coded[i].c)) {
+      const nxt = coded[i+1];
+      if (nxt && normalizeCode(nxt.c)==='r') { set.add(coded[i]._i); set.add(nxt._i); }
     }
   }
-  return unresolved;
+  return set;
 }
 
-function checkAlert(tName,s){
-  const key=tName+'__'+s.n;
-  if(dismissedAlerts[key])return{lv:'none',reason:'dispensado'};
-  // Usa apenas o histórico do período selecionado para calcular alertas
-  const hist=applyFilter(s.hist);
-  const done=hist.filter(h=>h.c&&h.c.trim()!=='');
-  if(!done.length)return{lv:'none',reason:''};
-  const unres=getUnresolvedTriggers(hist);
-  if(!unres.length)return{lv:'none',reason:''};
-  const lastTwo=unres.slice(-2);
-  const consec=lastTwo.length===2;
-  const byM={};
-  unres.forEach(h=>{if(!byM[h.m])byM[h.m]=[];byM[h.m].push(h);});
-  const monthAlert=Object.values(byM).some(a=>a.length>=2);
-  if(consec||monthAlert){
-    const rs=[];
-    if(consec)rs.push('2 não-respostos consecutivos');
-    if(monthAlert){const ms=Object.entries(byM).filter(([,a])=>a.length>=2).map(([m])=>MN[+m]||m);rs.push('2+ em '+ms.join(', '));}
-    return{lv:'alert',reason:rs.join(' · ')};
+// ════════════════════════════════════════════════════════════
+// PARSER — reads Google Sheets control format
+// ════════════════════════════════════════════════════════════
+function isSkipTab(name) {
+  const n = name.toLowerCase().replace(/\s+/g,'').replace(/[^a-z0-9]/g,'');
+  return SKIP_TABS.has(n) || n.startsWith('rep') || n.startsWith('dash');
+}
+
+function fmtDate(v) {
+  if (v == null || v === '') return '';
+  // Google Sheets Date objects come as ISO strings or JS Date-like strings
+  const d = new Date(v);
+  if (!isNaN(d.getTime()) && String(v).length > 5) {
+    return `${pad(d.getDate())}/${pad(d.getMonth()+1)}/${d.getFullYear()}`;
   }
-  if(unres.length>0)return{lv:'warn',reason:'1 CP/NC sem reposição'};
-  return{lv:'none',reason:''};
+  return String(v).trim();
 }
 
-// ═══════════════════════════════════════════════════
-// PARSER DE CONTROL SHEET
-// ═══════════════════════════════════════════════════
-function isSkipTab(name){
-  const nl=name.toLowerCase().replace(/\s+/g,'').replace(/[^a-z0-9]/g,'');
-  return SKIP_TAB_NAMES.has(nl)||nl.startsWith('rep')||nl.startsWith('dash');
-}
+function parseTab(tabName, rows) {
+  const g = (row, col) => row&&row[col]!=null ? row[col].toString().trim() : '';
+  let name='', code='', status='Ativo';
+  const hist = [];
+  let inTable = false, curMonth = 0;
 
-function parseStudentSheet(tabName, rows){
-  const get=(row,col)=>{
-    if(!row||row[col]===undefined||row[col]===null)return'';
-    return row[col].toString().trim();
-  };
+  if (tabName.toLowerCase().includes('paus')) status = 'Pausado';
 
-  let studentName='';
-  let studentCode='';
-  let studentStatus='Ativo';
-  const hist=[];
-  let inTable=false;
-  let currentMonthNum=0;
+  for (let i=0; i<rows.length; i++) {
+    const row = rows[i]||[];
+    const a=g(row,0), b=g(row,1), c=g(row,2), e=fmtDate(row[4]!=null?row[4]:''), col6=g(row,6);
 
-  const isPaused=tabName.toLowerCase().includes('pause')||tabName.toLowerCase().includes('pausa');
-  if(isPaused)studentStatus='Pausado';
-
-  for(let i=0;i<rows.length;i++){
-    const row=rows[i]||[];
-    const a=get(row,0),b=get(row,1),c=get(row,2),e=get(row,4),g=get(row,6);
-
-    // ── Format B: "Relatório de Aulas" separator ──
-    if(a.toLowerCase().includes('relatório')||a.toLowerCase().includes('relatorio')){
-      for(let j=i+1;j<Math.min(i+7,rows.length);j++){
-        const v0=get(rows[j],0);
-        if(v0==='Aluno(a)'||v0==='Aluno'){
-          if(rows[j+1])studentName=studentName||get(rows[j+1],0);
-          if(rows[j+2]&&(get(rows[j+2],0)==='Cod.'||get(rows[j+2],0)==='Cód.')){
-            if(rows[j+3])studentCode=studentCode||get(rows[j+3],0);
-          }
-          break;
-        }
-        if(v0&&v0!=='Aluno(a)'&&v0!=='Aluno'&&!studentName&&v0!=='Cod.'&&v0!=='Cód.')studentName=v0;
-        if(/^(VIP|GRU|KIDS|GRP)\s*[-–]\s*\d+/i.test(v0)&&!studentCode)studentCode=v0;
+    // Format B — "Relatório de Aulas" block
+    if (a.toLowerCase().includes('relatório')||a.toLowerCase().includes('relatorio')) {
+      for (let j=i+1; j<Math.min(i+8,rows.length); j++) {
+        const v = g(rows[j],0);
+        if ((v==='Aluno(a)'||v==='Aluno') && rows[j+1]) { name=name||g(rows[j+1],0); }
+        if ((v==='Cod.'||v==='Cód.') && rows[j+1]) { code=code||g(rows[j+1],0); }
+        if (!name && v && v!=='Aluno(a)'&&v!=='Aluno'&&v!=='Cod.'&&v!=='Cód.'&&!/^\d/.test(v) && v.length>1) name=name||v;
+        if (!code && /^(VIP|GRU|KIDS|GRP)\s*[-–]\s*\d+/i.test(v)) code=v;
       }
       continue;
     }
 
-    // ── Format A: student name in col G ──
-    if(!studentName&&g&&g!=='Aluno(a)'&&g!=='Aluno'&&g!=='Cod.'&&g!=='Cód.'
-       &&!g.toLowerCase().includes('barra')&&!g.toLowerCase().includes('progresso')
-       &&!g.toLowerCase().includes('classes')){
-      if(a.includes('meses')||a.includes('mês')||a==='2026'||a.includes('ano')){
-        studentName=g;
-      }
+    // Format A — name in col G on summary row
+    if (!name && col6 && col6!=='Aluno(a)'&&col6!=='Cod.'&&col6!=='Cód.'
+        &&!col6.toLowerCase().includes('barra')&&!col6.toLowerCase().includes('progresso')
+        &&!col6.toLowerCase().includes('classes')&&!col6.toLowerCase().includes('total')) {
+      if (a.includes('meses')||a.includes('mês')||a==='2026'||a.includes('ano')) name=col6;
     }
 
-    // ── Code detection: col G or col A containing VIP/GRU/KIDS ──
-    const codeRx=/^(VIP|GRU|KIDS|GRP)\s*[-–]\s*\d+/i;
-    if(!studentCode&&codeRx.test(g))studentCode=g;
-    if(!studentCode&&codeRx.test(a))studentCode=a;
+    // Code detection anywhere
+    if (!code) {
+      const codeRx = /^(VIP|GRU|KIDS|GRP)\s*[-–]\s*\d+/i;
+      if (codeRx.test(col6)) code=col6;
+      else if (codeRx.test(a)) code=a;
+    }
 
-    // ── "Aluno(a)" as standalone label in col A ──
-    if((a==='Aluno(a)'||a==='Aluno')&&!studentName){
-      studentName=studentName||get(rows[i+1]||[],0)||get(rows[i+1]||[],6)||'';
-      if(rows[i+2]&&(get(rows[i+2],0)==='Cod.'||get(rows[i+2],0)==='Cód.')){
-        studentCode=studentCode||get(rows[i+3]||[],0)||'';
-      }
+    // Standalone "Aluno(a)" label
+    if ((a==='Aluno(a)'||a==='Aluno') && !name) {
+      name = name||g(rows[i+1]||[],0)||g(rows[i+1]||[],6)||'';
+      if (rows[i+2]&&(g(rows[i+2],0)==='Cod.'||g(rows[i+2],0)==='Cód.'))
+        code = code||g(rows[i+3]||[],0)||'';
       continue;
     }
 
-    // ── Class table header ──
-    if(a==='Mês'&&b==='N°'&&c==='Aula'){inTable=true;continue;}
+    // Table header
+    if ((a==='Mês'||a.toLowerCase()==='mes'||a.toLowerCase()==='mês')&&(b==='N°'||b==='No'||b==='Nº')&&(c==='Aula'||c.toLowerCase()==='aula')) { inTable=true; continue; }
 
-    if(inTable){
-      // Month header row (col A has text, cols B and C empty)
-      if(a&&!b&&!c){
-        const al=a.toLowerCase();
-        for(const[mn,num]of Object.entries(MONTH_MAP)){
-          if(al.startsWith(mn)){currentMonthNum=num;break;}
+    if (inTable) {
+      // Month name row
+      if (a && !b && !c) {
+        const al = a.toLowerCase();
+        for (const [mn,num] of Object.entries(MONTH_MAP)) {
+          if (al.startsWith(mn)) { curMonth=num; break; }
         }
         continue;
       }
-      // Class row: col B has number, col C has status code
-      if(b&&c!==undefined&&c!==''){
-        const status=c.toUpperCase().trim();
-        const date=e||'';
-        // Skip if looks like a header or label
-        if(status&&status!=='AULA'&&status!=='N°'){
-          hist.push({c:status,d:date,m:currentMonthNum});
+      // Class row — accept rows with either N° (col B) or a date (col E)
+      if ((b || e) && !(a && !b && !c && !e)) {
+        const code2 = c.toUpperCase().trim();
+        if (code2 && code2!=='AULA') {
+          hist.push({ c:code2, d:e||'', m:curMonth });
+        } else if (!code2 && e) {
+          hist.push({ c:'', d:e, m:curMonth }); // scheduled
         }
-      } else if(b&&!c&&e){
-        // Scheduled future class (no status yet, but has date)
-        hist.push({c:'',d:e,m:currentMonthNum});
       }
     }
   }
 
-  // Fallback: tab name is the student name
-  if(!studentName)studentName=tabName;
-
-  // Normalize code
-  studentCode=studentCode.replace(/\s+/g,' ').trim();
-
-  let plan='VIP';
-  const codeUp=studentCode.toUpperCase();
-  if(codeUp.includes('GRU')||codeUp.includes('GRP'))plan='Grupo';
-  else if(codeUp.includes('KIDS'))plan='KIDS';
-
-  return{n:studentName,cod:studentCode,plan,st:studentStatus,hist};
+  if (!name) name = tabName;
+  code = code.replace(/\s+/g,' ').trim();
+  const codeUp = code.toUpperCase();
+  const tabUp = tabName.toUpperCase();
+  const plan = (codeUp.includes('GRU')||codeUp.includes('GRP')||tabUp.includes('GRU')||tabUp.includes('GRP'))?'Grupo':(codeUp.includes('KIDS')||tabUp.includes('KIDS'))?'KIDS':'VIP';
+  return { n:name, cod:code, plan, st:status, hist };
 }
 
-// ═══════════════════════════════════════════════════
-// RENDER
-// ═══════════════════════════════════════════════════
-function init(){
-  // Carrega cache local imediatamente para render rápido
-  const cached=localStorage.getItem('uf_teachers');
-  if(cached){
-    try{
-      TEACHERS=JSON.parse(cached);
-      buildUI();
-      renderAll();
-    }catch(e){
-      TEACHERS=[];
-      localStorage.removeItem('uf_teachers');
-      buildUI();
-      renderEmptyState();
-    }
-  } else {
-    buildUI();
-    renderEmptyState();
-  }
-
-  if(appsUrl){
-    document.getElementById('apps-url').value=appsUrl;
-    // Auto-sincroniza sempre ao abrir — garante dados atualizados em qualquer dispositivo
-    autoSync();
-  }
+// ════════════════════════════════════════════════════════════
+// RENDER HELPERS
+// ════════════════════════════════════════════════════════════
+function pillsHTML(fhist, resSet) {
+  return fhist.map((h,i)=>{
+    const n = normalizeCode(h.c);
+    const lbl = n==='em'?'·':((h.c||'').toUpperCase().slice(0,2)||'·');
+    const isTrig2 = isTrigger(h.c);
+    const cls = [
+      'pill', n,
+      resSet.has(i)&&isTrig2 ? 'resolved-trigger' : '',
+      resSet.has(i)&&n==='r'  ? 'resolved-r'        : ''
+    ].filter(Boolean).join(' ');
+    const title = `${h.d||'—'} — ${h.c||'agendado'}${resSet.has(i)&&isTrig2?' (reposto)':resSet.has(i)&&n==='r'?' (reposição confirmada)':''}`;
+    return `<div class="${cls}" title="${title}">${lbl}</div>`;
+  }).join('');
 }
 
-async function autoSync(){
-  if(!appsUrl)return;
-  // Mostra indicador sutil de atualização na topbar
-  const btn=document.getElementById('sync-btn');
-  btn.className='sync-btn sy';
-  document.getElementById('sync-txt').textContent='Atualizando...';
-  try{
-    await doSyncCore(appsUrl);
-  }catch(e){
-    // falha silenciosa no auto-sync — dados do cache continuam visíveis
-    btn.className='sync-btn';
-    document.getElementById('sync-txt').textContent='Sincronizar';
-    console.warn('Auto-sync falhou:',e.message);
-  }
+function fmtSyncTime(s) {
+  if (!s) return '';
+  return `Sync ${s}`;
 }
 
-function buildUI(){
-  buildTabs();
-  buildTeacherPanels();
-  if(appsUrl)document.getElementById('apps-url').value=appsUrl;
+// ════════════════════════════════════════════════════════════
+// MAIN RENDER
+// ════════════════════════════════════════════════════════════
+function renderAll() {
+  if (!DATA.length) { renderEmpty(); return; }
+
+  let totStudents=0, totAlerts=0, totWarns=0;
+  DATA.forEach(t => {
+    t.students.filter(s=>s.st==='Ativo').forEach(s => {
+      totStudents++;
+      const a = checkAlert(t.name, s);
+      if (a.lv==='alert') totAlerts++;
+      else if (a.lv==='warn') totWarns++;
+    });
+  });
+
+  renderKPI(totStudents, totAlerts, totWarns);
+  renderBanner(totAlerts);
+  renderTabCounts();
+  renderGrid();
+  DATA.forEach(t => renderTeacherPanel(t));
 }
 
-function renderEmptyState(){
+function renderEmpty() {
+  document.getElementById('kpi-row').innerHTML='';
+  document.getElementById('alert-banner').classList.add('hidden');
+  const badge = document.getElementById('badge-all');
+  badge.textContent='0'; badge.className='tab-badge ok';
   document.getElementById('all-grid').innerHTML=`
     <div class="empty-state" style="grid-column:1/-1">
-      <div class="empty-state-icon">📊</div>
-      <div class="empty-state-title">Nenhum dado carregado</div>
-      <div class="empty-state-sub">
-        Clique em <span class="sync-highlight">🔄 Sincronizar</span> para conectar às control sheets dos professores.<br><br>
-        Os dados são lidos <strong>exclusivamente</strong> das planilhas Google Sheets e atualizados a cada sincronização.
+      <div class="empty-icon">📊</div>
+      <div class="empty-title">Nenhum dado carregado</div>
+      <div class="empty-sub">
+        Clique em <strong>⚙ Configurar</strong> para conectar às control sheets dos professores.<br>
+        Os dados são lidos exclusivamente das planilhas Google Sheets.
       </div>
-      <button class="btn btn-p" onclick="openModal('sync')" style="margin-top:8px">🔄 Configurar sincronização</button>
+      <button class="btn btn-primary" onclick="openModal('settings')" style="margin-top:8px">⚙ Configurar sincronização</button>
     </div>`;
-  document.getElementById('kpi').innerHTML='';
-  document.getElementById('ab').classList.add('hidden');
 }
 
-function renderAll(){
-  if(!TEACHERS.length){renderEmptyState();return;}
-  let totA=0,totAl=0,totW=0;
-  TEACHERS.forEach(t=>{
-    t.students.filter(s=>s.st==='Ativo').forEach(s=>{
-      // Para KPI: conta apenas alunos com atividade no período selecionado (ou todos se 'all')
-      const fh=applyFilter(s.hist);
-      if(activeFilter!=='all'&&!fh.some(h=>h.c&&h.c.trim()))return;
-      totA++;
-      const a=checkAlert(t.name,s);
-      if(a.lv==='alert')totAl++;
-      else if(a.lv==='warn')totW++;
-    });
-  });
-  renderKPI(totA,totAl,totW);
-  renderBanner(totAl);
-  renderAllCards();
-  updateTabCounts();
-  TEACHERS.forEach(t=>renderTeacherPanel(t));
+function renderKPI(total, alerts, warns) {
+  document.getElementById('kpi-row').innerHTML = [
+    {cls:'blue',  label:'Professores',  val:DATA.length,        sub:'no sistema'},
+    {cls:'green', label:'Alunos Ativos',val:total,              sub:'matriculados'},
+    {cls:'red',   label:'🔴 Alertas',   val:alerts,             sub:'contato necessário'},
+    {cls:'yellow',label:'🟡 Atenções',  val:warns,              sub:'monitorar'},
+    {cls:'purple',label:'✓ Em Dia',     val:total-alerts-warns, sub:'sem ocorrências'},
+  ].map(k=>`
+    <div class="kcard ${k.cls}">
+      <div class="kcard-label">${k.label}</div>
+      <div class="kcard-value">${k.val}</div>
+      <div class="kcard-sub">${k.sub}</div>
+    </div>`).join('');
 }
 
-function renderKPI(total,alerts,warns){
-  document.getElementById('kpi').innerHTML=[
-    {c:'b',l:'Professores',v:TEACHERS.length,s:'ativos no sistema'},
-    {c:'g',l:'Alunos Ativos',v:total,s:'matriculados'},
-    {c:'r',l:'🔴 Alertas',v:alerts,s:'contato necessário'},
-    {c:'y',l:'🟡 Atenções',v:warns,s:'monitorar'},
-    {c:'p',l:'✓ Em dia',v:total-alerts-warns,s:'sem ocorrências'},
-  ].map(k=>`<div class="kc ${k.c}"><div class="kl">${k.l}</div><div class="kv">${k.v}</div><div class="ks">${k.s}</div></div>`).join('');
+function renderBanner(n) {
+  const el = document.getElementById('alert-banner');
+  if (n > 0) {
+    el.classList.remove('hidden');
+    document.getElementById('alert-banner-text').textContent = `${n} aluno${n>1?'s precisam':'precisa'} de atenção`;
+    document.getElementById('alert-banner-count').textContent = n;
+  } else el.classList.add('hidden');
 }
 
-function renderBanner(n){
-  const b=document.getElementById('ab');
-  if(n>0){
-    b.classList.remove('hidden');
-    document.getElementById('ab-title').textContent=`${n} aluno${n>1?'s precisam':'precisa'} de atenção`;
-    document.getElementById('ab-desc').textContent='2+ CP/NC consecutivos ou no mesmo mês';
-    document.getElementById('ab-c').textContent=n;
-  } else b.classList.add('hidden');
-}
-
-function buildTabs(){
-  const wrap=document.getElementById('tabs');
-  // Remove existing teacher tabs (keep #tab-all and filter buttons/divider)
-  wrap.querySelectorAll('.tab:not(#tab-all)').forEach(b=>b.remove());
-  const divider=document.getElementById('tabs-end-divider');
-  TEACHERS.forEach(t=>{
-    if(document.getElementById('tab-'+t.name))return;
-    const btn=document.createElement('button');
-    btn.className='tab';btn.id='tab-'+t.name;
-    btn.innerHTML=t.name+'<span class="tcnt ok" id="tcnt-'+t.name+'">0</span>';
-    btn.onclick=()=>goPanel(t.name,btn);
-    // Insert before the divider so filter buttons stay at the end
-    wrap.insertBefore(btn,divider);
+function buildTabs() {
+  const bar = document.getElementById('tab-bar');
+  bar.querySelectorAll('.tab-btn:not(#tab-all), .tab-bar-sep').forEach(el=>el.remove());
+  if (!DATA.length) return;
+  const sep = document.createElement('div'); sep.className='tab-bar-sep';
+  bar.appendChild(sep);
+  DATA.forEach(t => {
+    const btn = document.createElement('button');
+    btn.className='tab-btn'; btn.id='tab-'+t.name;
+    btn.innerHTML=`${t.name}<span class="tab-badge ok" id="badge-${t.name}">0</span>`;
+    btn.onclick = () => goPanel(t.name, btn);
+    bar.appendChild(btn);
   });
 }
 
-function updateTabCounts(){
-  const totAl=TEACHERS.reduce((a,t)=>a+t.students.filter(s=>checkAlert(t.name,s).lv==='alert').length,0);
-  const totW=TEACHERS.reduce((a,t)=>a+t.students.filter(s=>checkAlert(t.name,s).lv==='warn').length,0);
-  const totA=TEACHERS.reduce((a,t)=>a+t.students.filter(s=>s.st==='Ativo').length,0);
-  const cnt=document.getElementById('cnt-all');
-  cnt.textContent=totAl>0?totAl:totA;
-  cnt.className='tcnt '+(totAl>0?'a':totW>0?'w':'ok');
-  TEACHERS.forEach(t=>{
-    const al=t.students.filter(s=>checkAlert(t.name,s).lv==='alert').length;
-    const wn=t.students.filter(s=>checkAlert(t.name,s).lv==='warn').length;
-    const actv=t.students.filter(s=>s.st==='Ativo').length;
-    const el=document.getElementById('tcnt-'+t.name);
-    if(el){el.textContent=al>0?al:wn>0?wn:actv;el.className='tcnt '+(al>0?'a':wn>0?'w':'ok');}
+function renderTabCounts() {
+  const totAl = DATA.reduce((s,t)=>s+t.students.filter(st=>checkAlert(t.name,st).lv==='alert').length,0);
+  const totA  = DATA.reduce((s,t)=>s+t.students.filter(st=>st.st==='Ativo').length,0);
+  const totW  = DATA.reduce((s,t)=>s+t.students.filter(st=>checkAlert(t.name,st).lv==='warn').length,0);
+  const allBadge = document.getElementById('badge-all');
+  allBadge.textContent = totAl>0?totAl:totA;
+  allBadge.className = 'tab-badge '+(totAl>0?'alert':totW>0?'warn':'ok');
+  DATA.forEach(t => {
+    const al = t.students.filter(s=>checkAlert(t.name,s).lv==='alert').length;
+    const wn = t.students.filter(s=>checkAlert(t.name,s).lv==='warn').length;
+    const ac = t.students.filter(s=>s.st==='Ativo').length;
+    const el = document.getElementById('badge-'+t.name);
+    if (!el) return;
+    el.textContent = al>0?al:wn>0?wn:ac;
+    el.className = 'tab-badge '+(al>0?'alert':wn>0?'warn':'ok');
   });
 }
 
-function renderAllCards(){
-  document.getElementById('all-grid').innerHTML=TEACHERS.map(t=>{
-    // Filtra alunos com atividade no período (ou todos se 'all')
-    const active=t.students.filter(s=>{
-      if(s.st!=='Ativo')return false;
-      if(activeFilter==='all')return true;
-      return applyFilter(s.hist).some(h=>h.c&&h.c.trim());
-    });
-    const al=active.filter(s=>checkAlert(t.name,s).lv==='alert').length;
-    const wn=active.filter(s=>checkAlert(t.name,s).lv==='warn').length;
-    const ok=active.length-al-wn;
-    const cls='tcard'+(al>0?' al':wn>0?' wn':'');
-    const chip=al>0?`<span class="tchip a">⚠ ${al} alerta${al>1?'s':''}</span>`:wn>0?`<span class="tchip w">◐ ${wn} atenção${wn>1?'ões':''}</span>`:`<span class="tchip ok">✓ Em dia</span>`;
-    const sheetId=TEACHER_IDS[t.name]||t.id||'';
-    const link=sheetId?`<a href="https://docs.google.com/spreadsheets/d/${sheetId}" target="_blank" onclick="event.stopPropagation()" style="font:600 10px var(--fm);color:var(--g2);text-decoration:none">↗</a>`:'';
-    const prog=active.length?Math.round(ok/active.length*100):100;
-    return`<div class="${cls}" onclick="goPanel('${t.name}',document.getElementById('tab-${t.name}'))">
-      <div class="tch">
-        <div class="tav">${t.name.slice(0,2).toUpperCase()}</div>
-        <div><div class="tn">${t.name}</div><div class="tm">${active.length} aluno${active.length!==1?'s':''} ativo${active.length!==1?'s':''}</div></div>
-        <div style="margin-left:auto;display:flex;align-items:center;gap:8px">${link}</div>
+function renderGrid() {
+  document.getElementById('all-grid').innerHTML = DATA.map(t => {
+    const active = t.students.filter(s => s.st==='Ativo');
+    const al = active.filter(s=>checkAlert(t.name,s).lv==='alert').length;
+    const wn = active.filter(s=>checkAlert(t.name,s).lv==='warn').length;
+    const ok = active.length-al-wn;
+    const cardCls = al>0?'t-card has-alert':wn>0?'t-card has-warn':'t-card';
+    const chip = al>0
+      ? `<span class="t-chip alert">⚠ ${al} alerta${al>1?'s':''}</span>`
+      : wn>0
+      ? `<span class="t-chip warn">◐ ${wn} atenção${wn>1?'ões':''}</span>`
+      : `<span class="t-chip ok">✓ Em dia</span>`;
+    const prog = active.length ? Math.round(ok/active.length*100) : 100;
+    const sid = SHEET_IDS[t.name]||t.id||'';
+    const lnk = sid ? `<a href="https://docs.google.com/spreadsheets/d/${sid}" target="_blank" onclick="event.stopPropagation()" style="font:600 10px var(--fm);color:var(--g2);opacity:.8">↗</a>` : '';
+    return `<div class="${cardCls}" onclick="goPanel('${t.name}',document.getElementById('tab-${t.name}'))">
+      <div class="t-card-head">
+        <div class="t-avatar">${t.name.slice(0,2).toUpperCase()}</div>
+        <div>
+          <div class="t-name">${t.name}</div>
+          <div class="t-meta">${active.length} aluno${active.length!==1?'s':''} ativo${active.length!==1?'s':''}</div>
+        </div>
+        <div style="margin-left:auto">${lnk}</div>
       </div>
-      <div class="tstats">
-        <div class="ts"><div class="tsv" style="color:var(--g)">${ok}</div><div class="tsl">OK</div></div>
-        <div class="ts"><div class="tsv" style="color:var(--r)">${al}</div><div class="tsl">Alerta</div></div>
-        <div class="ts"><div class="tsv" style="color:var(--y)">${wn}</div><div class="tsl">Atenção</div></div>
-        <div class="ts"><div class="tsv" style="color:var(--t2)">${active.length}</div><div class="tsl">Total</div></div>
+      <div class="t-stats">
+        <div class="t-stat"><div class="t-stat-v" style="color:var(--g)">${ok}</div><div class="t-stat-l">OK</div></div>
+        <div class="t-stat"><div class="t-stat-v" style="color:var(--r)">${al}</div><div class="t-stat-l">Alerta</div></div>
+        <div class="t-stat"><div class="t-stat-v" style="color:var(--y)">${wn}</div><div class="t-stat-l">Atenção</div></div>
+        <div class="t-stat"><div class="t-stat-v" style="color:var(--t2)">${active.length}</div><div class="t-stat-l">Total</div></div>
       </div>
-      <div style="display:flex;align-items:center;justify-content:space-between">${chip}<span style="font:600 10px var(--fm);color:var(--t3)">${prog}% OK</span></div>
-      <div class="tprog"><div class="tpf" style="width:${prog}%"></div></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px">
+        ${chip}
+        <span style="font:600 10px var(--fm);color:var(--t3)">${prog}% OK</span>
+      </div>
+      <div class="t-prog-bar"><div class="t-prog-fill" style="width:${prog}%"></div></div>
     </div>`;
   }).join('');
 }
 
-function buildTeacherPanels(){
-  const wrap=document.getElementById('teacher-panels');
-  wrap.innerHTML='';
-  TEACHERS.forEach(t=>{
-    const div=document.createElement('div');
-    div.className='panel';div.id='panel-'+t.name;
+function buildTeacherPanels() {
+  const wrap = document.getElementById('teacher-panels');
+  wrap.innerHTML = '';
+  DATA.forEach(t => {
+    const div = document.createElement('div');
+    div.id = 'panel-'+t.name;
+    div.style.display = 'none';
     wrap.appendChild(div);
   });
 }
 
-function renderTeacherPanel(t){
-  const panel=document.getElementById('panel-'+t.name);
-  if(!panel)return;
-  const active=t.students.filter(s=>s.st==='Ativo');
-  const paused=t.students.filter(s=>s.st==='Pausado');
-  const al=active.filter(s=>checkAlert(t.name,s).lv==='alert').length;
-  const wn=active.filter(s=>checkAlert(t.name,s).lv==='warn').length;
-  const sheetId=TEACHER_IDS[t.name]||t.id||'';
-  const link=sheetId?`<a href="https://docs.google.com/spreadsheets/d/${sheetId}" target="_blank" style="padding:5px 12px;border-radius:var(--r1);border:1px solid var(--g3);background:var(--gd);color:var(--g);font:600 11px var(--f);text-decoration:none">↗ Planilha</a>`:'';
-  const chips=al>0?`<div class='ach a'><div class='ach-dot'></div>🔴 ${al} aluno${al>1?'s':''} com alerta — entrar em contato</div>`:
-              wn>0?`<div class='ach w'><div class='ach-dot'></div>🟡 ${wn} atenção — monitorar</div>`:
-              `<div class='ach ok'><div class='ach-dot'></div>✓ Todos em dia</div>`;
+function renderTeacherPanel(t) {
+  const el = document.getElementById('panel-'+t.name);
+  if (!el) return;
+  const active = t.students.filter(s=>s.st==='Ativo');
+  const paused = t.students.filter(s=>s.st==='Pausado');
+  const al = active.filter(s=>checkAlert(t.name,s).lv==='alert').length;
+  const wn = active.filter(s=>checkAlert(t.name,s).lv==='warn').length;
+  const sid = SHEET_IDS[t.name]||t.id||'';
+  const lnk = sid ? `<a href="https://docs.google.com/spreadsheets/d/${sid}" target="_blank" class="sheet-link">↗ Planilha</a>` : '';
+  const chip = al>0
+    ? `<div class="status-chip alert"><div class="status-dot"></div>🔴 ${al} aluno${al>1?'s':''} com alerta — entrar em contato</div>`
+    : wn>0
+    ? `<div class="status-chip warn"><div class="status-dot"></div>🟡 ${wn} atenção — monitorar</div>`
+    : `<div class="status-chip ok"><div class="status-dot"></div>✓ Todos em dia</div>`;
 
-  const rows=active.map(s=>{
-    const a=checkAlert(t.name,s);
-    const rc=a.lv==='alert'?'ral':a.lv==='warn'?'rwn':'';
-    const tag=a.lv==='alert'?`<div class="at-a">⚠ ALERTAR</div>`:
-               a.lv==='warn'?`<div class="at-w">◐ MONITORAR</div>`:
-               `<span class="bk bg">✓ OK</span>`;
-    const dismissBtn=a.lv!=='none'&&a.reason!=='dispensado'
-      ?`<button class="dismiss-btn" onclick="dismissAlert('${t.name}','${esc(s.n)}',event)">✕ Ignorar</button>`:'';
-    const fhist=applyFilter(s.hist);
-    const resIdx=resolvedByR(fhist);
-    const okc=fhist.filter(h=>['ok','r'].includes(norm(h.c))).length;
-    const nc=fhist.filter(h=>isTrig(h.c)).length;
-    const rep=fhist.filter(h=>norm(h.c)==='r').length;
-    const unresC=getUnresolvedTriggers(fhist).length;
-    const pills=fhist.map((h,hi)=>{
-      const n=norm(h.c);
-      const lbl=n==='em'?'·':((h.c||'').toUpperCase().slice(0,2)||'·');
-      const isRes=resIdx.has(hi);
-      const extraStyle=isRes&&isTrig(h.c)?'opacity:.45;text-decoration:line-through':
-                       isRes&&n==='r'?'box-shadow:0 0 0 1.5px var(--g)':'';
-      return`<div class="hp ${n}" title="${h.d||'—'} — ${h.c||'agendado'}${isRes&&isTrig(h.c)?' (reposto)':isRes&&n==='r'?' (reposição confirmada)':''}" style="${extraStyle}">${lbl}</div>`;
-    }).join('');
-    return`<tr class="${rc}" onclick="openStudDetail('${esc(t.name)}','${esc(s.n)}')">
-      <td><div class="nm">${s.n}</div><div style="font:9px var(--fm);color:var(--t3)">${s.cod}</div></td>
-      <td><span class="bk bb">${s.plan}</span></td>
+  const rows = active.map(s => {
+    const a = checkAlert(t.name, s);
+    const fh = filterHist(s.hist);
+    const res = resolvedPairs(fh);
+    const rowCls = a.lv==='alert'?'row-alert':a.lv==='warn'?'row-warn':'';
+    const tag = a.lv==='alert'
+      ? `<div class="tag-alert">⚠ ALERTAR</div>`
+      : a.lv==='warn'
+      ? `<div class="tag-warn">◐ MONITORAR</div>`
+      : `<span class="badge badge-green">✓ OK</span>`;
+    const dimBtn = a.lv!=='none'&&a.reason!=='dispensado'
+      ? `<button class="btn-dismiss" onclick="event.stopPropagation();dismissAlert('${esc(t.name)}','${esc(s.n)}')">✕ Ignorar</button>` : '';
+    const okc = fh.filter(h=>['ok','r'].includes(normalizeCode(h.c))).length;
+    const ncc = fh.filter(h=>isTrigger(h.c)).length;
+    const rep = fh.filter(h=>normalizeCode(h.c)==='r').length;
+    const unresC = getUnresolved(fh).length;
+    return `<tr class="${rowCls}" onclick="openStudentModal('${esc(t.name)}','${esc(s.n)}')">
+      <td><div class="cell-name">${s.n}</div><div class="cell-code">${s.cod}</div></td>
+      <td><span class="badge badge-blue">${s.plan}</span></td>
       <td>${tag}</td>
       <td><span style="font-size:10px;color:var(--t3)">${a.reason&&a.reason!=='dispensado'?a.reason:'—'}</span></td>
-      <td>${dismissBtn}</td>
-      <td><div style="display:flex;align-items:center;gap:5px">
-        <span style="font:700 12px var(--fm);color:var(--g)">${okc}</span><span style="font:10px var(--fm);color:var(--t4)">ok</span>
-        <span style="font:700 12px var(--fm);color:var(--r)">${nc}</span><span style="font:10px var(--fm);color:var(--t4)">cp/nc</span>
-        ${rep>0?`<span style="font:700 12px var(--fm);color:var(--b)">${rep}</span><span style="font:10px var(--fm);color:var(--t4)">rep</span>`:''}
-        ${unresC>0?`<span style="font:700 10px var(--fm);color:var(--r);background:rgba(255,77,109,.1);padding:1px 5px;border-radius:3px;border:1px solid var(--r2)">${unresC}✗</span>`:''}
-      </div></td>
-      <td><div class="hrow">${pills}</div></td>
+      <td>${dimBtn}</td>
+      <td>
+        <div style="display:flex;align-items:center;gap:5px;font-family:var(--fm)">
+          <span style="font-weight:700;color:var(--g)">${okc}</span><span style="font-size:9px;color:var(--t4)">ok</span>
+          <span style="font-weight:700;color:var(--r)">${ncc}</span><span style="font-size:9px;color:var(--t4)">nc</span>
+          ${rep>0?`<span style="font-weight:700;color:var(--b)">${rep}</span><span style="font-size:9px;color:var(--t4)">rep</span>`:''}
+          ${unresC>0?`<span style="font:700 10px var(--fm);color:var(--r);background:rgba(255,61,113,.1);padding:1px 6px;border-radius:4px;border:1px solid var(--r2)">${unresC}✗</span>`:''}
+        </div>
+      </td>
+      <td><div class="pills">${pillsHTML(fh,res)}</div></td>
     </tr>`;
   }).join('');
 
-  const pausedRow=paused.length?`<div class="paused-row"><span class="prl">Pausados</span>${paused.map(s=>`<span class="bk bx">${s.n}</span>`).join('')}</div>`:'';
+  const pausedSection = paused.length
+    ? `<div class="paused-section">
+         <span class="paused-label">Pausados</span>
+         ${paused.map(s=>`<span class="badge badge-gray">${s.n}</span>`).join('')}
+       </div>` : '';
 
-  const syncDate=lastSync?`<span style="font:500 9px var(--fm);color:var(--t3);margin-left:8px">última sync ${lastSync}</span>`:'';
-
-  panel.innerHTML=`
-    <div class="ph">
-      <div class="phav">${t.name.slice(0,2).toUpperCase()}</div>
-      <div><div class="phn">${t.name}</div><div class="phs">${active.length} alunos ativos${syncDate}</div></div>
-      <div class="phst">
-        <div style="text-align:right"><div class="phsv" style="color:var(--r)">${al}</div><div class="phsl">Alertas</div></div>
-        <div style="text-align:right"><div class="phsv" style="color:var(--y)">${wn}</div><div class="phsl">Atenções</div></div>
-        <div style="text-align:right"><div class="phsv" style="color:var(--b)">${active.length}</div><div class="phsl">Alunos</div></div>
+  el.innerHTML = `
+    <div class="panel-head">
+      <div class="panel-avatar">${t.name.slice(0,2).toUpperCase()}</div>
+      <div>
+        <div class="panel-name">${t.name}</div>
+        <div class="panel-meta">${active.length} alunos ativos${lastSyncAt?' · sync '+lastSyncAt:''}</div>
       </div>
-      <div style="margin-left:auto;display:flex;gap:8px;align-items:center">${link}</div>
+      <div class="panel-stats">
+        <div class="panel-stat"><div class="panel-stat-v" style="color:var(--r)">${al}</div><div class="panel-stat-l">Alertas</div></div>
+        <div class="panel-stat"><div class="panel-stat-v" style="color:var(--y)">${wn}</div><div class="panel-stat-l">Atenções</div></div>
+        <div class="panel-stat"><div class="panel-stat-v" style="color:var(--b)">${active.length}</div><div class="panel-stat-l">Alunos</div></div>
+      </div>
+      <div style="margin-left:auto">${lnk}</div>
     </div>
-    <div class="ach-row">${chips}</div>
-    <div class="card">
-      <div class="card-h">
-        <div class="card-t">Alunos Ativos</div>
-        <div class="card-s">lido exclusivamente das control sheets · clique para detalhes</div>
+    <div class="status-row">${chip}</div>
+    <div class="table-card">
+      <div class="table-header">
+        <div class="table-title">Alunos Ativos</div>
+        <div class="table-sub">dados das control sheets · clique para detalhes</div>
       </div>
-      <div class="tw"><table>
-        <thead><tr><th>Aluno</th><th>Plano</th><th>Status</th><th>Motivo</th><th>Alerta</th><th>OK · NC</th><th>Histórico de Aulas</th></tr></thead>
-        <tbody>${rows||'<tr><td colspan="7" class="empty">Sem alunos ativos</td></tr>'}</tbody>
+      <div class="table-wrap"><table>
+        <thead><tr>
+          <th>Aluno</th><th>Plano</th><th>Status</th>
+          <th>Motivo</th><th>Alerta</th><th>Contadores</th><th>Histórico de Aulas</th>
+        </tr></thead>
+        <tbody>${rows||'<tr><td colspan="7" style="text-align:center;padding:28px;color:var(--t3);font:11px var(--fm)">Sem alunos ativos neste período</td></tr>'}</tbody>
       </table></div>
-      ${pausedRow}
-      <div class="legend">
-        <div class="li"><div class="ld" style="background:rgba(0,229,160,.14);border:1px solid var(--g3)"></div>OK</div>
-        <div class="li"><div class="ld" style="background:rgba(255,77,109,.15);border:1px solid var(--r2)"></div>NC</div>
-        <div class="li"><div class="ld" style="background:rgba(255,190,0,.14);border:1px solid #664d00"></div>CA</div>
-        <div class="li"><div class="ld" style="background:rgba(255,140,66,.14);border:1px solid #553300"></div>CP</div>
-        <div class="li"><div class="ld" style="background:rgba(77,148,255,.14);border:1px solid #093366"></div>R</div>
-        <div class="li"><div class="ld" style="background:var(--ink4)"></div>F · feriado</div>
+      ${pausedSection}
+      <div class="table-legend">
+        <div class="legend-item"><div class="legend-swatch" style="background:rgba(0,214,143,.14);border:1px solid var(--g3)"></div>OK</div>
+        <div class="legend-item"><div class="legend-swatch" style="background:rgba(255,61,113,.16);border:1px solid var(--r2)"></div>NC</div>
+        <div class="legend-item"><div class="legend-swatch" style="background:rgba(255,170,0,.14);border:1px solid #554200"></div>CA</div>
+        <div class="legend-item"><div class="legend-swatch" style="background:rgba(255,107,61,.14);border:1px solid #553300"></div>CP</div>
+        <div class="legend-item"><div class="legend-swatch" style="background:rgba(65,137,255,.14);border:1px solid #0d3a99"></div>R</div>
+        <div class="legend-item"><div class="legend-swatch" style="background:var(--s3)"></div>F · feriado</div>
       </div>
     </div>`;
 }
 
-// ═══════════════════════════════════════════════════
-// NAVEGAÇÃO
-// ═══════════════════════════════════════════════════
-function goPanel(id,btn){
-  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
-  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
-  const p=document.getElementById('panel-'+id);
-  if(p)p.classList.add('on');
-  if(btn)btn.classList.add('on');
-  document.getElementById('tb-sub').textContent=id==='all'?'Visão geral · todos os professores':`Prof. ${id}`;
+// ════════════════════════════════════════════════════════════
+// NAVIGATION
+// ════════════════════════════════════════════════════════════
+function goPanel(id, btn) {
+  document.getElementById('panel-all').style.display = 'none';
+  document.querySelectorAll('#teacher-panels > div').forEach(p=>p.style.display='none');
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  if (id==='all') {
+    document.getElementById('panel-all').style.display = 'block';
+  } else {
+    const p = document.getElementById('panel-'+id);
+    if (p) p.style.display = 'block';
+  }
+  if (btn) btn.classList.add('active');
+  activeTab = id;
 }
 
-// ═══════════════════════════════════════════════════
-// STUDENT DETAIL MODAL
-// ═══════════════════════════════════════════════════
-function openStudDetail(tName,sName){
-  const t=TEACHERS.find(x=>x.name===tName);if(!t)return;
-  const s=t.students.find(x=>x.n===sName);if(!s)return;
-  const a=checkAlert(tName,s);
-  const alertBox=a.lv==='alert'
-    ?`<div style="background:var(--rd);border:1px solid var(--r2);border-radius:8px;padding:12px;margin-bottom:12px"><div style="font:700 11px var(--fm);color:var(--r);margin-bottom:4px">🔴 ALERTA — Entre em contato</div><div style="font-size:11px">${a.reason}</div></div>`
-    :a.lv==='warn'
-    ?`<div style="background:var(--yd);border:1px solid #664d00;border-radius:8px;padding:12px;margin-bottom:12px"><div style="font:700 11px var(--fm);color:var(--y);margin-bottom:4px">🟡 ATENÇÃO — Monitorar</div><div style="font-size:11px">${a.reason}</div></div>`
-    :`<div style="background:var(--gd);border:1px solid var(--g3);border-radius:8px;padding:10px;margin-bottom:12px;font:700 11px var(--fm);color:var(--g)">✓ Aluno em dia</div>`;
-  const histRows=s.hist.filter(h=>h.c).map((h,i,arr)=>{
-    const nc=norm(h.c);
-    const isTriggered=isTrig(h.c);
-    const nextCode=arr[i+1]?norm(arr[i+1].c):null;
-    const wasResolved=isTriggered&&nextCode==='r';
-    const statusTxt=nc==='r'?'✓ Reposição':wasResolved?'↩ CP/NC — reposto':isTriggered?'⚠ Precisa repor':nc==='ok'?'✓ OK':'—';
-    const statusColor=nc==='r'?'var(--b)':wasResolved?'var(--y)':isTriggered?'var(--r)':nc==='ok'?'var(--g)':'var(--t3)';
-    return`<tr><td class="mo">${h.d||'—'}</td><td class="mo">${MN[h.m]||'?'}</td>
-    <td><span class="hp ${nc}" style="width:auto;padding:2px 8px;border-radius:5px">${(h.c||'—').toUpperCase()}</span></td>
-    <td><span style="font-size:11px;color:${statusColor}">${statusTxt}</span></td></tr>`;
+// ════════════════════════════════════════════════════════════
+// STUDENT MODAL
+// ════════════════════════════════════════════════════════════
+function openStudentModal(tName, sName) {
+  const t = DATA.find(x=>x.name===tName); if(!t) return;
+  const s = t.students.find(x=>x.n===sName); if(!s) return;
+  const a = checkAlert(tName, s);
+  const fh = filterHist(s.hist);
+  const res = resolvedPairs(fh);
+  const sid = SHEET_IDS[tName]||'';
+
+  const alertBox = a.lv==='alert'
+    ? `<div style="background:var(--rd);border:1px solid var(--r2);border-radius:10px;padding:13px;margin-bottom:14px">
+         <div style="font:700 10px var(--fm);color:var(--r);text-transform:uppercase;margin-bottom:4px">🔴 Alerta — Entre em contato</div>
+         <div style="font-size:11px">${a.reason}</div></div>`
+    : a.lv==='warn'
+    ? `<div style="background:var(--yd);border:1px solid #554200;border-radius:10px;padding:13px;margin-bottom:14px">
+         <div style="font:700 10px var(--fm);color:var(--y);text-transform:uppercase;margin-bottom:4px">🟡 Atenção — Monitorar</div>
+         <div style="font-size:11px">${a.reason}</div></div>`
+    : `<div style="background:var(--gd);border:1px solid var(--g3);border-radius:10px;padding:11px;margin-bottom:14px;font:700 10px var(--fm);color:var(--g);text-transform:uppercase">✓ Aluno em dia neste período</div>`;
+
+  const histRows = fh.filter(h=>h.c).map((h,i,arr)=>{
+    const n = normalizeCode(h.c);
+    const isTrig2 = isTrigger(h.c);
+    const nxt = arr[i+1] ? normalizeCode(arr[i+1].c) : null;
+    const wasResolved = isRResolvable(h.c) && nxt==='r';
+    const stxt = n==='r' ? '✓ Reposição' : wasResolved ? '↩ Reposto por R' : isTrig2 ? '⚠ Pendente' : n==='ok' ? '✓ OK' : '—';
+    const sc = n==='r'?'var(--b)':wasResolved?'var(--y)':isTrig2?'var(--r)':n==='ok'?'var(--g)':'var(--t3)';
+    return `<tr>
+      <td style="font:11px var(--fm);color:var(--t2)">${h.d||'—'}</td>
+      <td style="font:11px var(--fm);color:var(--t2)">${MONTH_NAMES[h.m]||'?'}</td>
+      <td><span class="pill ${n}" style="width:auto;padding:2px 9px;border-radius:6px">${(h.c||'—').toUpperCase()}</span></td>
+      <td><span style="font-size:11px;color:${sc}">${stxt}</span></td>
+    </tr>`;
   }).join('');
-  const repCount=s.hist.filter(h=>norm(h.c)==='r').length;
-  const unresolved=getUnresolvedTriggers(s.hist).length;
-  const sheetId=TEACHER_IDS[tName]||'';
-  document.getElementById('sm-t').textContent=`${s.n} · ${s.cod}`;
-  document.getElementById('sm-b').innerHTML=`
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px">
-      <div style="background:var(--ink3);border-radius:8px;padding:10px;text-align:center"><div style="font:700 20px var(--fm);color:var(--g)">${s.hist.filter(h=>['ok','r'].includes(norm(h.c))).length}</div><div style="font:10px var(--fm);color:var(--t3);text-transform:uppercase">Aulas OK</div></div>
-      <div style="background:var(--ink3);border-radius:8px;padding:10px;text-align:center"><div style="font:700 20px var(--fm);color:var(--r)">${s.hist.filter(h=>isTrig(h.c)).length}</div><div style="font:10px var(--fm);color:var(--t3);text-transform:uppercase">CP/NC/CA</div></div>
-      <div style="background:var(--ink3);border-radius:8px;padding:10px;text-align:center"><div style="font:700 20px var(--fm);color:var(--b)">${repCount}</div><div style="font:10px var(--fm);color:var(--t3);text-transform:uppercase">Repostos</div></div>
-      <div style="background:${unresolved>0?'rgba(255,77,109,.08)':'var(--ink3)'};border:1px solid ${unresolved>0?'var(--r2)':'transparent'};border-radius:8px;padding:10px;text-align:center"><div style="font:700 20px var(--fm);color:${unresolved>0?'var(--r)':'var(--t3)'}">${unresolved}</div><div style="font:10px var(--fm);color:var(--t3);text-transform:uppercase">Pendente</div></div>
+
+  const okTotal = fh.filter(h=>['ok','r'].includes(normalizeCode(h.c))).length;
+  const ncTotal = fh.filter(h=>isTrigger(h.c)).length;
+  const repTotal= fh.filter(h=>normalizeCode(h.c)==='r').length;
+  const pend    = getUnresolved(fh).length;
+
+  document.getElementById('student-modal-title').textContent = `${s.n} · ${s.cod}`;
+  document.getElementById('student-modal-body').innerHTML = `
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px">
+      ${[
+        {v:okTotal, l:'Aulas OK',    c:'var(--g)'},
+        {v:ncTotal, l:'CP/NC/CA',   c:'var(--r)'},
+        {v:repTotal,l:'Repostos',   c:'var(--b)'},
+        {v:pend,    l:'Pendentes',  c:pend>0?'var(--r)':'var(--t3)', bg:pend>0?'rgba(255,61,113,.08)':'var(--s2)', bd:pend>0?'var(--r2)':'transparent'},
+      ].map(k=>`<div style="background:${k.bg||'var(--s2)'};border:1px solid ${k.bd||'transparent'};border-radius:10px;padding:11px;text-align:center">
+        <div style="font:700 22px var(--fm);color:${k.c}">${k.v}</div>
+        <div style="font:9px var(--fm);color:var(--t3);text-transform:uppercase;margin-top:3px">${k.l}</div>
+      </div>`).join('')}
     </div>
     ${alertBox}
-    <div style="font:700 11px var(--fm);color:var(--t2);text-transform:uppercase;margin-bottom:7px">Histórico de Aulas</div>
+    <div style="font:700 10px var(--fm);color:var(--t2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Histórico · ${activePeriod==='all'?'completo':activePeriod==='year'?'este ano':activePeriod==='month'?'este mês':'esta semana'}</div>
     <div style="overflow-x:auto"><table>
       <thead><tr><th>Data</th><th>Mês</th><th>Código</th><th>Status</th></tr></thead>
-      <tbody>${histRows||'<tr><td colspan="4" class="empty">Sem histórico</td></tr>'}</tbody>
+      <tbody>${histRows||'<tr><td colspan="4" style="text-align:center;padding:20px;color:var(--t3);font:11px var(--fm)">Sem histórico neste período</td></tr>'}</tbody>
     </table></div>
-    <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
-      <button onclick="closeModal('stud')" class="btn btn-g">Fechar</button>
-      ${a.lv!=='none'&&a.reason!=='dispensado'?`<button onclick="dismissAlert('${esc(tName)}','${esc(sName)}',null);closeModal('stud')" class="btn" style="background:var(--yd);color:var(--y);border:1px solid #664d00">✕ Ignorar alerta</button>`:''}
-      ${sheetId?`<a href="https://docs.google.com/spreadsheets/d/${sheetId}" target="_blank" class="btn btn-p" style="text-decoration:none">↗ Ver planilha</a>`:''}
+    <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap">
+      <button onclick="closeModal('student')" class="btn btn-secondary">Fechar</button>
+      ${a.lv!=='none'&&a.reason!=='dispensado'?`<button onclick="dismissAlert('${esc(tName)}','${esc(sName)}');closeModal('student')" class="btn" style="background:var(--yd);color:var(--y);border:1px solid #554200">✕ Ignorar alerta</button>`:''}
+      ${sid?`<a href="https://docs.google.com/spreadsheets/d/${sid}" target="_blank" class="btn btn-primary" style="text-decoration:none">↗ Ver planilha</a>`:''}
     </div>`;
-  openModal('stud');
+  openModal('student');
 }
 
-// ═══════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════
 // DISMISS
-// ═══════════════════════════════════════════════════
-function dismissAlert(tName,sName,ev){
-  if(ev)ev.stopPropagation();
-  const key=tName+'__'+sName;
-  dismissedAlerts[key]=true;
-  localStorage.setItem('uf_dismissed',JSON.stringify(dismissedAlerts));
+// ════════════════════════════════════════════════════════════
+function dismissAlert(tName, sName) {
+  dismissed[tName+'__'+sName] = true;
+  localStorage.setItem('uf_dismissed', JSON.stringify(dismissed));
   renderAll();
   toast('Alerta de '+sName+' ignorado');
 }
 
-// ═══════════════════════════════════════════════════
-// SYNC — lê exclusivamente dos control sheets
-// ═══════════════════════════════════════════════════
-async function doSync(){
-  const url=(document.getElementById('apps-url').value||'').trim();
-  if(!url){document.getElementById('sync-result').innerHTML='<span style="color:var(--y)">⚠ Cole a URL do Apps Script.</span>';return;}
-  localStorage.setItem('uf_apps_url',url);appsUrl=url;
-  const btn=document.getElementById('sync-btn'),res=document.getElementById('sync-result');
-  btn.className='sync-btn sy';document.getElementById('sync-txt').textContent='Sincronizando...';
-  res.innerHTML='<span style="color:var(--y)">⏳ Conectando às planilhas... (pode levar até 30s)</span>';
-  try{
-    const{totalStudents,totalErrors}=await doSyncCore(url);
-    const errMsg=totalErrors>0?` · ${totalErrors} planilha${totalErrors>1?'s com':'com'} erro`:'';
-    res.innerHTML=`<span style="color:var(--g)">✓ ${lastSync} · ${TEACHERS.length} professores · ${totalStudents} alunos${errMsg}</span>`;
-    toast(`✓ ${totalStudents} alunos · ${TEACHERS.length} professores atualizados`);
-  }catch(e){
-    btn.className='sync-btn er';document.getElementById('sync-txt').textContent='Erro';
-    res.innerHTML=`<span style="color:var(--r)">✗ ${e.message}</span>`;
-    setTimeout(()=>{btn.className='sync-btn';document.getElementById('sync-txt').textContent='Sincronizar';},5000);
-    toast('Erro: '+e.message,'e');
+// ════════════════════════════════════════════════════════════
+// SYNC
+// ════════════════════════════════════════════════════════════
+function setSyncState(state) {
+  const btn = document.getElementById('sync-btn');
+  const lbl = document.getElementById('sync-label');
+  btn.className = 'sync-status' + (state==='loading'?' loading':state==='error'?' error':'');
+  lbl.textContent = state==='loading'?'Atualizando...':state==='error'?'Erro':'Sincronizar';
+}
+
+async function triggerSync() {
+  const url = syncUrl || document.getElementById('settings-url').value.trim();
+  if (!url) { openModal('settings'); return; }
+  setSyncState('loading');
+  try {
+    const res = await fetchSheets(url);
+    applyData(res);
+    setSyncState('ok');
+    setTimeout(()=>setSyncState('ok'), 5000);
+    toast(`✓ ${DATA.reduce((s,t)=>s+t.students.length,0)} alunos · ${DATA.length} professores`);
+  } catch(e) {
+    setSyncState('error');
+    setTimeout(()=>setSyncState('ok'), 6000);
+    toast('Erro: '+e.message, 'err');
   }
 }
 
-async function doSyncCore(url){
-  const r=await fetch(url);
-  if(!r.ok)throw new Error('HTTP '+r.status);
-  const data=await r.json();
-  if(!data.teachers)throw new Error('Formato inesperado — verifique o Apps Script');
+async function fetchSheets(url) {
+  const r = await fetch(url);
+  if (!r.ok) throw new Error('HTTP '+r.status);
+  const d = await r.json();
+  if (!d.teachers) throw new Error('Resposta inesperada do Apps Script');
+  return d;
+}
 
-  const newTeachers=[];
-  let totalStudents=0,totalErrors=0;
-
-  for(const[teacherName,sheetData]of Object.entries(data.teachers)){
-    if(EXCLUDED_TEACHERS.has(teacherName))continue;
-    if(!sheetData||sheetData.error){console.warn(`Erro em ${teacherName}:`,sheetData?.error);totalErrors++;continue;}
-    const students=[];
-    for(const[tabName,rows]of Object.entries(sheetData)){
-      if(!Array.isArray(rows)||rows.length<3)continue;
-      if(isSkipTab(tabName))continue;
-      const student=parseStudentSheet(tabName,rows);
-      if(student.n&&student.n.length>0){students.push(student);totalStudents++;}
+function applyData(d) {
+  const teachers = [];
+  for (const [name, sheetData] of Object.entries(d.teachers)) {
+    if (EXCLUDED_TEACHERS.has(name)) continue;
+    if (!sheetData || sheetData.error) { console.warn(name, sheetData?.error); continue; }
+    const students = [];
+    for (const [tabName, rows] of Object.entries(sheetData)) {
+      if (!Array.isArray(rows)||rows.length<3) continue;
+      if (isSkipTab(tabName)) continue;
+      const s = parseTab(tabName, rows);
+      if (s.n && s.n.length>0) students.push(s);
     }
-    students.sort((a,b)=>checkAlertLevel(teacherName,b)-checkAlertLevel(teacherName,a));
-    newTeachers.push({name:teacherName,id:TEACHER_IDS[teacherName]||'',students});
+    students.sort((a,b)=>alertLevel(name,b)-alertLevel(name,a));
+    teachers.push({ name, id:SHEET_IDS[name]||'', students });
   }
-  newTeachers.sort((a,b)=>{
+  teachers.sort((a,b)=>{
     const aa=a.students.filter(s=>checkAlert(a.name,s).lv==='alert').length;
     const ba=b.students.filter(s=>checkAlert(b.name,s).lv==='alert').length;
     return ba-aa;
   });
-
-  TEACHERS=newTeachers;
-  dismissedAlerts={};localStorage.setItem('uf_dismissed','{}');
-  localStorage.setItem('uf_teachers',JSON.stringify(TEACHERS));
-  const now=new Date();
-  lastSync=`${String(now.getDate()).padStart(2,'0')}/${String(now.getMonth()+1).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
-  localStorage.setItem('uf_last_sync',lastSync);
-
-  buildTabs();buildTeacherPanels();renderAll();
-  const btn=document.getElementById('sync-btn');
-  btn.className='sync-btn';document.getElementById('sync-txt').textContent='Sincronizado';
-  setTimeout(()=>{document.getElementById('sync-txt').textContent='Sincronizar';},8000);
-  return{totalStudents,totalErrors};
+  DATA = teachers;
+  dismissed = {}; localStorage.setItem('uf_dismissed','{}');
+  localStorage.setItem('uf_data', JSON.stringify(DATA));
+  const now = new Date();
+  lastSyncAt = `${pad(now.getDate())}/${pad(now.getMonth()+1)} ${pad(now.getHours())}:${pad(now.getMinutes())}`;
+  localStorage.setItem('uf_sync_at', lastSyncAt);
+  document.getElementById('sync-time').textContent = fmtSyncTime(lastSyncAt);
+  buildTabs();
+  buildTeacherPanels();
+  renderAll();
+  // Re-arm auto-refresh
+  clearInterval(refreshTimer);
+  refreshTimer = setInterval(triggerSync, AUTO_REFRESH_MS);
 }
 
-function checkAlertLevel(tName,s){
-  const lv=checkAlert(tName,s).lv;
-  return lv==='alert'?2:lv==='warn'?1:0;
+async function saveAndSync() {
+  const url = document.getElementById('settings-url').value.trim();
+  if (!url) { document.getElementById('settings-result').innerHTML='<span style="color:var(--y)">⚠ Cole a URL do Apps Script.</span>'; return; }
+  syncUrl = url;
+  localStorage.setItem('uf_url', url);
+  document.getElementById('settings-result').innerHTML='<span style="color:var(--y)">⏳ Conectando... pode levar 20–30s</span>';
+  setSyncState('loading');
+  try {
+    const res = await fetchSheets(url);
+    applyData(res);
+    const n = DATA.reduce((s,t)=>s+t.students.length,0);
+    document.getElementById('settings-result').innerHTML=`<span style="color:var(--g)">✓ ${lastSyncAt} · ${DATA.length} professores · ${n} alunos carregados</span>`;
+    setSyncState('ok');
+  } catch(e) {
+    document.getElementById('settings-result').innerHTML=`<span style="color:var(--r)">✗ ${e.message}</span>`;
+    setSyncState('error');
+    setTimeout(()=>setSyncState('ok'),6000);
+  }
 }
 
-function clearCache(){
-  if(!confirm('Limpar todos os dados em cache? Será necessário sincronizar novamente.'))return;
-  localStorage.removeItem('uf_teachers');
-  localStorage.removeItem('uf_last_sync');
-  localStorage.removeItem('uf_dismissed');
-  localStorage.removeItem('uf_apps_url');
-  TEACHERS=[];dismissedAlerts={};lastSync='';appsUrl='';
-  buildTabs();buildTeacherPanels();renderEmptyState();
-  document.getElementById('kpi').innerHTML='';
-  document.getElementById('sync-result').innerHTML='<span style="color:var(--g)">✓ Cache limpo.</span>';
-  toast('Cache limpo','i');
+function clearAllData() {
+  confirm('Limpar todos os dados em cache?') && (() => {
+    localStorage.clear();
+    DATA=[]; dismissed={}; syncUrl=''; lastSyncAt='';
+    clearInterval(refreshTimer);
+    buildTabs(); buildTeacherPanels();
+    renderEmpty();
+    document.getElementById('sync-time').textContent='';
+    document.getElementById('settings-result').innerHTML='<span style="color:var(--g)">✓ Cache limpo.</span>';
+    setSyncState('ok');
+    toast('Cache limpo', 'info');
+  })();
 }
 
-// ═══════════════════════════════════════════════════
-// CONFIRM MODAL
-// ═══════════════════════════════════════════════════
-let cfmCallback=null;
+// ════════════════════════════════════════════════════════════
+// MODALS / UTILS
+// ════════════════════════════════════════════════════════════
+function copyScript() {
+  const pre = document.querySelector('#script-code-block pre');
+  if (!pre) return;
+  navigator.clipboard.writeText(pre.textContent).then(()=>toast('✓ Código copiado!','info')).catch(()=>{
+    const ta = document.createElement('textarea');
+    ta.value = pre.textContent; ta.style.position='fixed'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.select(); document.execCommand('copy');
+    document.body.removeChild(ta); toast('✓ Código copiado!','info');
+  });
+}
+function openModal(id) { document.getElementById('overlay-'+id).classList.add('open'); }
+function closeModal(id) { document.getElementById('overlay-'+id).classList.remove('open'); }
+let cfmCb=null;
 function showCfm(icon,title,sub,cb){
-  document.getElementById('cfm-ic').textContent=icon;
-  document.getElementById('cfm-t').textContent=title;
-  document.getElementById('cfm-s').innerHTML=sub;
-  cfmCallback=cb;
-  document.getElementById('cfm-ok').onclick=()=>{if(cfmCallback)cfmCallback();};
-  document.getElementById('cfm').classList.add('on');
+  document.getElementById('cfm-icon').textContent=icon;
+  document.getElementById('cfm-title').textContent=title;
+  document.getElementById('cfm-sub').innerHTML=sub;
+  cfmCb=cb;
+  document.getElementById('cfm-ok').onclick=()=>{if(cfmCb)cfmCb();closeCfm();};
+  document.getElementById('cfm-overlay').classList.add('open');
 }
-function closeCfm(){document.getElementById('cfm').classList.remove('on');cfmCallback=null;}
+function closeCfm(){document.getElementById('cfm-overlay').classList.remove('open');cfmCb=null;}
 
-// ═══════════════════════════════════════════════════
-// UTILS
-// ═══════════════════════════════════════════════════
 function esc(s){return(s||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'")}
-function openModal(id){document.getElementById('mov-'+id).classList.add('on');}
-function closeModal(id){document.getElementById('mov-'+id).classList.remove('on');}
-function toast(msg,tp='s'){
-  const t=document.createElement('div');
-  t.className='toast'+(tp==='e'?' e':tp==='i'?' i':'');
-  t.textContent=msg;document.body.appendChild(t);
-  setTimeout(()=>t.remove(),3500);
+function pad(n){return String(n).padStart(2,'0')}
+
+function toast(msg, type='') {
+  const el = document.createElement('div');
+  el.className = 'toast'+(type?' '+type:'');
+  el.textContent = msg;
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(), 3500);
 }
 
-init();
+// ════════════════════════════════════════════════════════════
+// BOOT
+// ════════════════════════════════════════════════════════════
+(function init() {
+  dismissed = JSON.parse(localStorage.getItem('uf_dismissed')||'{}');
+  syncUrl = FIXED_URL || localStorage.getItem('uf_url')||'';
+  lastSyncAt = localStorage.getItem('uf_sync_at')||'';
+
+  if (syncUrl) document.getElementById('settings-url').value = syncUrl;
+  if (lastSyncAt) document.getElementById('sync-time').textContent = fmtSyncTime(lastSyncAt);
+
+  // Load cache instantly for fast first render
+  const cached = localStorage.getItem('uf_data');
+  if (cached) {
+    try {
+      DATA = JSON.parse(cached);
+      buildTabs(); buildTeacherPanels(); renderAll();
+      toast('Dados do cache carregados · atualizando...', 'info');
+    } catch(e) {
+      DATA = []; localStorage.removeItem('uf_data');
+      buildTabs(); buildTeacherPanels(); renderEmpty();
+    }
+  } else {
+    buildTabs(); buildTeacherPanels(); renderEmpty();
+  }
+
+  // Always fetch fresh data on load and auto-refresh every 5 min
+  if (syncUrl) {
+    triggerSync();
+    refreshTimer = setInterval(triggerSync, AUTO_REFRESH_MS);
+  }
+})();
 </script>
 </body>
 </html>
