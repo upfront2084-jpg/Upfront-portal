@@ -804,10 +804,64 @@ function parseTab(tabName, rows) {
   let name='', code='', status='Ativo';
   const hist = [];
   let inTable = false, curMonth = 0;
-  const isGru = /GRU|GRP/i.test(tabName);
-  if (isGru) console.warn('[parseTab GRU]', tabName, 'rows:', rows.length, JSON.stringify(rows.slice(0,20)));
 
   if (tabName.toLowerCase().includes('paus')) status = 'Pausado';
+
+  const tabUp = tabName.toUpperCase();
+  const isGru = tabUp.includes('GRU') || tabUp.includes('GRP');
+
+  // ── Group summary format detection ──────────────────────────────
+  // Group tabs store counts per code type, not individual class rows.
+  // Detect: any row where col1 is a non-negative integer and col2 is
+  // a known class code (OK, CA, NC, CP, CF, R, F, EM).
+  const SUMMARY_CODES = new Set(['OK','CA','NC','CP','CF','R','F','EM','RE']);
+  const summaryRows = rows.filter(r => {
+    const cnt = parseInt(g(r,1));
+    return !isNaN(cnt) && cnt >= 0 && SUMMARY_CODES.has(g(r,2).toUpperCase());
+  });
+
+  if (summaryRows.length >= 2) {
+    // Parse name and code from col 7 area (right side of sheet)
+    for (let i=0; i<rows.length; i++) {
+      const row = rows[i]||[];
+      const col7 = g(row,7);
+      if (col7==='Aluno(a)'||col7==='Aluno') {
+        // name is in col7 of a nearby row — look ahead
+        for (let j=i+1; j<Math.min(i+5,rows.length); j++) {
+          const v = g(rows[j],7);
+          if (v && v!=='Cod.'&&v!=='Cód.'&&!/^(GRU|VIP|GRP|KIDS)/i.test(v)&&v.length>1) {
+            name = name||v; break;
+          }
+        }
+      }
+      if (col7==='Cod.'||col7==='Cód.') {
+        for (let j=i+1; j<Math.min(i+5,rows.length); j++) {
+          const v = g(rows[j],7);
+          if (/^(GRU|VIP|GRP|KIDS)/i.test(v)) { code=code||v; break; }
+        }
+      }
+      // Also find code in col7 directly
+      if (!code && /^(GRU|VIP|GRP|KIDS)\s*[-–\s]\s*\d+/i.test(col7)) code=col7;
+      // Name might be in the row containing duration (e.g. "9 meses")
+      if (!name && (g(row,0).includes('meses')||g(row,0).includes('mês'))) {
+        const v7 = g(row,7);
+        if (v7 && v7.length>1 && !/^(GRU|VIP|GRP|KIDS|Cod|Cód)/i.test(v7)) name=v7;
+      }
+    }
+    // Build synthetic history from summary counts
+    for (const r of summaryRows) {
+      const cnt = parseInt(g(r,1));
+      const cd = g(r,2).toUpperCase();
+      for (let k=0; k<cnt; k++) hist.push({ c:cd, d:'', m:0 });
+    }
+    if (!name) name = tabName;
+    if (!code) code = tabName;
+    code = code.replace(/\s+/g,' ').trim();
+    const cu = code.toUpperCase();
+    const plan = (cu.includes('GRU')||cu.includes('GRP')||isGru)?'Grupo':(cu.includes('KIDS'))?'KIDS':'VIP';
+    return { n:name, cod:code, plan, st:status, hist };
+  }
+  // ── End group summary format ─────────────────────────────────────
 
   for (let i=0; i<rows.length; i++) {
     const row = rows[i]||[];
@@ -848,10 +902,9 @@ function parseTab(tabName, rows) {
     }
 
     // Table header
-    if ((a==='Mês'||a.toLowerCase()==='mes'||a.toLowerCase()==='mês')&&(b==='N°'||b==='No'||b==='Nº')&&(c==='Aula'||c.toLowerCase()==='aula')) { inTable=true; if(isGru)console.warn('[GRU header found row',i,']'); continue; }
+    if ((a==='Mês'||a.toLowerCase()==='mes'||a.toLowerCase()==='mês')&&(b==='N°'||b==='No'||b==='Nº')&&(c==='Aula'||c.toLowerCase()==='aula')) { inTable=true; continue; }
 
     if (inTable) {
-      // Month name row
       if (a && !b && !c) {
         const al = a.toLowerCase();
         for (const [mn,num] of Object.entries(MONTH_MAP)) {
@@ -859,24 +912,21 @@ function parseTab(tabName, rows) {
         }
         continue;
       }
-      // Class row — accept rows with either N° (col B) or a date (col E)
       if ((b || e) && !(a && !b && !c && !e)) {
         const code2 = c.toUpperCase().trim();
         if (code2 && code2!=='AULA') {
           hist.push({ c:code2, d:e||'', m:curMonth });
         } else if (!code2 && e) {
-          hist.push({ c:'', d:e, m:curMonth }); // scheduled
+          hist.push({ c:'', d:e, m:curMonth });
         }
       }
     }
   }
 
-  if (isGru) console.warn('[GRU result]', tabName, 'name:', name, 'code:', code, 'hist:', hist.length, 'inTable was:', inTable);
   if (!name) name = tabName;
   code = code.replace(/\s+/g,' ').trim();
   const codeUp = code.toUpperCase();
-  const tabUp = tabName.toUpperCase();
-  const plan = (codeUp.includes('GRU')||codeUp.includes('GRP')||tabUp.includes('GRU')||tabUp.includes('GRP'))?'Grupo':(codeUp.includes('KIDS')||tabUp.includes('KIDS'))?'KIDS':'VIP';
+  const plan = (codeUp.includes('GRU')||codeUp.includes('GRP')||isGru)?'Grupo':(codeUp.includes('KIDS')||tabUp.includes('KIDS'))?'KIDS':'VIP';
   return { n:name, cod:code, plan, st:status, hist };
 }
 
