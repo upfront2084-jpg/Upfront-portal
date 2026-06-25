@@ -804,6 +804,8 @@ function parseTab(tabName, rows) {
   let name='', code='', status='Ativo';
   const hist = [];
   let inTable = false, curMonth = 0;
+  const isGru = /GRU|GRP/i.test(tabName);
+  if (isGru) console.warn('[parseTab GRU]', tabName, 'rows:', rows.length, JSON.stringify(rows.slice(0,20)));
 
   if (tabName.toLowerCase().includes('paus')) status = 'Pausado';
 
@@ -846,7 +848,7 @@ function parseTab(tabName, rows) {
     }
 
     // Table header
-    if ((a==='Mês'||a.toLowerCase()==='mes'||a.toLowerCase()==='mês')&&(b==='N°'||b==='No'||b==='Nº')&&(c==='Aula'||c.toLowerCase()==='aula')) { inTable=true; continue; }
+    if ((a==='Mês'||a.toLowerCase()==='mes'||a.toLowerCase()==='mês')&&(b==='N°'||b==='No'||b==='Nº')&&(c==='Aula'||c.toLowerCase()==='aula')) { inTable=true; if(isGru)console.warn('[GRU header found row',i,']'); continue; }
 
     if (inTable) {
       // Month name row
@@ -869,6 +871,7 @@ function parseTab(tabName, rows) {
     }
   }
 
+  if (isGru) console.warn('[GRU result]', tabName, 'name:', name, 'code:', code, 'hist:', hist.length, 'inTable was:', inTable);
   if (!name) name = tabName;
   code = code.replace(/\s+/g,' ').trim();
   const codeUp = code.toUpperCase();
