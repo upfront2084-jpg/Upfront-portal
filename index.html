@@ -512,9 +512,11 @@ function getUnresolvedTriggers(hist){
 function checkAlert(tName,s){
   const key=tName+'__'+s.n;
   if(dismissedAlerts[key])return{lv:'none',reason:'dispensado'};
-  const done=s.hist.filter(h=>h.c&&h.c.trim()!=='');
+  // Usa apenas o histórico do período selecionado para calcular alertas
+  const hist=applyFilter(s.hist);
+  const done=hist.filter(h=>h.c&&h.c.trim()!=='');
   if(!done.length)return{lv:'none',reason:''};
-  const unres=getUnresolvedTriggers(s.hist);
+  const unres=getUnresolvedTriggers(hist);
   if(!unres.length)return{lv:'none',reason:''};
   const lastTwo=unres.slice(-2);
   const consec=lastTwo.length===2;
@@ -845,17 +847,16 @@ function renderTeacherPanel(t){
     const dismissBtn=a.lv!=='none'&&a.reason!=='dispensado'
       ?`<button class="dismiss-btn" onclick="dismissAlert('${t.name}','${esc(s.n)}',event)">✕ Ignorar</button>`:'';
     const fhist=applyFilter(s.hist);
-    const resIdx=resolvedByR(s.hist);
+    const resIdx=resolvedByR(fhist);
     const okc=fhist.filter(h=>['ok','r'].includes(norm(h.c))).length;
     const nc=fhist.filter(h=>isTrig(h.c)).length;
     const rep=fhist.filter(h=>norm(h.c)==='r').length;
-    const unresC=getUnresolvedTriggers(s.hist).length;
-    const pills=s.hist.map((h,hi)=>{
+    const unresC=getUnresolvedTriggers(fhist).length;
+    const pills=fhist.map((h,hi)=>{
       const n=norm(h.c);
       const lbl=n==='em'?'·':((h.c||'').toUpperCase().slice(0,2)||'·');
-      // Visualmente distinguir: R que cancela um trigger fica com borda verde
       const isRes=resIdx.has(hi);
-      const extraStyle=isRes&&(isTrig(h.c))?'opacity:.45;text-decoration:line-through':
+      const extraStyle=isRes&&isTrig(h.c)?'opacity:.45;text-decoration:line-through':
                        isRes&&n==='r'?'box-shadow:0 0 0 1.5px var(--g)':'';
       return`<div class="hp ${n}" title="${h.d||'—'} — ${h.c||'agendado'}${isRes&&isTrig(h.c)?' (reposto)':isRes&&n==='r'?' (reposição confirmada)':''}" style="${extraStyle}">${lbl}</div>`;
     }).join('');
