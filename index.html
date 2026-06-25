@@ -820,7 +820,7 @@ function parseTab(tabName, rows) {
     return !isNaN(cnt) && cnt >= 0 && SUMMARY_CODES.has(g(r,2).toUpperCase());
   });
 
-  if (isGru && summaryRows.length >= 2) {
+  if (isGru && summaryRows.length >= 1) {
     // Parse name and code from col 7 area (right side of sheet)
     for (let i=0; i<rows.length; i++) {
       const row = rows[i]||[];
@@ -1334,7 +1334,14 @@ function applyData(d) {
       if (!Array.isArray(rows)||rows.length<3) continue;
       if (isSkipTab(tabName)) continue;
       const s = parseTab(tabName, rows);
-      if (s.n && s.n.length>0) students.push(s);
+      if (!s.n || s.n.length===0) continue;
+      // Split group members (names separated by "/" or " e ")
+      if (s.plan==='Grupo' && /\/| e /.test(s.n)) {
+        const members = s.n.split(/\s*\/\s*|\s+ e \s+/).map(m=>m.trim()).filter(Boolean);
+        for (const m of members) students.push({...s, n:m});
+      } else {
+        students.push(s);
+      }
     }
     students.sort((a,b)=>alertLevel(name,b)-alertLevel(name,a));
     teachers.push({ name, id:SHEET_IDS[name]||'', students });
