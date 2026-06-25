@@ -820,7 +820,7 @@ function parseTab(tabName, rows) {
     return !isNaN(cnt) && cnt >= 0 && SUMMARY_CODES.has(g(r,2).toUpperCase());
   });
 
-  if (summaryRows.length >= 2) {
+  if (isGru && summaryRows.length >= 2) {
     // Parse name and code from col 7 area (right side of sheet)
     for (let i=0; i<rows.length; i++) {
       const row = rows[i]||[];
