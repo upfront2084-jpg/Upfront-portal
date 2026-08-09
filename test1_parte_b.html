@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Upfront Idiomas — Parte B · Aluno · Classes 01–07</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#1A1A2E;--blue:#1F3A5F;--teal:#2E7D7D;--teal-l:#e0f2f2;
+  --light:#F5F7FA;--white:#ffffff;--border:#d0d5dd;--text:#1A1A2E;--muted:#6b7280;
+}
+body{font-family:'Inter',sans-serif;background:#eef1f6;color:var(--text);min-height:100vh}
+
+/* LOCK */
+.lock-input:focus{border-color:var(--teal)}
+.lock-btn:hover{background:#256666}
+
+/* MAIN */
+#mainContent{display:block}
+.student-banner{background:var(--teal);color:#fff;text-align:center;padding:10px 24px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.test-header{background:var(--navy);padding:0;box-shadow:0 2px 12px rgba(0,0,0,.3)}
+.header-inner{max-width:760px;margin:0 auto;padding:18px 32px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.brand-name{font-family:'Sora',sans-serif;font-size:22px;font-weight:800;color:#fff;letter-spacing:-.02em}
+.brand-sub{font-size:11px;color:#8892aa;font-weight:400;letter-spacing:.08em;text-transform:uppercase;margin-top:2px}
+.header-badge{background:var(--teal);color:#fff;font-size:11px;font-weight:600;padding:6px 14px;border-radius:20px;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.page-wrap{max-width:760px;margin:0 auto;padding:32px 24px}
+.card{background:#fff;border-radius:12px;overflow:hidden;margin-bottom:24px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.card-header{background:var(--blue);padding:13px 24px;display:flex;align-items:center;gap:12px}
+.card-num{background:var(--teal);color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
+.card-title{color:#fff;font-size:14px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.card-body{padding:24px}
+.topic-box{background:var(--teal-l);border:1.5px solid var(--teal);border-radius:8px;padding:14px 18px;font-size:17px;font-weight:700;color:var(--teal);margin-bottom:14px}
+.prompt{font-size:14px;color:var(--text);line-height:1.65;margin-bottom:16px}
+.hints-box{background:var(--light);border:1px solid var(--border);border-radius:8px;padding:14px 18px;margin-bottom:20px}
+.hints-title{font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+.hints-box ul{padding-left:20px}
+.hints-box li{font-size:13px;margin-bottom:4px;line-height:1.5}
+.hints-box li strong{color:var(--blue)}
+.field-row{display:flex;gap:16px;margin-bottom:20px;flex-wrap:wrap}
+.field-group{flex:1;min-width:180px}
+.field-label{font-size:12px;font-weight:600;color:var(--blue);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
+.field-input{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-family:'Inter',sans-serif;outline:none}
+.field-input:focus{border-color:var(--teal)}
+.textarea-wrap{position:relative}
+textarea#studentText{width:100%;min-height:220px;padding:14px;border:1.5px solid var(--border);border-radius:8px;font-size:14.5px;line-height:1.7;font-family:'Inter',sans-serif;resize:vertical;outline:none;color:var(--text)}
+textarea#studentText:focus{border-color:var(--teal)}
+.word-counter{font-size:12px;color:var(--muted);text-align:right;margin-top:6px;margin-bottom:16px}
+.word-counter span{font-weight:600;color:var(--teal)}
+.save-btn{background:var(--teal);color:#fff;border:none;padding:13px 28px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;display:flex;align-items:center;gap:8px;margin:0 auto}
+.save-btn:hover{background:#256666}
+.save-note{font-size:12px;color:var(--muted);text-align:center;margin-top:10px}
+.success-msg{display:none;background:#e0f2f2;border:1.5px solid var(--teal);border-radius:8px;padding:12px 16px;font-size:13px;color:var(--teal);text-align:center;margin-top:12px;font-weight:600}
+</style>
+</head>
+<body>
+
+<!-- MAIN CONTENT -->
+<div id="mainContent">
+  <div class="student-banner">✏️ PROVA ORAL · PARTE B — PRODUÇÃO ESCRITA · CLASSES 01–07</div>
+  <header class="test-header">
+    <div class="header-inner">
+      <div>
+        <div class="brand-name">Upfront Idiomas</div>
+        <div class="brand-sub">English Course — Prova Oral · Parte B · Classes 01–07</div>
+      </div>
+      <div class="header-badge">Parte B · Aluno</div>
+    </div>
+  </header>
+
+  <div class="page-wrap">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-num">1</div>
+        <div class="card-title">Seus Dados</div>
+      </div>
+      <div class="card-body">
+        <div class="field-row">
+          <div class="field-group">
+            <div class="field-label">Seu nome</div>
+            <input class="field-input" type="text" id="studentName" placeholder="Digite seu nome completo">
+          </div>
+          <div class="field-group" style="max-width:180px">
+            <div class="field-label">Data</div>
+            <input class="field-input" type="date" id="studentDate">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-num">2</div>
+        <div class="card-title">Writing Task — Produção Escrita</div>
+      </div>
+      <div class="card-body">
+        <div class="topic-box">✏️ Topic: My Daily Routine</div>
+        <div class="prompt">Write 5–8 sentences about your daily routine. Include: what time you wake up, how you go to work/school, what you usually eat, and what you do after work.</div>
+        <div class="hints-box">
+          <div class="hints-title">Estruturas para usar</div>
+          <ul><li><strong>AT + time</strong> — I wake up at 7am…</li><li><strong>BY car / ON foot / BY bus</strong> — I go to work by car…</li><li><strong>UNTIL</strong> — I work until 6pm…</li><li><strong>BEFORE / AFTER + -ing</strong> — After working, I…</li><li><strong>USUALLY / ALREADY / STILL</strong> — I usually have lunch at noon…</li></ul>
+        </div>
+        <div class="textarea-wrap">
+          <textarea id="studentText" placeholder="Write your text here… / Escreva seu texto aqui…"></textarea>
+        </div>
+        <div class="word-counter">Palavras: <span id="wCount">0</span> / mínimo 40</div>
+        <button class="save-btn" onclick="saveText()">💾 Salvar e Enviar ao Professor</button>
+        <div class="save-note">Uma cópia .txt será baixada, e o texto também é enviado automaticamente ao professor.</div>
+        <div class="success-msg" id="successMsg">✅ Arquivo salvo e enviado ao professor!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// EDIT ME after deploying api/ to your Hostinger hosting (see api/DEPLOY.md)
+var API_BASE = 'https://upfrontidiomas.com.br/api/portal.php';
+var API_KEY  = 'Upfrontisgonnabeamazing123';
+
+// Pulls the shared writing-submissions list from the cloud, appends this
+// submission, and pushes the merged list back (so this page, test2_parte_b.html
+// and test_student_writing.html can all add to the same list without one
+// overwriting another's pending submission).
+function submitWritingToCloud(sub) {
+  fetch(API_BASE + '?action=get_one&doc_id=uf_writing_subs&key=' + encodeURIComponent(API_KEY))
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      var subs = [];
+      try { if (data && data.doc && data.doc.v) subs = JSON.parse(data.doc.v); } catch(e) {}
+      if (!Array.isArray(subs)) subs = [];
+      subs.push(sub);
+      return fetch(API_BASE + '?action=upsert&key=' + encodeURIComponent(API_KEY), {
+        method: 'POST',
+        headers: {'Content-Type':'application/json','X-API-Key':API_KEY},
+        body: JSON.stringify({doc_id:'uf_writing_subs', v: JSON.stringify(subs), ts: Date.now()})
+      });
+    })
+    .catch(function(){});
+}
+
+window.addEventListener('DOMContentLoaded', function() {
+  var d = document.getElementById('studentDate');
+  if(d){ var now=new Date(); var pad=n=>String(n).padStart(2,'0'); d.value=now.getFullYear()+'-'+pad(now.getMonth()+1)+'-'+pad(now.getDate()); }
+});
+
+document.getElementById('studentText').addEventListener('input', function() {
+  const w = this.value.trim() === '' ? 0 : this.value.trim().split(/\s+/).length;
+  const el = document.getElementById('wCount');
+  el.textContent = w;
+  el.style.color = w >= 40 ? '#2E7D7D' : '#c0392b';
+});
+function saveText() {
+  const name = document.getElementById('studentName').value.trim() || 'Aluno';
+  const date = document.getElementById('studentDate').value || '';
+  const text = document.getElementById('studentText').value.trim();
+  if (!text) { alert('Por favor, escreva seu texto antes de salvar.'); return; }
+  const content = `Upfront Idiomas — Prova Oral · Parte B · Classes 01–07\nAluno: ${name}\nData: ${date}\n\nTopic: My Daily Routine\n\n${text}`;
+  const blob = new Blob([content], {type: 'text/plain;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `PartB_1_${name.replace(/\s+/g,'_')}.txt`;
+  a.click();
+  submitWritingToCloud({
+    name: name, text: text, date: date,
+    topic: 'My Daily Routine', groupLabel: 'Classes 01–07', groupIdx: 'test1',
+    sentAt: new Date().toISOString()
+  });
+  document.getElementById('successMsg').style.display = 'block';
+}
+</script>
+</body>
+</html>

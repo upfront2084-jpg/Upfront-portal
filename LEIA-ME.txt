@@ -1,0 +1,136 @@
+PORTAL UPFRONT IDIOMAS — A1, A2, B1 e B2
+====================================================================
+Guia de publicação no Hostinger — 100% separado do que já existe no
+seu domínio hoje.
+
+====================================================================
+PARTE 1 — GARANTINDO QUE FIQUE SEPARADO DO OUTRO PORTAL
+====================================================================
+Nada aqui usa Firebase, e nada aqui reaproveita arquivos, pastas ou
+banco de dados do site que já está publicado. Para garantir isolamento
+total, siga EXATAMENTE assim:
+
+1. PASTA PRÓPRIA (nunca dentro de uma pasta que já existe)
+   No Gerenciador de Arquivos do hPanel (ou por FTP), crie uma pasta
+   NOVA e vazia, com um nome que não exista ainda, por exemplo:
+       public_html/upfront-idiomas/
+   Tudo deste pacote vai DENTRO dessa pasta nova — nunca na raiz
+   (public_html/) e nunca dentro da pasta do outro portal.
+
+   Melhor ainda (opcional, mais separado ainda): no hPanel, em
+   "Domínios" → "Subdomínios", crie um subdomínio novo, por exemplo
+   portal.seudominio.com.br, apontando para essa pasta. Assim o
+   portal novo tem até endereço próprio, diferente do site atual.
+
+2. BANCO DE DADOS PRÓPRIO (nunca reaproveitar o banco existente)
+   No hPanel, em "Bancos de Dados" → "Bancos de dados MySQL", crie um
+   banco NOVO (ex: u123456789_upfront) com um usuário NOVO e senha
+   própria. NÃO use o mesmo banco do outro site — mesmo que desse
+   certo tecnicamente, mistura os dados dos dois portais e um erro
+   num afeta o outro. Anote host, nome do banco, usuário e senha.
+
+Com isso, os dois portais nunca se tocam: pastas diferentes, banco de
+dados diferente, e (se você criar o subdomínio) até domínio diferente.
+Apagar ou alterar um dos dois nunca afeta o outro.
+
+====================================================================
+PARTE 2 — ARQUIVOS DESTE PACOTE
+====================================================================
+  - upfront-A1.html            → o portal inteiro (A1, A2, B1, B2)
+  - test1.html ... test7.html  → provas online (multiple choice, com
+                                  áudio embutido) de cada bloco de revisão
+  - test1_parte_b.html ... test7_parte_b.html → Prova Escrita (aluno)
+  - test1_parte_c.html ... test7_parte_c.html → Prova Oral (só professor)
+  - backend/                   → toda a parte de login, progresso e
+                                  cadastro de professores/alunos
+
+  Todos os níveis (A1, A2, B1, B2) já têm os 3 arquivos completos
+  (Teste online, Parte B — Prova Escrita, Parte C — Prova Oral) em
+  cada bloco de revisão.
+
+====================================================================
+PARTE 3 — SUBINDO OS ARQUIVOS
+====================================================================
+1. Envie TODOS os arquivos da PARTE 2 (inclusive a pasta backend/
+   inteira) para dentro da pasta nova que você criou na Parte 1
+   (ex: public_html/upfront-idiomas/).
+
+2. Rode backend/schema.sql UMA VEZ no phpMyAdmin do banco NOVO que
+   você criou (hPanel → Bancos de Dados → phpMyAdmin, escolha o banco
+   novo, aba "Importar", selecione o arquivo schema.sql).
+
+3. Edite backend/config.php com os dados do banco NOVO:
+     $DB_HOST = 'localhost';               // geralmente já está certo
+     $DB_NAME = 'u123456789_upfront';      // o nome do banco que você criou
+     $DB_USER = 'u123456789_upfront_user'; // o usuário que você criou
+     $DB_PASS = 'sua_senha_aqui';
+     $ALLOWED_ORIGIN = 'https://SEUDOMINIO.com.br';  // veja nota abaixo
+
+   Nota sobre $ALLOWED_ORIGIN: coloque a URL exata de onde o
+   upfront-A1.html vai ficar acessível (com https://, sem barra no
+   final). Se você usou o subdomínio, use
+   'https://portal.seudominio.com.br'. Se usou uma pasta dentro do
+   domínio principal, use 'https://seudominio.com.br'.
+
+4. Abra upfront-A1.html num editor de texto, procure perto do topo do
+   <script> a linha:
+     var API_BASE = 'https://SEUDOMINIO.com.br/backend';
+   e troque pela URL real da pasta backend/ que você acabou de subir
+   (ex: 'https://seudominio.com.br/upfront-idiomas/backend' ou
+   'https://portal.seudominio.com.br/backend').
+
+5. Crie o Admin — o ÚNICO cadastro que precisa ser feito direto no
+   banco. No terminal do seu computador (ou num PHP online), rode:
+     php -r "echo password_hash('SUA_SENHA_AQUI', PASSWORD_DEFAULT);"
+   Copie o resultado (hash) e insira uma linha na tabela admins do
+   banco NOVO (via phpMyAdmin → aba "Inserir"), com esse hash na
+   coluna password_hash. A partir daí, é só entrar no portal como
+   Admin (aba "Admin" na tela de login) e cadastrar todos os
+   professores e alunos direto pela tela (Painel Admin) — nunca mais
+   precisa mexer no banco de novo.
+
+====================================================================
+PARTE 4 — ACESSO DE QUALQUER APARELHO (celular, tablet, outro PC)
+====================================================================
+O portal NÃO depende de cache do navegador para funcionar. Veja como
+cada coisa é guardada:
+
+  - Login: cada admin/professor/aluno tem usuário e senha próprios,
+    salvos no banco de dados (tabelas admins/teachers/students).
+    Login funciona a partir de QUALQUER aparelho com internet — basta
+    digitar o mesmo usuário e senha em qualquer navegador, celular,
+    tablet ou computador.
+
+  - Progresso, aulas destravadas, lição de casa enviada e feedback do
+    professor: tudo isso fica salvo no banco de dados MySQL do seu
+    servidor (tabelas unlocks, submissions, etc.), não no navegador.
+    Se o aluno limpar o cache do computador, trocar de aparelho, ou
+    usar o celular da escola, o progresso continua exatamente onde
+    parou, porque está gravado no servidor — não localmente.
+
+Ou seja: depois de publicado (Partes 1 a 3), o uso normal do portal
+por admin, professores e alunos já é 100% "na nuvem" — qualquer
+aparelho, qualquer lugar, sem depender do cache de um computador
+específico. Não existe mais modo demonstração — todo login sempre
+fala com o backend/banco de dados reais.
+
+====================================================================
+PAINEL ADMIN
+====================================================================
+Login é dividido em 3 abas na tela inicial: Professor, Aluno e Admin.
+Só quem entra pela aba Admin vê o Painel Admin — professores e alunos
+não têm mais acesso a essa tela. No Painel Admin dá para cadastrar
+novos professores e novos alunos (nome, login, senha, e nível no caso
+do aluno) direto pela tela, com formulário e lista de quem já está
+cadastrado. Veja a PARTE 3, passo 5, para criar o primeiro (e único)
+acesso de Admin manualmente no banco — todo o resto é cadastrado
+depois direto pela tela, sem precisar mexer no banco de novo.
+
+====================================================================
+PROVAS DE REVISÃO
+====================================================================
+Em cada bloco de revisão (Classes 1-7, 8-13, 14-20, 21-26, 27-33,
+34-39 e 40-45) tem até 3 botões:
+  - Teste online (multiple choice, já com o listening embutido)
+  - Prova Oral — Parte C (só para o professor aplicar e avaliar)
+  - Prova Escrita — Parte B (o aluno escreve e envia)

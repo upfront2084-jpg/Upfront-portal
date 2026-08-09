@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Upfront Idiomas — Parte C · Professor · Classes 01–07</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#1A1A2E;--blue:#1F3A5F;--teal:#2E7D7D;--teal-l:#e0f2f2;
+  --light:#F5F7FA;--white:#ffffff;--border:#d0d5dd;--text:#1A1A2E;--muted:#6b7280;
+  --red:#7c1a1a;--star-off:#d0d5dd;--star-on:#f59e0b;
+}
+body{font-family:'Inter',sans-serif;background:#eef1f6;color:var(--text);min-height:100vh;padding-bottom:60px}
+
+/* LOCK */
+.lock-input:focus{border-color:var(--teal)}
+.lock-btn:hover{background:#9a2020}
+
+/* MAIN */
+#mainContent{display:block}
+.teacher-banner{background:var(--red);color:#fff;text-align:center;padding:10px 24px;font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.test-header{background:var(--navy);padding:0;box-shadow:0 2px 12px rgba(0,0,0,.3)}
+.header-inner{max-width:860px;margin:0 auto;padding:18px 32px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.brand-name{font-family:'Sora',sans-serif;font-size:22px;font-weight:800;color:#fff;letter-spacing:-.02em}
+.brand-sub{font-size:11px;color:#8892aa;font-weight:400;letter-spacing:.08em;text-transform:uppercase;margin-top:2px}
+.header-badge{background:var(--red);color:#fff;font-size:11px;font-weight:600;padding:6px 14px;border-radius:20px;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.page-wrap{max-width:860px;margin:0 auto;padding:32px 24px}
+
+.card{background:#fff;border-radius:12px;overflow:hidden;margin-bottom:28px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.card-header{background:var(--blue);padding:13px 24px;display:flex;align-items:center;gap:12px}
+.card-num{background:var(--teal);color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
+.card-title{color:#fff;font-size:14px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.card-sub{color:#a8c4cc;font-size:12px;margin-top:1px}
+.card-body{padding:24px}
+
+.field-row{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:0}
+.field-group{flex:1;min-width:160px}
+.field-label{font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.field-input{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-family:'Inter',sans-serif;outline:none}
+.field-input:focus{border-color:var(--teal)}
+
+.topic-box{background:var(--teal-l);border:1.5px solid var(--teal);border-radius:8px;padding:12px 16px;font-size:15px;font-weight:700;color:var(--teal);margin-bottom:12px}
+.hints-box{background:var(--light);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin-bottom:16px}
+.hints-title{font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+.hints-box ul{padding-left:18px}
+.hints-box li{font-size:12.5px;margin-bottom:3px;line-height:1.5}
+.hints-box li strong{color:var(--blue)}
+.teacher-note{background:#fff8ec;border:1.5px solid #e6a817;border-radius:8px;padding:12px 16px;font-size:12.5px;color:#7a4a00;margin-bottom:16px}
+.teacher-note strong{color:#b85c00}
+textarea.student-text-area{width:100%;min-height:140px;padding:14px;border:1.5px solid var(--border);border-radius:8px;font-size:13.5px;line-height:1.7;font-family:'Inter',sans-serif;resize:vertical;outline:none}
+textarea.student-text-area:focus{border-color:var(--teal)}
+
+/* ORAL QUESTIONS */
+.oral-q{padding:16px 0;border-bottom:1px solid #f0f2f5}
+.oral-q:last-child{border-bottom:none}
+.q-label{display:inline-block;background:var(--teal);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}
+.q-text{font-size:15px;font-weight:500;color:var(--navy);line-height:1.55;margin-bottom:6px}
+.q-hint{font-size:12px;color:var(--muted);font-style:italic;margin-bottom:8px}
+textarea.q-notes{width:100%;min-height:60px;padding:10px 12px;border:1px dashed var(--border);border-radius:6px;font-size:12.5px;font-family:'Inter',sans-serif;resize:vertical;outline:none;background:#fafbfc;color:var(--text)}
+textarea.q-notes:focus{border-color:var(--teal);border-style:solid}
+
+/* STAR RATING */
+.star-row{display:flex;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid #f0f2f5}
+.star-row:last-child{border-bottom:none}
+.star-crit{flex:1}
+.star-name{font-size:14px;font-weight:600;color:var(--navy)}
+.star-desc{font-size:12px;color:var(--muted);margin-top:2px}
+.star-group{display:flex;gap:4px}
+.star{font-size:30px;color:var(--star-off);cursor:pointer;transition:color .15s,transform .1s;user-select:none;line-height:1}
+.star:hover,.star.lit{color:var(--star-on)}
+.star:active{transform:scale(.9)}
+.star-score{font-size:20px;font-weight:700;color:var(--teal);min-width:28px;text-align:center}
+
+.total-box{background:var(--navy);border-radius:12px;padding:24px;text-align:center;color:#fff;margin-top:24px}
+.total-label{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#8892aa;margin-bottom:8px}
+.total-score{font-family:'Sora',sans-serif;font-size:52px;font-weight:800;color:#fff;line-height:1}
+.total-max{font-size:16px;color:#8892aa;margin-top:4px}
+.grade-badge{display:inline-block;margin-top:12px;padding:6px 20px;border-radius:20px;font-size:14px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+
+.print-btn{display:block;margin:24px auto 0;background:var(--blue);color:#fff;border:none;padding:13px 32px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif}
+.print-btn:hover{background:#162d4a}
+.save-eval-btn{display:block;margin:12px auto 0;background:var(--teal);color:#fff;border:none;padding:13px 32px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif}
+.save-eval-btn:hover{background:#256666}
+.success-msg{display:none;background:#e0f2f2;border:1.5px solid var(--teal);border-radius:8px;padding:12px 16px;font-size:13px;color:var(--teal);text-align:center;margin-top:12px;font-weight:600}
+
+@media print{
+  .teacher-banner,.test-header,.print-btn{display:none!important}
+  
+  body{background:#fff}
+  .card{box-shadow:none;border:1px solid #ccc}
+}
+</style>
+</head>
+<body>
+
+<!-- MAIN CONTENT -->
+<div id="mainContent">
+<div class="teacher-banner">🔒 SOMENTE PROFESSOR · PROVA ORAL · PARTE C · CLASSES 01–07</div>
+<header class="test-header">
+  <div class="header-inner">
+    <div>
+      <div class="brand-name">Upfront Idiomas</div>
+      <div class="brand-sub">English Course — Prova Oral · Parte C · Classes 01–07</div>
+    </div>
+    <div class="header-badge">Parte C · Professor</div>
+  </div>
+</header>
+
+<div class="page-wrap">
+
+<!-- STUDENT INFO -->
+<div class="card">
+  <div class="card-header"><div class="card-num">1</div><div><div class="card-title">Dados do Aluno</div></div></div>
+  <div class="card-body">
+    <div class="field-row">
+      <div class="field-group" style="flex:2">
+        <div class="field-label">Nome do Aluno</div>
+        <input class="field-input" type="text" id="studentName" placeholder="Nome completo do aluno">
+      </div>
+      <div class="field-group" style="max-width:160px">
+        <div class="field-label">Data</div>
+        <input class="field-input" type="date" id="examDate">
+      </div>
+      <div class="field-group" style="max-width:200px">
+        <div class="field-label">Professor</div>
+        <input class="field-input" type="text" id="teacherName" placeholder="Seu nome">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STUDENT TEXT -->
+<div class="card">
+  <div class="card-header"><div class="card-num">2</div><div><div class="card-title">Texto do Aluno — Writing Task</div><div class="card-sub">Cole ou leia o texto escrito pelo aluno</div></div></div>
+  <div class="card-body">
+    <div class="topic-box">✏️ Topic: My Daily Routine</div>
+    <div class="hints-box">
+      <div class="hints-title">Estruturas esperadas</div>
+      <ul><li><strong>AT + time</strong> — I wake up at 7am…</li><li><strong>BY car / ON foot / BY bus</strong> — I go to work by car…</li><li><strong>UNTIL</strong> — I work until 6pm…</li><li><strong>BEFORE / AFTER + -ing</strong> — After working, I…</li><li><strong>USUALLY / ALREADY / STILL</strong> — I usually have lunch at noon…</li></ul>
+    </div>
+    <div class="teacher-note"><strong>Instrução:</strong> Peça ao aluno que leia o texto em voz alta. Cole o texto abaixo ou anote observações sobre a produção escrita.</div>
+    <textarea class="student-text-area" id="writingNotes" placeholder="Cole aqui o texto do aluno ou anote observações sobre a produção escrita…"></textarea>
+  </div>
+</div>
+
+<!-- ORAL QUESTIONS -->
+<div class="card">
+  <div class="card-header"><div class="card-num">3</div><div><div class="card-title">Oral Exam — Perguntas</div><div class="card-sub">O professor faz as perguntas · O aluno responde oralmente</div></div></div>
+  <div class="card-body">
+    <div class="teacher-note"><strong>Como aplicar:</strong> Faça as perguntas em ordem. Deixe o aluno responder livremente. Não corrija durante a resposta — aguarde terminar e registre suas observações abaixo de cada pergunta.</div>
+    
+    <div class="oral-q">
+      <div class="q-label">Pergunta 1</div>
+      <div class="q-text">What time do you usually wake up? What do you do first in the morning?</div>
+      <div class="q-hint">I usually wake up at ___ / I always/sometimes/never… / First I…</div>
+      <textarea class="q-notes" id="qNotes1" placeholder="Anotações do professor…"></textarea>
+    </div>
+    <div class="oral-q">
+      <div class="q-label">Pergunta 2</div>
+      <div class="q-text">How do you go to work or school? How long does it take?</div>
+      <div class="q-hint">I go by car / on foot / by bus… / It takes about ___ minutes…</div>
+      <textarea class="q-notes" id="qNotes2" placeholder="Anotações do professor…"></textarea>
+    </div>
+    <div class="oral-q">
+      <div class="q-label">Pergunta 3</div>
+      <div class="q-text">What do you usually eat for lunch? And for dinner?</div>
+      <div class="q-hint">I usually eat… / I never have… / I already had… / I still need to…</div>
+      <textarea class="q-notes" id="qNotes3" placeholder="Anotações do professor…"></textarea>
+    </div>
+    <div class="oral-q">
+      <div class="q-label">Pergunta 4</div>
+      <div class="q-text">What do you do after work or school? Tell me about your evening routine.</div>
+      <div class="q-hint">After working, I… / Before sleeping, I… / I usually do… until…</div>
+      <textarea class="q-notes" id="qNotes4" placeholder="Anotações do professor…"></textarea>
+    </div>
+    <div class="oral-q">
+      <div class="q-label">Pergunta 5</div>
+      <div class="q-text">Do you already have a gym routine or hobby? How often do you do it?</div>
+      <div class="q-hint">I already go to the gym… / I still don't… / I usually / sometimes / always…</div>
+      <textarea class="q-notes" id="qNotes5" placeholder="Anotações do professor…"></textarea>
+    </div>
+    <div class="oral-q">
+      <div class="q-label">Pergunta 6 — Produção Livre</div>
+      <div class="q-text">Tell me about a typical weekend. Is it different from your weekday routine?</div>
+      <div class="q-hint">Observar: fluência, vocabulário, adverbs of frequency, preposições de tempo.</div>
+      <textarea class="q-notes" id="qNotes6" placeholder="Anotações do professor…"></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- STAR EVALUATION -->
+<div class="card">
+  <div class="card-header"><div class="card-num">4</div><div><div class="card-title">Avaliação Final — Estrelas</div><div class="card-sub">Toque nas estrelas para avaliar cada critério (1 a 5)</div></div></div>
+  <div class="card-body">
+    
+      <div class="star-row">
+        <div class="star-crit">
+          <div class="star-name">Pronúncia</div>
+          <div class="star-desc">Clareza e inteligibilidade</div>
+        </div>
+        <div class="star-group" data-crit="pronunciation">
+          <span class="star" data-v="1">★</span>
+          <span class="star" data-v="2">★</span>
+          <span class="star" data-v="3">★</span>
+          <span class="star" data-v="4">★</span>
+          <span class="star" data-v="5">★</span>
+        </div>
+        <div class="star-score" id="score_pronunciation">—</div>
+      </div>
+      <div class="star-row">
+        <div class="star-crit">
+          <div class="star-name">Fluência</div>
+          <div class="star-desc">Ritmo e naturalidade</div>
+        </div>
+        <div class="star-group" data-crit="fluency">
+          <span class="star" data-v="1">★</span>
+          <span class="star" data-v="2">★</span>
+          <span class="star" data-v="3">★</span>
+          <span class="star" data-v="4">★</span>
+          <span class="star" data-v="5">★</span>
+        </div>
+        <div class="star-score" id="score_fluency">—</div>
+      </div>
+      <div class="star-row">
+        <div class="star-crit">
+          <div class="star-name">Vocabulário</div>
+          <div class="star-desc">Uso correto das palavras das aulas</div>
+        </div>
+        <div class="star-group" data-crit="vocabulary">
+          <span class="star" data-v="1">★</span>
+          <span class="star" data-v="2">★</span>
+          <span class="star" data-v="3">★</span>
+          <span class="star" data-v="4">★</span>
+          <span class="star" data-v="5">★</span>
+        </div>
+        <div class="star-score" id="score_vocabulary">—</div>
+      </div>
+      <div class="star-row">
+        <div class="star-crit">
+          <div class="star-name">Gramática</div>
+          <div class="star-desc">Uso correto das estruturas estudadas</div>
+        </div>
+        <div class="star-group" data-crit="grammar">
+          <span class="star" data-v="1">★</span>
+          <span class="star" data-v="2">★</span>
+          <span class="star" data-v="3">★</span>
+          <span class="star" data-v="4">★</span>
+          <span class="star" data-v="5">★</span>
+        </div>
+        <div class="star-score" id="score_grammar">—</div>
+      </div>
+    <div class="total-box">
+      <div class="total-label">Nota Total</div>
+      <div class="total-score" id="totalScore">0</div>
+      <div class="total-max">de 20 pontos</div>
+      <div class="grade-badge" id="gradeBadge" style="background:#374151;color:#fff">Sem nota ainda</div>
+    </div>
+    <button class="save-eval-btn" onclick="saveEvalToCloud()">☁️ Salvar Avaliação na Nuvem</button>
+    <div class="success-msg" id="successMsg">✅ Avaliação salva na nuvem!</div>
+    <button class="print-btn" onclick="window.print()">🖨️ Imprimir / Salvar PDF</button>
+  </div>
+</div>
+
+</div>
+</div>
+
+<script>
+// EDIT ME after deploying api/ to your Hostinger hosting (see api/DEPLOY.md)
+var API_BASE = 'https://upfrontidiomas.com.br/api/portal.php';
+var API_KEY  = 'Upfrontisgonnabeamazing123';
+
+function saveEvalToCloud() {
+  var name = document.getElementById('studentName').value.trim() || 'Aluno';
+  var payload = {
+    groupIdx: 'test1', groupLabel: 'Classes 01–07',
+    studentName: name,
+    examDate: document.getElementById('examDate').value || '',
+    teacherName: document.getElementById('teacherName').value || '',
+    writingNotes: document.getElementById('writingNotes').value || '',
+    questionNotes: {
+      q1: document.getElementById('qNotes1').value || '',
+      q2: document.getElementById('qNotes2').value || '',
+      q3: document.getElementById('qNotes3').value || '',
+      q4: document.getElementById('qNotes4').value || '',
+      q5: document.getElementById('qNotes5').value || '',
+      q6: document.getElementById('qNotes6').value || ''
+    },
+    scores: Object.assign({}, scores),
+    total: Object.values(scores).reduce(function(a,b){return a+b;}, 0),
+    savedAt: new Date().toISOString()
+  };
+  var docId = 'uf_oral_eval_test1_' + name.toLowerCase().replace(/[^a-z0-9]+/g,'_');
+  fetch(API_BASE + '?action=upsert&key=' + encodeURIComponent(API_KEY), {
+    method: 'POST',
+    headers: {'Content-Type':'application/json','X-API-Key':API_KEY},
+    body: JSON.stringify({doc_id: docId, v: JSON.stringify(payload), ts: Date.now()})
+  }).then(function(){
+    document.getElementById('successMsg').style.display = 'block';
+  }).catch(function(){
+    alert('Não foi possível salvar na nuvem agora. Verifique sua conexão e tente novamente.');
+  });
+}
+
+const scores = {pronunciation:0,fluency:0,vocabulary:0,grammar:0};
+document.querySelectorAll('.star-group').forEach(group => {
+  const crit = group.dataset.crit;
+  const stars = group.querySelectorAll('.star');
+  stars.forEach(star => {
+    star.addEventListener('mouseenter', () => {
+      const v = parseInt(star.dataset.v);
+      stars.forEach(s => s.classList.toggle('lit', parseInt(s.dataset.v) <= v));
+    });
+    star.addEventListener('mouseleave', () => {
+      const cur = scores[crit];
+      stars.forEach(s => s.classList.toggle('lit', parseInt(s.dataset.v) <= cur));
+    });
+    star.addEventListener('click', () => {
+      const v = parseInt(star.dataset.v);
+      scores[crit] = v;
+      stars.forEach(s => s.classList.toggle('lit', parseInt(s.dataset.v) <= v));
+      document.getElementById('score_'+crit).textContent = v;
+      updateTotal();
+    });
+  });
+});
+
+function updateTotal() {
+  const total = Object.values(scores).reduce((a,b)=>a+b,0);
+  document.getElementById('totalScore').textContent = total;
+  const gb = document.getElementById('gradeBadge');
+  if(total===0){gb.style.background='#374151';gb.style.color='#fff';gb.textContent='Sem nota ainda';}
+  else if(total>=17){gb.style.background='#1a5c35';gb.style.color='#fff';gb.textContent='A — Excelente';}
+  else if(total>=13){gb.style.background='#1F3A5F';gb.style.color='#fff';gb.textContent='B — Bom';}
+  else if(total>=9){gb.style.background='#b85c00';gb.style.color='#fff';gb.textContent='C — Regular';}
+  else{gb.style.background='#7c1a1a';gb.style.color='#fff';gb.textContent='D — Insuficiente';}
+}
+</script>
+</body>
+</html>
