@@ -44,12 +44,6 @@
   .screen.active{display:block;animation:screen-in .5s ease}
   @keyframes screen-in{from{opacity:0;transform:scale(1.03)}to{opacity:1;transform:scale(1)}}
 
-  .speaker-invite{border-radius:50%;animation:ring-pulse 1.8s ease-out infinite}
-  @keyframes ring-pulse{
-    0%{box-shadow:0 0 0 0 rgba(255,255,255,.75)}
-    70%{box-shadow:0 0 0 16px rgba(255,255,255,0)}
-    100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}
-  }
   .sparkle{
     position:absolute;pointer-events:none;
     font-size:clamp(14px,2.4vw,24px);
@@ -59,6 +53,33 @@
   @keyframes twinkle{
     0%,100%{opacity:.15;transform:scale(.6) rotate(0deg)}
     50%{opacity:1;transform:scale(1.2) rotate(20deg)}
+  }
+
+  /* ── celebration (Lesson complete) ─────────────────── */
+  .confetti-layer{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:6}
+  .confetti-piece{
+    position:absolute;top:-8%;width:1.4%;height:2.2%;
+    opacity:.95;animation-name:confetti-fall;animation-timing-function:ease-in;
+    animation-fill-mode:forwards;
+  }
+  @keyframes confetti-fall{
+    0%{top:-8%;opacity:1}
+    85%{opacity:1}
+    100%{top:108%;opacity:.3}
+  }
+  .celebrate-emoji{
+    position:absolute;pointer-events:none;
+    font-size:clamp(20px,4vw,36px);
+    opacity:0;transform:scale(.3) rotate(-15deg);
+    animation:celebrate-pop 1s cubic-bezier(.34,1.56,.64,1) forwards,
+              celebrate-bob 2.4s ease-in-out 1s infinite;
+  }
+  @keyframes celebrate-pop{
+    to{opacity:1;transform:scale(1) rotate(0deg)}
+  }
+  @keyframes celebrate-bob{
+    0%,100%{transform:translateY(0) rotate(-4deg)}
+    50%{transform:translateY(-10px) rotate(4deg)}
   }
 
   /* ── transparent hotspot buttons ───────────────────── */
@@ -175,10 +196,10 @@
   <!-- ══ CHARACTERS ══ -->
   <div class="screen" id="characters" style="background-image:url('kids-assets/characters.jpg')">
     <button class="hot" style="left:91%;top:1.5%;width:8%;height:11.5%" onclick="openSettings()" aria-label="Settings"></button>
-    <button class="hot" style="left:3%;top:19%;width:46%;height:32%" onclick="speak('Leo')" aria-label="Leo"></button>
-    <button class="hot" style="left:51%;top:19%;width:46%;height:32%" onclick="speak('Mia')" aria-label="Mia"></button>
-    <button class="hot" style="left:3%;top:53%;width:46%;height:32%" onclick="speak('Buddy')" aria-label="Buddy"></button>
-    <button class="hot" style="left:51%;top:53%;width:46%;height:32%" onclick="speak('Luna')" aria-label="Luna"></button>
+    <button class="hot" style="left:3%;top:19%;width:46%;height:32%" onclick="speak('Leo!')" aria-label="Leo"></button>
+    <button class="hot" style="left:51%;top:19%;width:46%;height:32%" onclick="speak('Mia!')" aria-label="Mia"></button>
+    <button class="hot" style="left:3%;top:53%;width:46%;height:32%" onclick="speak('Buddy!')" aria-label="Buddy"></button>
+    <button class="hot" style="left:51%;top:53%;width:46%;height:32%" onclick="speak('Luna!')" aria-label="Luna"></button>
     <button class="hot" style="left:1%;top:90%;width:98%;height:9%" onclick="showScreen('map')" aria-label="Back to map"></button>
   </div>
 
@@ -190,7 +211,7 @@
     <span class="sparkle" style="left:66%;top:14%;animation-delay:1.5s">⭐</span>
     <button class="hot" style="left:1%;top:1.5%;width:8%;height:11.5%" onclick="showScreen('map')" aria-label="Home"></button>
     <button class="hot" style="left:91%;top:1.5%;width:8%;height:11.5%" onclick="openSettings()" aria-label="Settings"></button>
-    <button class="hot speaker-invite" style="left:45%;top:80.5%;width:9%;height:13%" onclick="speak(\"Hello! Let's start!\")" aria-label="Play audio"></button>
+    <button class="hot" style="left:45%;top:80.5%;width:9%;height:13%" onclick="speak(&quot;Hello! Let's start!&quot;)" aria-label="Play audio"></button>
     <button class="hot" style="left:78%;top:47%;width:18%;height:9%" onclick="showScreen('l1_2')" aria-label="Learn"></button>
     <button class="hot" style="left:78%;top:57%;width:18%;height:9%" onclick="showScreen('l1_2')" aria-label="Play"></button>
     <button class="hot" style="left:78%;top:67%;width:18%;height:9%" onclick="showScreen('l1_2')" aria-label="Speak"></button>
@@ -235,7 +256,7 @@
     <button class="hot" style="left:45%;top:80.5%;width:9%;height:13%" onclick="speak('Hello')" aria-label="Play audio"></button>
 
     <button class="hot" style="left:31.7%;top:30.6%;width:17%;height:27.9%" onclick="speak('Hello')" aria-label="Listen again"></button>
-    <button class="hot" style="left:50%;top:29.7%;width:28.6%;height:15.3%" onclick="chooseAnswer(true,this,'Hello')" aria-label="Option A Hello"></button>
+    <button class="hot" style="left:50.4%;top:30.9%;width:28.2%;height:14.2%" onclick="chooseAnswer(true,this,'Hello')" aria-label="Option A Hello"></button>
     <button class="hot" style="left:50%;top:46.9%;width:28.6%;height:13.9%" onclick="chooseAnswer(false,this)" aria-label="Option B Hi"></button>
     <button class="hot" style="left:50%;top:62.9%;width:28.6%;height:13.5%" onclick="chooseAnswer(false,this)" aria-label="Option C Goodbye"></button>
   </div>
@@ -278,8 +299,8 @@
     <button class="hot" style="left:82%;top:87%;width:16%;height:11%" onclick="showScreen('l1_8')" aria-label="Next"></button>
     <button class="hot" style="left:45%;top:80.5%;width:9%;height:13%" onclick="speak('Choose the correct greeting for each situation.')" aria-label="Play audio"></button>
 
-    <button class="hot" style="left:32.3%;top:65.9%;width:13%;height:5.2%" onclick="playAnswer(true,this)" aria-label="Q1 Hello"></button>
-    <button class="hot" style="left:32.3%;top:70.9%;width:13%;height:4.7%" onclick="playAnswer(false,this)" aria-label="Q1 Hi"></button>
+    <button class="hot" style="left:32.3%;top:65.9%;width:13%;height:5.2%" onclick="playAnswer(false,this)" aria-label="Q1 Hello"></button>
+    <button class="hot" style="left:32.3%;top:70.9%;width:13%;height:4.7%" onclick="playAnswer(true,this)" aria-label="Q1 Hi"></button>
     <button class="hot" style="left:32.3%;top:75.8%;width:13%;height:4.8%" onclick="playAnswer(false,this)" aria-label="Q1 Goodbye"></button>
 
     <button class="hot" style="left:50.3%;top:65.9%;width:13.2%;height:5.2%" onclick="playAnswer(false,this)" aria-label="Q2 Hello"></button>
@@ -293,6 +314,10 @@
 
   <!-- ══ LESSON 1 · STEP 8 — COMPLETE ══ -->
   <div class="screen" id="l1_8" style="background-image:url('kids-assets/lesson1-step8-complete.jpg')">
+    <div class="confetti-layer" id="confettiLayer"></div>
+    <span class="celebrate-emoji" style="left:14%;top:8%;animation-delay:.1s">🎉</span>
+    <span class="celebrate-emoji" style="left:82%;top:10%;animation-delay:.35s">🎊</span>
+    <span class="celebrate-emoji" style="left:50%;top:4%;animation-delay:.6s">🌟</span>
     <button class="hot" style="left:1%;top:1.5%;width:8%;height:11.5%" onclick="showScreen('map')" aria-label="Home"></button>
     <button class="hot" style="left:91%;top:1.5%;width:8%;height:11.5%" onclick="openSettings()" aria-label="Settings"></button>
     <button class="hot" style="left:2%;top:87%;width:16%;height:11%" onclick="showScreen('l1_7')" aria-label="Back"></button>
@@ -323,7 +348,28 @@ function showScreen(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   if(id==='l1_6') initMemory();
+  if(id==='l1_8') spawnConfetti();
   closeSettings();
+}
+
+// ═══ CELEBRATION ═══
+const CONFETTI_COLORS = ['#ff5d8f','#ffcc00','#22c55e','#4189ff','#a259ff','#ff8a3d'];
+function spawnConfetti(){
+  const layer = document.getElementById('confettiLayer');
+  if(!layer) return;
+  layer.innerHTML = '';
+  const count = 36;
+  for(let i=0;i<count;i++){
+    const p = document.createElement('span');
+    p.className = 'confetti-piece';
+    p.style.left = (Math.random()*100) + '%';
+    p.style.background = CONFETTI_COLORS[i % CONFETTI_COLORS.length];
+    p.style.borderRadius = Math.random() < 0.5 ? '50%' : '2px';
+    p.style.animationDuration = (1.8 + Math.random()*1.6) + 's';
+    p.style.animationDelay = (Math.random()*0.6) + 's';
+    p.style.transform = 'rotate(' + Math.floor(Math.random()*360) + 'deg)';
+    layer.appendChild(p);
+  }
 }
 
 // ═══ AUDIO (Web Speech API) ═══
@@ -436,7 +482,7 @@ function matchRightClick(key, el){
     leftEl.classList.remove('sel');
     leftEl.classList.add('ok');
     el.classList.add('ok');
-    speak(key.charAt(0).toUpperCase()+key.slice(1));
+    speak(key.charAt(0).toUpperCase()+key.slice(1)+'!');
     if(matchedSet.size === 3) toast('🌟 Great matching!');
   } else {
     el.classList.add('bad');
