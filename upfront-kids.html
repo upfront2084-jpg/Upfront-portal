@@ -41,7 +41,25 @@
     background-size:contain;background-repeat:no-repeat;background-position:center;
     display:none;
   }
-  .screen.active{display:block}
+  .screen.active{display:block;animation:screen-in .5s ease}
+  @keyframes screen-in{from{opacity:0;transform:scale(1.03)}to{opacity:1;transform:scale(1)}}
+
+  .speaker-invite{border-radius:50%;animation:ring-pulse 1.8s ease-out infinite}
+  @keyframes ring-pulse{
+    0%{box-shadow:0 0 0 0 rgba(255,255,255,.75)}
+    70%{box-shadow:0 0 0 16px rgba(255,255,255,0)}
+    100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}
+  }
+  .sparkle{
+    position:absolute;pointer-events:none;
+    font-size:clamp(14px,2.4vw,24px);
+    animation:twinkle 2.4s ease-in-out infinite;
+    filter:drop-shadow(0 0 4px rgba(255,255,255,.8));
+  }
+  @keyframes twinkle{
+    0%,100%{opacity:.15;transform:scale(.6) rotate(0deg)}
+    50%{opacity:1;transform:scale(1.2) rotate(20deg)}
+  }
 
   /* ── transparent hotspot buttons ───────────────────── */
   .hot{
@@ -166,9 +184,13 @@
 
   <!-- ══ LESSON 1 · STEP 1 — INTRO ══ -->
   <div class="screen" id="l1_1" style="background-image:url('kids-assets/lesson1-step1-intro.jpg')">
+    <span class="sparkle" style="left:38%;top:10%;animation-delay:0s">✨</span>
+    <span class="sparkle" style="left:58%;top:6%;animation-delay:.5s">⭐</span>
+    <span class="sparkle" style="left:48%;top:16%;animation-delay:1s">✨</span>
+    <span class="sparkle" style="left:66%;top:14%;animation-delay:1.5s">⭐</span>
     <button class="hot" style="left:1%;top:1.5%;width:8%;height:11.5%" onclick="showScreen('map')" aria-label="Home"></button>
     <button class="hot" style="left:91%;top:1.5%;width:8%;height:11.5%" onclick="openSettings()" aria-label="Settings"></button>
-    <button class="hot" style="left:45%;top:80.5%;width:9%;height:13%" onclick="speak(\"Hello! Let's start!\")" aria-label="Play audio"></button>
+    <button class="hot speaker-invite" style="left:45%;top:80.5%;width:9%;height:13%" onclick="speak(\"Hello! Let's start!\")" aria-label="Play audio"></button>
     <button class="hot" style="left:78%;top:47%;width:18%;height:9%" onclick="showScreen('l1_2')" aria-label="Learn"></button>
     <button class="hot" style="left:78%;top:57%;width:18%;height:9%" onclick="showScreen('l1_2')" aria-label="Play"></button>
     <button class="hot" style="left:78%;top:67%;width:18%;height:9%" onclick="showScreen('l1_2')" aria-label="Speak"></button>
@@ -195,13 +217,13 @@
     <button class="hot" style="left:82%;top:87%;width:16%;height:11%" onclick="showScreen('l1_4')" aria-label="Next"></button>
     <button class="hot" style="left:45%;top:80.5%;width:9%;height:13%" onclick="speak('Match the characters to their names.')" aria-label="Play audio"></button>
 
-    <button class="hot match-left" data-key="leo" style="left:33%;top:28.5%;width:13%;height:17%" onclick="matchLeftClick('leo',this)" aria-label="Leo picture"></button>
-    <button class="hot match-left" data-key="mia" style="left:33%;top:45.5%;width:13%;height:17%" onclick="matchLeftClick('mia',this)" aria-label="Mia picture"></button>
-    <button class="hot match-left" data-key="buddy" style="left:33%;top:62.2%;width:13%;height:17%" onclick="matchLeftClick('buddy',this)" aria-label="Buddy picture"></button>
+    <button class="hot match-left" data-key="leo" style="left:34.3%;top:29.6%;width:10.8%;height:15.8%" onclick="matchLeftClick('leo',this)" aria-label="Leo picture"></button>
+    <button class="hot match-left" data-key="mia" style="left:34.3%;top:46.7%;width:10.8%;height:15.3%" onclick="matchLeftClick('mia',this)" aria-label="Mia picture"></button>
+    <button class="hot match-left" data-key="buddy" style="left:34.3%;top:63.3%;width:10.8%;height:15.5%" onclick="matchLeftClick('buddy',this)" aria-label="Buddy picture"></button>
 
-    <button class="hot match-right" data-key="mia" style="left:61%;top:32%;width:16%;height:11.5%" onclick="matchRightClick('mia',this)" aria-label="Mia"></button>
-    <button class="hot match-right" data-key="buddy" style="left:61%;top:48.7%;width:16%;height:11.5%" onclick="matchRightClick('buddy',this)" aria-label="Buddy"></button>
-    <button class="hot match-right" data-key="leo" style="left:61%;top:65.4%;width:16%;height:11.5%" onclick="matchRightClick('leo',this)" aria-label="Leo"></button>
+    <button class="hot match-right" data-key="mia" style="left:61.9%;top:33.1%;width:14.6%;height:9.7%" onclick="matchRightClick('mia',this)" aria-label="Mia"></button>
+    <button class="hot match-right" data-key="buddy" style="left:61.9%;top:49.85%;width:14.6%;height:9.7%" onclick="matchRightClick('buddy',this)" aria-label="Buddy"></button>
+    <button class="hot match-right" data-key="leo" style="left:61.9%;top:66.47%;width:14.6%;height:9.7%" onclick="matchRightClick('leo',this)" aria-label="Leo"></button>
   </div>
 
   <!-- ══ LESSON 1 · STEP 4 — LISTEN & CHOOSE ══ -->
@@ -212,10 +234,10 @@
     <button class="hot" style="left:82%;top:87%;width:16%;height:11%" onclick="showScreen('l1_5')" aria-label="Next"></button>
     <button class="hot" style="left:45%;top:80.5%;width:9%;height:13%" onclick="speak('Hello')" aria-label="Play audio"></button>
 
-    <button class="hot" style="left:31%;top:30%;width:18%;height:28%" onclick="speak('Hello')" aria-label="Listen again"></button>
-    <button class="hot" style="left:50%;top:29%;width:29%;height:15%" onclick="chooseAnswer(true,this,'Hello')" aria-label="Option A Hello"></button>
-    <button class="hot" style="left:50%;top:47%;width:29%;height:14%" onclick="chooseAnswer(false,this)" aria-label="Option B Hi"></button>
-    <button class="hot" style="left:50%;top:63%;width:29%;height:14%" onclick="chooseAnswer(false,this)" aria-label="Option C Goodbye"></button>
+    <button class="hot" style="left:31.7%;top:30.6%;width:17%;height:27.9%" onclick="speak('Hello')" aria-label="Listen again"></button>
+    <button class="hot" style="left:50%;top:29.7%;width:28.6%;height:15.3%" onclick="chooseAnswer(true,this,'Hello')" aria-label="Option A Hello"></button>
+    <button class="hot" style="left:50%;top:46.9%;width:28.6%;height:13.9%" onclick="chooseAnswer(false,this)" aria-label="Option B Hi"></button>
+    <button class="hot" style="left:50%;top:62.9%;width:28.6%;height:13.5%" onclick="chooseAnswer(false,this)" aria-label="Option C Goodbye"></button>
   </div>
 
   <!-- ══ LESSON 1 · STEP 5 — LET'S SPEAK ══ -->
@@ -256,17 +278,17 @@
     <button class="hot" style="left:82%;top:87%;width:16%;height:11%" onclick="showScreen('l1_8')" aria-label="Next"></button>
     <button class="hot" style="left:45%;top:80.5%;width:9%;height:13%" onclick="speak('Choose the correct greeting for each situation.')" aria-label="Play audio"></button>
 
-    <button class="hot" style="left:32%;top:67%;width:13%;height:6.5%" onclick="playAnswer(true,this)" aria-label="Q1 Hello"></button>
-    <button class="hot" style="left:32%;top:75%;width:13%;height:6.5%" onclick="playAnswer(false,this)" aria-label="Q1 Hi"></button>
-    <button class="hot" style="left:32%;top:83%;width:13%;height:6.5%" onclick="playAnswer(false,this)" aria-label="Q1 Goodbye"></button>
+    <button class="hot" style="left:32.3%;top:65.9%;width:13%;height:5.2%" onclick="playAnswer(true,this)" aria-label="Q1 Hello"></button>
+    <button class="hot" style="left:32.3%;top:70.9%;width:13%;height:4.7%" onclick="playAnswer(false,this)" aria-label="Q1 Hi"></button>
+    <button class="hot" style="left:32.3%;top:75.8%;width:13%;height:4.8%" onclick="playAnswer(false,this)" aria-label="Q1 Goodbye"></button>
 
-    <button class="hot" style="left:50%;top:67%;width:15%;height:6.5%" onclick="playAnswer(false,this)" aria-label="Q2 Hello"></button>
-    <button class="hot" style="left:50%;top:75%;width:15%;height:6.5%" onclick="playAnswer(false,this)" aria-label="Q2 Hi"></button>
-    <button class="hot" style="left:50%;top:83%;width:15%;height:6.5%" onclick="playAnswer(true,this)" aria-label="Q2 Goodbye"></button>
+    <button class="hot" style="left:50.3%;top:65.9%;width:13.2%;height:5.2%" onclick="playAnswer(false,this)" aria-label="Q2 Hello"></button>
+    <button class="hot" style="left:50.3%;top:70.9%;width:13.2%;height:4.7%" onclick="playAnswer(false,this)" aria-label="Q2 Hi"></button>
+    <button class="hot" style="left:50.3%;top:75.8%;width:13.2%;height:4.8%" onclick="playAnswer(true,this)" aria-label="Q2 Goodbye"></button>
 
-    <button class="hot" style="left:69%;top:67%;width:15%;height:6.5%" onclick="playAnswer(true,this)" aria-label="Q3 Hello"></button>
-    <button class="hot" style="left:69%;top:75%;width:15%;height:6.5%" onclick="playAnswer(false,this)" aria-label="Q3 Hi"></button>
-    <button class="hot" style="left:69%;top:83%;width:15%;height:6.5%" onclick="playAnswer(false,this)" aria-label="Q3 Goodbye"></button>
+    <button class="hot" style="left:68.5%;top:65.9%;width:13.3%;height:5.2%" onclick="playAnswer(true,this)" aria-label="Q3 Hello"></button>
+    <button class="hot" style="left:68.5%;top:70.9%;width:13.3%;height:4.7%" onclick="playAnswer(false,this)" aria-label="Q3 Hi"></button>
+    <button class="hot" style="left:68.5%;top:75.8%;width:13.3%;height:4.8%" onclick="playAnswer(false,this)" aria-label="Q3 Goodbye"></button>
   </div>
 
   <!-- ══ LESSON 1 · STEP 8 — COMPLETE ══ -->
@@ -308,12 +330,39 @@ function showScreen(id){
 let muted = localStorage.getItem('kids_muted') === '1';
 let ttsVoices = [];
 let ttsWarned = false;
+let ttsPrimed = false;
+// Voices whose names tend to sound brighter/younger across common platforms,
+// checked in order — first match wins. Falls back to any English voice.
+const FRIENDLY_VOICE_HINTS = [
+  'female child','child','junior','samantha','karen','moira','tessa',
+  'google uk english female','google us english','zira','susan','kids',
+  'female'
+];
 function loadVoices(){
   if('speechSynthesis' in window) ttsVoices = window.speechSynthesis.getVoices();
+}
+function pickFriendlyVoice(){
+  const en = ttsVoices.filter(v => v.lang && v.lang.toLowerCase().startsWith('en'));
+  if(!en.length) return null;
+  for(const hint of FRIENDLY_VOICE_HINTS){
+    const found = en.find(v => v.name.toLowerCase().includes(hint));
+    if(found) return found;
+  }
+  return en[0];
+}
+function primeSpeech(){
+  if(ttsPrimed || !('speechSynthesis' in window)) return;
+  ttsPrimed = true;
+  try{
+    const u = new SpeechSynthesisUtterance(' ');
+    u.volume = 0;
+    window.speechSynthesis.speak(u);
+  }catch(e){}
 }
 if('speechSynthesis' in window){
   loadVoices();
   window.speechSynthesis.onvoiceschanged = loadVoices;
+  document.addEventListener('pointerdown', primeSpeech, { once:true, capture:true });
 }
 function speak(text, rate){
   if(muted) return;
@@ -325,9 +374,9 @@ function speak(text, rate){
     window.speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(text);
     u.lang = 'en-US';
-    u.rate = rate || 0.92;
-    u.pitch = 1.15;
-    const v = ttsVoices.find(v => v.lang && v.lang.toLowerCase().startsWith('en'));
+    u.rate = rate || 0.9;
+    u.pitch = 1.35;
+    const v = pickFriendlyVoice();
     if(v) u.voice = v;
     u.onerror = function(){ if(!ttsWarned){ toast('🔇 Audio blocked — open in Chrome or Safari'); ttsWarned = true; } };
     window.speechSynthesis.speak(u);
