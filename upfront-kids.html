@@ -134,6 +134,69 @@
   .mem-card.flip .mem-face,.mem-card.matched .mem-face{opacity:1;transform:scale(1)}
   .mem-card.listening-lock{pointer-events:none}
 
+  /* ── quiz / unscramble cards (step 7) ────────────────── */
+  .quiz-header{
+    position:absolute;left:11%;top:11%;width:70%;
+    background:#fff;border-radius:18px;
+    box-shadow:0 8px 20px rgba(0,0,0,.18);
+    padding:1.6% 2.6%;display:flex;flex-direction:column;gap:1.4%;
+  }
+  .quiz-header-row{display:flex;align-items:center;gap:3%}
+  .quiz-badge{
+    width:11%;aspect-ratio:1;border-radius:50%;flex-shrink:0;
+    background:#7c3aed;color:#fff;display:flex;align-items:center;justify-content:center;
+    font-weight:800;font-size:clamp(13px,2.4vw,20px);
+  }
+  .quiz-badge.pink{background:#f43f5e}
+  .quiz-badge.patch-badge{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:clamp(13px,2.4vw,20px)}
+  .quiz-title{font-weight:800;color:#4c1d95;font-size:clamp(15px,2.8vw,24px);text-transform:uppercase;letter-spacing:.4px}
+  .quiz-sub{background:#eef1f8;border-radius:12px;padding:1.8% 3%;color:#1e3a5f;font-weight:700;font-size:clamp(10px,1.8vw,14px)}
+
+  .quiz-body{
+    position:absolute;left:11%;top:26.5%;width:78%;height:49%;
+    background:#fff;border-radius:20px;box-shadow:0 10px 26px rgba(0,0,0,.2);
+    display:flex;align-items:center;padding:2.2%;gap:3%;
+  }
+  .quiz-avatar{width:22%;aspect-ratio:1;border-radius:50%;object-fit:cover;flex-shrink:0;box-shadow:0 4px 10px rgba(0,0,0,.15)}
+  .quiz-question{flex:1;font-weight:700;color:#1e3a5f;font-size:clamp(11px,2vw,17px);line-height:1.35}
+  .quiz-options{display:flex;flex-direction:column;gap:4%;width:36%;flex-shrink:0}
+  .quiz-opt{
+    border:none;border-radius:14px;padding:5% 6%;color:#fff;
+    font-family:inherit;font-weight:800;font-size:clamp(10px,1.9vw,15px);
+    text-align:left;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,.15);
+    transition:transform .12s;-webkit-tap-highlight-color:transparent;
+  }
+  .quiz-opt:active{transform:scale(.96)}
+  .quiz-opt.green{background:#22c55e}
+  .quiz-opt.purple{background:#7c3aed}
+  .quiz-opt.orange{background:#f97316}
+  .quiz-opt.correct-mark{box-shadow:0 0 0 3px #fff,0 0 0 6px #16a34a}
+  .quiz-opt.wrong-mark{animation:shake .4s ease}
+
+  .unscr-body{
+    position:absolute;left:11%;top:26.5%;width:78%;height:49%;
+    background:#fff;border-radius:20px;box-shadow:0 10px 26px rgba(0,0,0,.2);
+    display:flex;flex-direction:column;justify-content:center;gap:6%;padding:4% 5%;
+  }
+  .unscr-sentence{
+    flex:1.2;background:#eef1f8;border-radius:16px;
+    display:flex;align-items:center;justify-content:center;
+    gap:2.5%;flex-wrap:wrap;padding:2%;
+  }
+  .unscr-bank{flex:1;display:flex;align-items:center;justify-content:center;gap:3%;flex-wrap:wrap}
+  .unscr-slot-chip,.unscr-tile{
+    border-radius:12px;font-family:inherit;font-weight:800;
+    font-size:clamp(12px,2.4vw,19px);padding:3% 5%;cursor:pointer;
+    -webkit-tap-highlight-color:transparent;transition:transform .12s;
+  }
+  .unscr-slot-chip:active,.unscr-tile:active{transform:scale(.94)}
+  .unscr-slot-chip{background:#4189ff;color:#fff;border:none;box-shadow:0 4px 8px rgba(0,0,0,.15)}
+  .unscr-tile{background:#fff;color:#1e3a5f;border:3px solid #4189ff;box-shadow:0 3px 6px rgba(0,0,0,.1)}
+  .unscr-slot-empty{
+    display:inline-block;width:22%;aspect-ratio:2.4/1;
+    border:3px dashed #b9c4dd;border-radius:12px;
+  }
+
   /* ── toast ──────────────────────────────────────────── */
   .toast{
     position:absolute;left:50%;top:6%;transform:translate(-50%,-20px);
@@ -292,7 +355,7 @@
     <button class="hot" style="left:1%;top:1.5%;width:8%;height:11.5%" onclick="showScreen('map')" aria-label="Home"></button>
     <button class="hot" style="left:91%;top:1.5%;width:8%;height:11.5%" onclick="openSettings()" aria-label="Settings"></button>
     <button class="hot" style="left:2%;top:87%;width:16%;height:11%" onclick="showScreen('l1_5')" aria-label="Back"></button>
-    <button class="hot" style="left:82%;top:87%;width:16%;height:11%" onclick="showScreen('l1_7')" aria-label="Next"></button>
+    <button class="hot" style="left:82%;top:87%;width:16%;height:11%" onclick="showScreen('l1_7a')" aria-label="Next"></button>
     <button class="hot" style="left:45%;top:80.5%;width:9%;height:13%" onclick="speak('Flip the cards and find the matching pairs!')" aria-label="Play audio"></button>
 
     <button class="hot mem-card" style="left:37%;top:40%;width:9.6%;height:16.8%" onclick="flipMemCard(0,this)" aria-label="Card 1"><img class="mem-img" alt=""><span class="mem-face"></span></button>
@@ -305,32 +368,109 @@
     <button class="hot mem-card" style="left:70.7%;top:59.4%;width:9.6%;height:16.8%" onclick="flipMemCard(7,this)" aria-label="Card 8"><img class="mem-img" alt=""><span class="mem-face"></span></button>
   </div>
 
-  <!-- ══ LESSON 1 · STEP 7 — LET'S PLAY ══ -->
-  <div class="screen" id="l1_7" style="background-image:url('kids-assets/lesson1-step7-play.jpg')">
+  <!-- ══ LESSON 1 · STEP 7 — QUIZ (3 rounds) ══ -->
+  <div class="screen" id="l1_7a" style="background-image:url('kids-assets/lesson1-step2-vocabulary.jpg')">
+    <div class="quiz-header">
+      <div class="quiz-header-row"><span class="quiz-badge">7</span><span class="quiz-title">Quiz</span></div>
+      <div class="quiz-sub">Choose the correct answer.</div>
+    </div>
+    <div class="quiz-body">
+      <img class="quiz-avatar" src="kids-assets/face-buddy.jpg" alt="">
+      <div class="quiz-question">1. Which word do we use when we greet a friend in a casual way?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt green" onclick="quizAnswer(false,this)">A) Hello</button>
+        <button class="quiz-opt purple" onclick="quizAnswer(true,this)">B) Hi</button>
+        <button class="quiz-opt orange" onclick="quizAnswer(false,this)">C) Goodbye</button>
+      </div>
+    </div>
     <button class="hot" style="left:1%;top:1.5%;width:8%;height:11.5%" onclick="showScreen('map')" aria-label="Home"></button>
     <button class="hot" style="left:91%;top:1.5%;width:8%;height:11.5%" onclick="openSettings()" aria-label="Settings"></button>
     <button class="hot" style="left:2%;top:87%;width:16%;height:11%" onclick="showScreen('l1_6')" aria-label="Back"></button>
+    <button class="hot" style="left:82%;top:87%;width:16%;height:11%" onclick="showScreen('l1_7b')" aria-label="Next"></button>
+    <button class="hot" style="left:45%;top:80.5%;width:9%;height:13%" onclick="speak('Which word do we use when we greet a friend in a casual way?')" aria-label="Play audio"></button>
+  </div>
+
+  <div class="screen" id="l1_7b" style="background-image:url('kids-assets/lesson1-step2-vocabulary.jpg')">
+    <div class="quiz-header">
+      <div class="quiz-header-row"><span class="quiz-badge">8</span><span class="quiz-title">Quiz</span></div>
+      <div class="quiz-sub">Choose the correct answer.</div>
+    </div>
+    <div class="quiz-body">
+      <img class="quiz-avatar" src="kids-assets/face-buddy.jpg" alt="">
+      <div class="quiz-question">2. Which word do we use when we meet someone?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt green" onclick="quizAnswer(true,this)">A) Hello</button>
+        <button class="quiz-opt purple" onclick="quizAnswer(false,this)">B) Hi</button>
+        <button class="quiz-opt orange" onclick="quizAnswer(false,this)">C) Goodbye</button>
+      </div>
+    </div>
+    <button class="hot" style="left:1%;top:1.5%;width:8%;height:11.5%" onclick="showScreen('map')" aria-label="Home"></button>
+    <button class="hot" style="left:91%;top:1.5%;width:8%;height:11.5%" onclick="openSettings()" aria-label="Settings"></button>
+    <button class="hot" style="left:2%;top:87%;width:16%;height:11%" onclick="showScreen('l1_7a')" aria-label="Back"></button>
+    <button class="hot" style="left:82%;top:87%;width:16%;height:11%" onclick="showScreen('l1_7c')" aria-label="Next"></button>
+    <button class="hot" style="left:45%;top:80.5%;width:9%;height:13%" onclick="speak('Which word do we use when we meet someone?')" aria-label="Play audio"></button>
+  </div>
+
+  <div class="screen" id="l1_7c" style="background-image:url('kids-assets/lesson1-step2-vocabulary.jpg')">
+    <div class="quiz-header">
+      <div class="quiz-header-row"><span class="quiz-badge">9</span><span class="quiz-title">Quiz</span></div>
+      <div class="quiz-sub">Choose the correct answer.</div>
+    </div>
+    <div class="quiz-body">
+      <img class="quiz-avatar" src="kids-assets/face-buddy.jpg" alt="">
+      <div class="quiz-question">3. Which word do we use when we leave someone at the end of the day?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt green" onclick="quizAnswer(false,this)">A) Hello</button>
+        <button class="quiz-opt purple" onclick="quizAnswer(false,this)">B) Hi</button>
+        <button class="quiz-opt orange" onclick="quizAnswer(true,this)">C) Goodbye</button>
+      </div>
+    </div>
+    <button class="hot" style="left:1%;top:1.5%;width:8%;height:11.5%" onclick="showScreen('map')" aria-label="Home"></button>
+    <button class="hot" style="left:91%;top:1.5%;width:8%;height:11.5%" onclick="openSettings()" aria-label="Settings"></button>
+    <button class="hot" style="left:2%;top:87%;width:16%;height:11%" onclick="showScreen('l1_7b')" aria-label="Back"></button>
+    <button class="hot" style="left:82%;top:87%;width:16%;height:11%" onclick="showScreen('l1_7d')" aria-label="Next"></button>
+    <button class="hot" style="left:45%;top:80.5%;width:9%;height:13%" onclick="speak('Which word do we use when we leave someone at the end of the day?')" aria-label="Play audio"></button>
+  </div>
+
+  <!-- ══ LESSON 1 · STEP 7 — UNSCRAMBLE (2 rounds) ══ -->
+  <div class="screen" id="l1_7d" style="background-image:url('kids-assets/lesson1-step2-vocabulary.jpg')">
+    <div class="quiz-header">
+      <div class="quiz-header-row"><span class="quiz-badge pink">11</span><span class="quiz-title">Complete</span></div>
+      <div class="quiz-sub">Put the words in the right order.</div>
+    </div>
+    <div class="unscr-body">
+      <div class="unscr-sentence" id="l1_7d_slots"></div>
+      <div class="unscr-bank" id="l1_7d_bank"></div>
+    </div>
+    <button class="hot" style="left:1%;top:1.5%;width:8%;height:11.5%" onclick="showScreen('map')" aria-label="Home"></button>
+    <button class="hot" style="left:91%;top:1.5%;width:8%;height:11.5%" onclick="openSettings()" aria-label="Settings"></button>
+    <button class="hot" style="left:2%;top:87%;width:16%;height:11%" onclick="showScreen('l1_7c')" aria-label="Back"></button>
+    <button class="hot" style="left:82%;top:87%;width:16%;height:11%" onclick="showScreen('l1_7e')" aria-label="Next"></button>
+    <button class="hot" style="left:45%;top:80.5%;width:9%;height:13%" onclick="speak('Put the words in order. Hello Buddy!')" aria-label="Play audio"></button>
+  </div>
+
+  <div class="screen" id="l1_7e" style="background-image:url('kids-assets/lesson1-step2-vocabulary.jpg')">
+    <div class="quiz-header">
+      <div class="quiz-header-row"><span class="quiz-badge pink">12</span><span class="quiz-title">Complete</span></div>
+      <div class="quiz-sub">Put the words in the right order.</div>
+    </div>
+    <div class="unscr-body">
+      <div class="unscr-sentence" id="l1_7e_slots"></div>
+      <div class="unscr-bank" id="l1_7e_bank"></div>
+    </div>
+    <button class="hot" style="left:1%;top:1.5%;width:8%;height:11.5%" onclick="showScreen('map')" aria-label="Home"></button>
+    <button class="hot" style="left:91%;top:1.5%;width:8%;height:11.5%" onclick="openSettings()" aria-label="Settings"></button>
+    <button class="hot" style="left:2%;top:87%;width:16%;height:11%" onclick="showScreen('l1_7d')" aria-label="Back"></button>
     <button class="hot" style="left:82%;top:87%;width:16%;height:11%" onclick="showScreen('l1_8')" aria-label="Next"></button>
-    <button class="hot" style="left:45%;top:80.5%;width:9%;height:13%" onclick="speak('Choose the correct greeting for each situation.')" aria-label="Play audio"></button>
-
-    <button class="hot" style="left:32.3%;top:65.9%;width:13%;height:5.2%" onclick="playAnswer(false,this,'q1')" aria-label="Q1 Hello"></button>
-    <button class="hot" style="left:32.3%;top:70.9%;width:13%;height:4.7%" onclick="playAnswer(true,this,'q1')" aria-label="Q1 Hi"></button>
-    <button class="hot" style="left:32.3%;top:75.8%;width:13%;height:4.8%" onclick="playAnswer(false,this,'q1')" aria-label="Q1 Goodbye"></button>
-
-    <button class="hot" style="left:50.3%;top:65.9%;width:13.2%;height:5.2%" onclick="playAnswer(false,this,'q2')" aria-label="Q2 Hello"></button>
-    <button class="hot" style="left:50.3%;top:70.9%;width:13.2%;height:4.7%" onclick="playAnswer(false,this,'q2')" aria-label="Q2 Hi"></button>
-    <button class="hot" style="left:50.3%;top:75.8%;width:13.2%;height:4.8%" onclick="playAnswer(true,this,'q2')" aria-label="Q2 Goodbye"></button>
-
-    <button class="hot" style="left:68.5%;top:65.9%;width:13.3%;height:5.2%" onclick="playAnswer(true,this,'q3')" aria-label="Q3 Hello"></button>
-    <button class="hot" style="left:68.5%;top:70.9%;width:13.3%;height:4.7%" onclick="playAnswer(false,this,'q3')" aria-label="Q3 Hi"></button>
-    <button class="hot" style="left:68.5%;top:75.8%;width:13.3%;height:4.8%" onclick="playAnswer(false,this,'q3')" aria-label="Q3 Goodbye"></button>
+    <button class="hot" style="left:45%;top:80.5%;width:9%;height:13%" onclick="speak('Put the words in order. Goodbye Luna!')" aria-label="Play audio"></button>
   </div>
 
   <!-- ══ LESSON 1 · STEP 8 — COMPLETE ══ -->
   <div class="screen" id="l1_8" style="background-image:url('kids-assets/lesson1-step8-complete.jpg')">
+    <span class="quiz-badge patch-badge" style="left:30%;top:14.5%;width:8%;position:absolute">13</span>
     <button class="hot" style="left:1%;top:1.5%;width:8%;height:11.5%" onclick="showScreen('map')" aria-label="Home"></button>
     <button class="hot" style="left:91%;top:1.5%;width:8%;height:11.5%" onclick="openSettings()" aria-label="Settings"></button>
-    <button class="hot" style="left:2%;top:87%;width:16%;height:11%" onclick="showScreen('l1_7')" aria-label="Back"></button>
+    <button class="hot" style="left:2%;top:87%;width:16%;height:11%" onclick="showScreen('l1_7e')" aria-label="Back"></button>
     <button class="hot" style="left:82%;top:87%;width:16%;height:11%" onclick="finishLesson()" aria-label="Next"></button>
     <button class="hot" style="left:45%;top:80.5%;width:9%;height:13%" onclick="speak('You completed Lesson 1! Keep practicing and keep learning!')" aria-label="Play audio"></button>
   </div>
@@ -358,6 +498,7 @@ function showScreen(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   if(id==='l1_6') initMemory();
+  if(id==='l1_7d' || id==='l1_7e') initUnscramble(id);
   if(id==='l1_8') celebrate('🎉 Lesson 1 complete!');
   closeSettings();
 }
@@ -637,17 +778,88 @@ function flipMemCard(idx, el){
   }
 }
 
-// ═══ STEP 7 · LET'S PLAY ═══
-const playSolved = new Set();
-function playAnswer(correct, el, qId){
+// ═══ STEP 7 · QUIZ ═══
+function quizAnswer(correct, el){
+  const card = el.closest('.quiz-body');
+  card.querySelectorAll('.quiz-opt').forEach(e=>e.classList.remove('correct-mark','wrong-mark'));
   if(correct){
-    el.classList.add('ok');
+    el.classList.add('correct-mark');
     speak('Correct!');
-    if(qId) playSolved.add(qId);
-    if(playSolved.size === 3) celebrate('🌟 You got them all!');
+    celebrate('🌟 Correct!');
   } else {
-    el.classList.add('bad');
-    setTimeout(()=>el.classList.remove('bad'), 500);
+    el.classList.add('wrong-mark');
+    speak('Try again');
+    toast('🙂 Try again!');
+    setTimeout(()=>el.classList.remove('wrong-mark'), 500);
+  }
+}
+
+// ═══ STEP 7 · UNSCRAMBLE ═══
+const UNSCRAMBLE_DATA = {
+  l1_7d: ['Hello','Buddy','!'],
+  l1_7e: ['Goodbye','Luna','!']
+};
+const unscrambleState = {};
+function shuffleArr(arr){
+  for(let i=arr.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [arr[i],arr[j]] = [arr[j],arr[i]];
+  }
+  return arr;
+}
+function initUnscramble(id){
+  const answer = UNSCRAMBLE_DATA[id];
+  let bank = answer.slice();
+  do{ shuffleArr(bank); } while(bank.join('') === answer.join(''));
+  unscrambleState[id] = { answer, slots: new Array(answer.length).fill(null), bank, locked:false };
+  renderUnscramble(id);
+}
+function renderUnscramble(id){
+  const st = unscrambleState[id];
+  const slotsEl = document.getElementById(id+'_slots');
+  const bankEl = document.getElementById(id+'_bank');
+  if(!slotsEl || !bankEl) return;
+  slotsEl.innerHTML = st.slots.map((w,i)=> w
+    ? '<button class="unscr-slot-chip" onclick="unscrRemove(\''+id+'\','+i+')">'+w+'</button>'
+    : '<span class="unscr-slot-empty"></span>'
+  ).join('');
+  bankEl.innerHTML = st.bank.map((w,i)=>
+    '<button class="unscr-tile" onclick="unscrPlace(\''+id+'\','+i+')">'+w+'</button>'
+  ).join('');
+}
+function unscrPlace(id, bankIdx){
+  const st = unscrambleState[id];
+  if(!st || st.locked) return;
+  const emptyIdx = st.slots.findIndex(s=>s===null);
+  if(emptyIdx === -1) return;
+  const word = st.bank.splice(bankIdx,1)[0];
+  st.slots[emptyIdx] = word;
+  renderUnscramble(id);
+  if(st.slots.every(s=>s!==null)) checkUnscramble(id);
+}
+function unscrRemove(id, slotIdx){
+  const st = unscrambleState[id];
+  if(!st || st.locked) return;
+  const word = st.slots[slotIdx];
+  if(!word) return;
+  st.slots[slotIdx] = null;
+  st.bank.push(word);
+  renderUnscramble(id);
+}
+function checkUnscramble(id){
+  const st = unscrambleState[id];
+  const correct = st.slots.join('|') === st.answer.join('|');
+  if(correct){
+    st.locked = true;
+    speak(st.answer.join(' '));
+    celebrate('🌟 Perfect sentence!');
+  } else {
+    toast('🙂 Try again!');
+    setTimeout(()=>{
+      st.bank = st.bank.concat(st.slots.filter(Boolean));
+      st.slots = new Array(st.answer.length).fill(null);
+      renderUnscramble(id);
+    }, 900);
   }
 }
 
