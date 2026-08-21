@@ -61,12 +61,20 @@
   .hot.sel{box-shadow:0 0 0 4px #ffcc00 inset;border-radius:16px}
 
   /* memory cards */
-  .mem-card{border-radius:12%;display:flex;align-items:center;justify-content:center}
+  .mem-card{
+    border-radius:12%;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;overflow:hidden;
+  }
+  .mem-card .mem-img{
+    width:60%;aspect-ratio:1/1;border-radius:50%;object-fit:cover;
+    opacity:0;transform:scale(.6);transition:all .25s ease;
+    margin-bottom:2%;pointer-events:none;
+  }
   .mem-card .mem-face{
     opacity:0;transform:scale(.7);
     transition:all .25s ease;
-    font-weight:800;font-size:clamp(11px,2.6vw,20px);
-    color:#5b21b6;text-align:center;padding:4px;
+    font-weight:800;font-size:clamp(9px,2.2vw,16px);
+    color:#5b21b6;text-align:center;padding:0 4px;pointer-events:none;
   }
   .mem-card.flip,.mem-card.matched{
     background:rgba(255,255,255,.95);
@@ -74,6 +82,7 @@
     border-radius:12%;
   }
   .mem-card.matched{box-shadow:0 0 0 3px #22c55e inset;background:rgba(220,255,230,.95)}
+  .mem-card.flip .mem-img,.mem-card.matched .mem-img{opacity:1;transform:scale(1)}
   .mem-card.flip .mem-face,.mem-card.matched .mem-face{opacity:1;transform:scale(1)}
   .mem-card.listening-lock{pointer-events:none}
 
@@ -159,7 +168,7 @@
   <div class="screen" id="l1_1" style="background-image:url('kids-assets/lesson1-step1-intro.jpg')">
     <button class="hot" style="left:1%;top:1.5%;width:8%;height:11.5%" onclick="showScreen('map')" aria-label="Home"></button>
     <button class="hot" style="left:91%;top:1.5%;width:8%;height:11.5%" onclick="openSettings()" aria-label="Settings"></button>
-    <button class="hot" style="left:46%;top:83%;width:8%;height:15%" onclick="speak(\"Hello! Let's start!\")" aria-label="Play audio"></button>
+    <button class="hot" style="left:45%;top:80.5%;width:9%;height:13%" onclick="speak(\"Hello! Let's start!\")" aria-label="Play audio"></button>
     <button class="hot" style="left:78%;top:47%;width:18%;height:9%" onclick="showScreen('l1_2')" aria-label="Learn"></button>
     <button class="hot" style="left:78%;top:57%;width:18%;height:9%" onclick="showScreen('l1_2')" aria-label="Play"></button>
     <button class="hot" style="left:78%;top:67%;width:18%;height:9%" onclick="showScreen('l1_2')" aria-label="Speak"></button>
@@ -171,7 +180,7 @@
     <button class="hot" style="left:91%;top:1.5%;width:8%;height:11.5%" onclick="openSettings()" aria-label="Settings"></button>
     <button class="hot" style="left:2%;top:87%;width:16%;height:11%" onclick="showScreen('l1_1')" aria-label="Back"></button>
     <button class="hot" style="left:82%;top:87%;width:16%;height:11%" onclick="showScreen('l1_3')" aria-label="Next"></button>
-    <button class="hot" style="left:46%;top:83%;width:8%;height:15%" onclick="speak('Hello. Hi. Goodbye.')" aria-label="Play audio"></button>
+    <button class="hot" style="left:45%;top:80.5%;width:9%;height:13%" onclick="speak('Hello. Hi. Goodbye.')" aria-label="Play audio"></button>
 
     <button class="hot" style="left:42%;top:29%;width:31%;height:12%" onclick="playWord('Hello',this)" aria-label="Hello"></button>
     <button class="hot" style="left:42%;top:44%;width:31%;height:14%" onclick="playWord('Hi',this)" aria-label="Hi"></button>
@@ -184,15 +193,15 @@
     <button class="hot" style="left:91%;top:1.5%;width:8%;height:11.5%" onclick="openSettings()" aria-label="Settings"></button>
     <button class="hot" style="left:2%;top:87%;width:16%;height:11%" onclick="showScreen('l1_2')" aria-label="Back"></button>
     <button class="hot" style="left:82%;top:87%;width:16%;height:11%" onclick="showScreen('l1_4')" aria-label="Next"></button>
-    <button class="hot" style="left:46%;top:83%;width:8%;height:15%" onclick="speak('Match the characters to their names.')" aria-label="Play audio"></button>
+    <button class="hot" style="left:45%;top:80.5%;width:9%;height:13%" onclick="speak('Match the characters to their names.')" aria-label="Play audio"></button>
 
-    <button class="hot match-left" data-key="leo" style="left:34%;top:27%;width:16%;height:15%" onclick="matchLeftClick('leo',this)" aria-label="Leo picture"></button>
-    <button class="hot match-left" data-key="mia" style="left:34%;top:43%;width:16%;height:15%" onclick="matchLeftClick('mia',this)" aria-label="Mia picture"></button>
-    <button class="hot match-left" data-key="buddy" style="left:34%;top:59%;width:16%;height:15%" onclick="matchLeftClick('buddy',this)" aria-label="Buddy picture"></button>
+    <button class="hot match-left" data-key="leo" style="left:33%;top:28.5%;width:13%;height:17%" onclick="matchLeftClick('leo',this)" aria-label="Leo picture"></button>
+    <button class="hot match-left" data-key="mia" style="left:33%;top:45.5%;width:13%;height:17%" onclick="matchLeftClick('mia',this)" aria-label="Mia picture"></button>
+    <button class="hot match-left" data-key="buddy" style="left:33%;top:62.2%;width:13%;height:17%" onclick="matchLeftClick('buddy',this)" aria-label="Buddy picture"></button>
 
-    <button class="hot match-right" data-key="mia" style="left:60%;top:29%;width:20%;height:12%" onclick="matchRightClick('mia',this)" aria-label="Mia"></button>
-    <button class="hot match-right" data-key="buddy" style="left:60%;top:45%;width:20%;height:12%" onclick="matchRightClick('buddy',this)" aria-label="Buddy"></button>
-    <button class="hot match-right" data-key="leo" style="left:60%;top:61%;width:20%;height:12%" onclick="matchRightClick('leo',this)" aria-label="Leo"></button>
+    <button class="hot match-right" data-key="mia" style="left:61%;top:32%;width:16%;height:11.5%" onclick="matchRightClick('mia',this)" aria-label="Mia"></button>
+    <button class="hot match-right" data-key="buddy" style="left:61%;top:48.7%;width:16%;height:11.5%" onclick="matchRightClick('buddy',this)" aria-label="Buddy"></button>
+    <button class="hot match-right" data-key="leo" style="left:61%;top:65.4%;width:16%;height:11.5%" onclick="matchRightClick('leo',this)" aria-label="Leo"></button>
   </div>
 
   <!-- ══ LESSON 1 · STEP 4 — LISTEN & CHOOSE ══ -->
@@ -201,12 +210,12 @@
     <button class="hot" style="left:91%;top:1.5%;width:8%;height:11.5%" onclick="openSettings()" aria-label="Settings"></button>
     <button class="hot" style="left:2%;top:87%;width:16%;height:11%" onclick="showScreen('l1_3')" aria-label="Back"></button>
     <button class="hot" style="left:82%;top:87%;width:16%;height:11%" onclick="showScreen('l1_5')" aria-label="Next"></button>
-    <button class="hot" style="left:46%;top:83%;width:8%;height:15%" onclick="speak('Hello')" aria-label="Play audio"></button>
+    <button class="hot" style="left:45%;top:80.5%;width:9%;height:13%" onclick="speak('Hello')" aria-label="Play audio"></button>
 
-    <button class="hot" style="left:31%;top:29%;width:18%;height:30%" onclick="speak('Hello')" aria-label="Listen again"></button>
-    <button class="hot" style="left:51%;top:30%;width:27%;height:12%" onclick="chooseAnswer(true,this,'Hello')" aria-label="Option A Hello"></button>
-    <button class="hot" style="left:51%;top:46%;width:27%;height:12%" onclick="chooseAnswer(false,this)" aria-label="Option B Hi"></button>
-    <button class="hot" style="left:51%;top:62%;width:27%;height:12%" onclick="chooseAnswer(false,this)" aria-label="Option C Goodbye"></button>
+    <button class="hot" style="left:31%;top:30%;width:18%;height:28%" onclick="speak('Hello')" aria-label="Listen again"></button>
+    <button class="hot" style="left:50%;top:29%;width:29%;height:15%" onclick="chooseAnswer(true,this,'Hello')" aria-label="Option A Hello"></button>
+    <button class="hot" style="left:50%;top:47%;width:29%;height:14%" onclick="chooseAnswer(false,this)" aria-label="Option B Hi"></button>
+    <button class="hot" style="left:50%;top:63%;width:29%;height:14%" onclick="chooseAnswer(false,this)" aria-label="Option C Goodbye"></button>
   </div>
 
   <!-- ══ LESSON 1 · STEP 5 — LET'S SPEAK ══ -->
@@ -215,7 +224,7 @@
     <button class="hot" style="left:91%;top:1.5%;width:8%;height:11.5%" onclick="openSettings()" aria-label="Settings"></button>
     <button class="hot" style="left:2%;top:87%;width:16%;height:11%" onclick="showScreen('l1_4')" aria-label="Back"></button>
     <button class="hot" style="left:82%;top:87%;width:16%;height:11%" onclick="showScreen('l1_6')" aria-label="Next"></button>
-    <button class="hot" style="left:46%;top:83%;width:8%;height:15%" onclick="speak('Hello')" aria-label="Play audio"></button>
+    <button class="hot" style="left:45%;top:80.5%;width:9%;height:13%" onclick="speak('Hello')" aria-label="Play audio"></button>
 
     <button class="hot" style="left:59%;top:30%;width:20%;height:26%" onclick="speak('Hello')" aria-label="Listen"></button>
     <button class="hot" id="micBtn" style="left:51%;top:62%;width:27%;height:14%" onclick="tapToSpeak(this)" aria-label="Tap to speak and repeat"></button>
@@ -227,16 +236,16 @@
     <button class="hot" style="left:91%;top:1.5%;width:8%;height:11.5%" onclick="openSettings()" aria-label="Settings"></button>
     <button class="hot" style="left:2%;top:87%;width:16%;height:11%" onclick="showScreen('l1_5')" aria-label="Back"></button>
     <button class="hot" style="left:82%;top:87%;width:16%;height:11%" onclick="showScreen('l1_7')" aria-label="Next"></button>
-    <button class="hot" style="left:46%;top:83%;width:8%;height:15%" onclick="speak('Flip the cards and find the matching pairs!')" aria-label="Play audio"></button>
+    <button class="hot" style="left:45%;top:80.5%;width:9%;height:13%" onclick="speak('Flip the cards and find the matching pairs!')" aria-label="Play audio"></button>
 
-    <button class="hot mem-card" style="left:37.5%;top:38%;width:10%;height:19%" onclick="flipMemCard(0,this)" aria-label="Card 1"><span class="mem-face"></span></button>
-    <button class="hot mem-card" style="left:48.5%;top:38%;width:10%;height:19%" onclick="flipMemCard(1,this)" aria-label="Card 2"><span class="mem-face"></span></button>
-    <button class="hot mem-card" style="left:60.5%;top:38%;width:10%;height:19%" onclick="flipMemCard(2,this)" aria-label="Card 3"><span class="mem-face"></span></button>
-    <button class="hot mem-card" style="left:71.5%;top:38%;width:10%;height:19%" onclick="flipMemCard(3,this)" aria-label="Card 4"><span class="mem-face"></span></button>
-    <button class="hot mem-card" style="left:37.5%;top:59%;width:10%;height:19%" onclick="flipMemCard(4,this)" aria-label="Card 5"><span class="mem-face"></span></button>
-    <button class="hot mem-card" style="left:48.5%;top:59%;width:10%;height:19%" onclick="flipMemCard(5,this)" aria-label="Card 6"><span class="mem-face"></span></button>
-    <button class="hot mem-card" style="left:60.5%;top:59%;width:10%;height:19%" onclick="flipMemCard(6,this)" aria-label="Card 7"><span class="mem-face"></span></button>
-    <button class="hot mem-card" style="left:71.5%;top:59%;width:10%;height:19%" onclick="flipMemCard(7,this)" aria-label="Card 8"><span class="mem-face"></span></button>
+    <button class="hot mem-card" style="left:37%;top:40%;width:9.6%;height:16.8%" onclick="flipMemCard(0,this)" aria-label="Card 1"><img class="mem-img" alt=""><span class="mem-face"></span></button>
+    <button class="hot mem-card" style="left:48.3%;top:40%;width:9.6%;height:16.8%" onclick="flipMemCard(1,this)" aria-label="Card 2"><img class="mem-img" alt=""><span class="mem-face"></span></button>
+    <button class="hot mem-card" style="left:59.5%;top:40%;width:9.6%;height:16.8%" onclick="flipMemCard(2,this)" aria-label="Card 3"><img class="mem-img" alt=""><span class="mem-face"></span></button>
+    <button class="hot mem-card" style="left:70.7%;top:40%;width:9.6%;height:16.8%" onclick="flipMemCard(3,this)" aria-label="Card 4"><img class="mem-img" alt=""><span class="mem-face"></span></button>
+    <button class="hot mem-card" style="left:37%;top:59.4%;width:9.6%;height:16.8%" onclick="flipMemCard(4,this)" aria-label="Card 5"><img class="mem-img" alt=""><span class="mem-face"></span></button>
+    <button class="hot mem-card" style="left:48.3%;top:59.4%;width:9.6%;height:16.8%" onclick="flipMemCard(5,this)" aria-label="Card 6"><img class="mem-img" alt=""><span class="mem-face"></span></button>
+    <button class="hot mem-card" style="left:59.5%;top:59.4%;width:9.6%;height:16.8%" onclick="flipMemCard(6,this)" aria-label="Card 7"><img class="mem-img" alt=""><span class="mem-face"></span></button>
+    <button class="hot mem-card" style="left:70.7%;top:59.4%;width:9.6%;height:16.8%" onclick="flipMemCard(7,this)" aria-label="Card 8"><img class="mem-img" alt=""><span class="mem-face"></span></button>
   </div>
 
   <!-- ══ LESSON 1 · STEP 7 — LET'S PLAY ══ -->
@@ -245,7 +254,7 @@
     <button class="hot" style="left:91%;top:1.5%;width:8%;height:11.5%" onclick="openSettings()" aria-label="Settings"></button>
     <button class="hot" style="left:2%;top:87%;width:16%;height:11%" onclick="showScreen('l1_6')" aria-label="Back"></button>
     <button class="hot" style="left:82%;top:87%;width:16%;height:11%" onclick="showScreen('l1_8')" aria-label="Next"></button>
-    <button class="hot" style="left:46%;top:83%;width:8%;height:15%" onclick="speak('Choose the correct greeting for each situation.')" aria-label="Play audio"></button>
+    <button class="hot" style="left:45%;top:80.5%;width:9%;height:13%" onclick="speak('Choose the correct greeting for each situation.')" aria-label="Play audio"></button>
 
     <button class="hot" style="left:32%;top:67%;width:13%;height:6.5%" onclick="playAnswer(true,this)" aria-label="Q1 Hello"></button>
     <button class="hot" style="left:32%;top:75%;width:13%;height:6.5%" onclick="playAnswer(false,this)" aria-label="Q1 Hi"></button>
@@ -266,7 +275,7 @@
     <button class="hot" style="left:91%;top:1.5%;width:8%;height:11.5%" onclick="openSettings()" aria-label="Settings"></button>
     <button class="hot" style="left:2%;top:87%;width:16%;height:11%" onclick="showScreen('l1_7')" aria-label="Back"></button>
     <button class="hot" style="left:82%;top:87%;width:16%;height:11%" onclick="finishLesson()" aria-label="Next"></button>
-    <button class="hot" style="left:46%;top:83%;width:8%;height:15%" onclick="speak('You completed Lesson 1! Keep practicing and keep learning!')" aria-label="Play audio"></button>
+    <button class="hot" style="left:45%;top:80.5%;width:9%;height:13%" onclick="speak('You completed Lesson 1! Keep practicing and keep learning!')" aria-label="Play audio"></button>
   </div>
 
   <!-- ══ TOAST ══ -->
@@ -297,14 +306,34 @@ function showScreen(id){
 
 // ═══ AUDIO (Web Speech API) ═══
 let muted = localStorage.getItem('kids_muted') === '1';
+let ttsVoices = [];
+let ttsWarned = false;
+function loadVoices(){
+  if('speechSynthesis' in window) ttsVoices = window.speechSynthesis.getVoices();
+}
+if('speechSynthesis' in window){
+  loadVoices();
+  window.speechSynthesis.onvoiceschanged = loadVoices;
+}
 function speak(text, rate){
-  if(muted || !('speechSynthesis' in window)) return;
-  window.speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(text);
-  u.lang = 'en-US';
-  u.rate = rate || 0.92;
-  u.pitch = 1.15;
-  window.speechSynthesis.speak(u);
+  if(muted) return;
+  if(!('speechSynthesis' in window)){
+    if(!ttsWarned){ toast('🔇 Voice not supported in this browser'); ttsWarned = true; }
+    return;
+  }
+  try{
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'en-US';
+    u.rate = rate || 0.92;
+    u.pitch = 1.15;
+    const v = ttsVoices.find(v => v.lang && v.lang.toLowerCase().startsWith('en'));
+    if(v) u.voice = v;
+    u.onerror = function(){ if(!ttsWarned){ toast('🔇 Audio blocked — open in Chrome or Safari'); ttsWarned = true; } };
+    window.speechSynthesis.speak(u);
+  }catch(e){
+    if(!ttsWarned){ toast('🔇 Audio error on this device'); ttsWarned = true; }
+  }
 }
 
 // ═══ TOAST ═══
@@ -406,12 +435,17 @@ function tapToSpeak(el){
 }
 
 // ═══ STEP 6 · MEMORY ═══
-const MEMORY_WORDS = ['Hello','Hello','Hi','Hi','Goodbye','Goodbye','Bye','Bye'];
+const MEMORY_PAIRS = [
+  {word:'Hello',   face:'kids-assets/face-leo.jpg'},
+  {word:'Hi',      face:'kids-assets/face-mia.jpg'},
+  {word:'Goodbye', face:'kids-assets/face-buddy.jpg'},
+  {word:'Bye',     face:'kids-assets/face-luna.jpg'}
+];
 let memoryDeck = [];
 let memoryFlipped = [];
 let memoryLock = false;
 function initMemory(){
-  memoryDeck = MEMORY_WORDS.slice();
+  memoryDeck = MEMORY_PAIRS.concat(MEMORY_PAIRS);
   for(let i=memoryDeck.length-1;i>0;i--){
     const j = Math.floor(Math.random()*(i+1));
     [memoryDeck[i],memoryDeck[j]] = [memoryDeck[j],memoryDeck[i]];
@@ -420,14 +454,15 @@ function initMemory(){
   memoryLock = false;
   document.querySelectorAll('.mem-card').forEach((c,i)=>{
     c.classList.remove('flip','matched');
-    c.dataset.word = memoryDeck[i];
-    c.querySelector('.mem-face').textContent = memoryDeck[i];
+    c.dataset.word = memoryDeck[i].word;
+    c.querySelector('.mem-face').textContent = memoryDeck[i].word;
+    c.querySelector('.mem-img').src = memoryDeck[i].face;
   });
 }
 function flipMemCard(idx, el){
   if(memoryLock || el.classList.contains('flip') || el.classList.contains('matched')) return;
   el.classList.add('flip');
-  memoryFlipped.push({idx, el, word: memoryDeck[idx]});
+  memoryFlipped.push({idx, el, word: memoryDeck[idx].word});
   if(memoryFlipped.length === 2){
     memoryLock = true;
     const [a,b] = memoryFlipped;
