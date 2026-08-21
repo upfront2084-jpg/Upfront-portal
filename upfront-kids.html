@@ -47,12 +47,21 @@
   .sparkle{
     position:absolute;pointer-events:none;
     font-size:clamp(14px,2.4vw,24px);
-    animation:twinkle 2.4s ease-in-out infinite;
+    animation:sparkle-float 2.6s ease-in-out infinite;
     filter:drop-shadow(0 0 4px rgba(255,255,255,.8));
   }
-  @keyframes twinkle{
-    0%,100%{opacity:.15;transform:scale(.6) rotate(0deg)}
-    50%{opacity:1;transform:scale(1.2) rotate(20deg)}
+  @keyframes sparkle-float{
+    0%,100%{opacity:.15;transform:translateY(0) scale(.6) rotate(0deg)}
+    50%{opacity:1;transform:translateY(-10px) scale(1.2) rotate(20deg)}
+  }
+  /* gentle up/down float for decorative (non-activity) elements */
+  .float-badge{
+    position:absolute;pointer-events:none;
+    animation:float-badge 2.2s ease-in-out infinite;
+  }
+  @keyframes float-badge{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-9px)}
   }
 
   /* ── celebration (Lesson complete) ─────────────────── */
@@ -169,6 +178,7 @@
 <body>
 
 <div class="stage" id="stage">
+  <div class="confetti-layer" id="confettiLayer"></div>
 
   <!-- ══ SPLASH ══ -->
   <div class="screen active" id="splash" style="background-image:url('kids-assets/splash.jpg')">
@@ -178,6 +188,8 @@
 
   <!-- ══ MAP ══ -->
   <div class="screen" id="map" style="background-image:url('kids-assets/map.jpg')">
+    <span class="sparkle" style="left:16%;top:9%;animation-delay:0s">✨</span>
+    <span class="sparkle" style="left:72%;top:8%;animation-delay:.8s">⭐</span>
     <button class="hot" style="left:91%;top:1.5%;width:8%;height:11.5%" onclick="openSettings()" aria-label="Settings"></button>
 
     <button class="hot" style="left:2%;top:3%;width:31%;height:44%" onclick="showScreen('l1_1')" aria-label="Welcome Forest"></button>
@@ -195,6 +207,8 @@
 
   <!-- ══ CHARACTERS ══ -->
   <div class="screen" id="characters" style="background-image:url('kids-assets/characters.jpg')">
+    <span class="sparkle" style="left:20%;top:6%;animation-delay:.2s">✨</span>
+    <span class="sparkle" style="left:66%;top:5%;animation-delay:1s">⭐</span>
     <button class="hot" style="left:91%;top:1.5%;width:8%;height:11.5%" onclick="openSettings()" aria-label="Settings"></button>
     <button class="hot" style="left:3%;top:19%;width:46%;height:32%" onclick="speak('Leo!')" aria-label="Leo"></button>
     <button class="hot" style="left:51%;top:19%;width:46%;height:32%" onclick="speak('Mia!')" aria-label="Mia"></button>
@@ -299,25 +313,21 @@
     <button class="hot" style="left:82%;top:87%;width:16%;height:11%" onclick="showScreen('l1_8')" aria-label="Next"></button>
     <button class="hot" style="left:45%;top:80.5%;width:9%;height:13%" onclick="speak('Choose the correct greeting for each situation.')" aria-label="Play audio"></button>
 
-    <button class="hot" style="left:32.3%;top:65.9%;width:13%;height:5.2%" onclick="playAnswer(false,this)" aria-label="Q1 Hello"></button>
-    <button class="hot" style="left:32.3%;top:70.9%;width:13%;height:4.7%" onclick="playAnswer(true,this)" aria-label="Q1 Hi"></button>
-    <button class="hot" style="left:32.3%;top:75.8%;width:13%;height:4.8%" onclick="playAnswer(false,this)" aria-label="Q1 Goodbye"></button>
+    <button class="hot" style="left:32.3%;top:65.9%;width:13%;height:5.2%" onclick="playAnswer(false,this,'q1')" aria-label="Q1 Hello"></button>
+    <button class="hot" style="left:32.3%;top:70.9%;width:13%;height:4.7%" onclick="playAnswer(true,this,'q1')" aria-label="Q1 Hi"></button>
+    <button class="hot" style="left:32.3%;top:75.8%;width:13%;height:4.8%" onclick="playAnswer(false,this,'q1')" aria-label="Q1 Goodbye"></button>
 
-    <button class="hot" style="left:50.3%;top:65.9%;width:13.2%;height:5.2%" onclick="playAnswer(false,this)" aria-label="Q2 Hello"></button>
-    <button class="hot" style="left:50.3%;top:70.9%;width:13.2%;height:4.7%" onclick="playAnswer(false,this)" aria-label="Q2 Hi"></button>
-    <button class="hot" style="left:50.3%;top:75.8%;width:13.2%;height:4.8%" onclick="playAnswer(true,this)" aria-label="Q2 Goodbye"></button>
+    <button class="hot" style="left:50.3%;top:65.9%;width:13.2%;height:5.2%" onclick="playAnswer(false,this,'q2')" aria-label="Q2 Hello"></button>
+    <button class="hot" style="left:50.3%;top:70.9%;width:13.2%;height:4.7%" onclick="playAnswer(false,this,'q2')" aria-label="Q2 Hi"></button>
+    <button class="hot" style="left:50.3%;top:75.8%;width:13.2%;height:4.8%" onclick="playAnswer(true,this,'q2')" aria-label="Q2 Goodbye"></button>
 
-    <button class="hot" style="left:68.5%;top:65.9%;width:13.3%;height:5.2%" onclick="playAnswer(true,this)" aria-label="Q3 Hello"></button>
-    <button class="hot" style="left:68.5%;top:70.9%;width:13.3%;height:4.7%" onclick="playAnswer(false,this)" aria-label="Q3 Hi"></button>
-    <button class="hot" style="left:68.5%;top:75.8%;width:13.3%;height:4.8%" onclick="playAnswer(false,this)" aria-label="Q3 Goodbye"></button>
+    <button class="hot" style="left:68.5%;top:65.9%;width:13.3%;height:5.2%" onclick="playAnswer(true,this,'q3')" aria-label="Q3 Hello"></button>
+    <button class="hot" style="left:68.5%;top:70.9%;width:13.3%;height:4.7%" onclick="playAnswer(false,this,'q3')" aria-label="Q3 Hi"></button>
+    <button class="hot" style="left:68.5%;top:75.8%;width:13.3%;height:4.8%" onclick="playAnswer(false,this,'q3')" aria-label="Q3 Goodbye"></button>
   </div>
 
   <!-- ══ LESSON 1 · STEP 8 — COMPLETE ══ -->
   <div class="screen" id="l1_8" style="background-image:url('kids-assets/lesson1-step8-complete.jpg')">
-    <div class="confetti-layer" id="confettiLayer"></div>
-    <span class="celebrate-emoji" style="left:14%;top:8%;animation-delay:.1s">🎉</span>
-    <span class="celebrate-emoji" style="left:82%;top:10%;animation-delay:.35s">🎊</span>
-    <span class="celebrate-emoji" style="left:50%;top:4%;animation-delay:.6s">🌟</span>
     <button class="hot" style="left:1%;top:1.5%;width:8%;height:11.5%" onclick="showScreen('map')" aria-label="Home"></button>
     <button class="hot" style="left:91%;top:1.5%;width:8%;height:11.5%" onclick="openSettings()" aria-label="Settings"></button>
     <button class="hot" style="left:2%;top:87%;width:16%;height:11%" onclick="showScreen('l1_7')" aria-label="Back"></button>
@@ -348,12 +358,14 @@ function showScreen(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   if(id==='l1_6') initMemory();
-  if(id==='l1_8') spawnConfetti();
+  if(id==='l1_8') celebrate('🎉 Lesson 1 complete!');
   closeSettings();
 }
 
-// ═══ CELEBRATION ═══
+// ═══ CELEBRATION (confetti + emoji burst + chime sound) ═══
 const CONFETTI_COLORS = ['#ff5d8f','#ffcc00','#22c55e','#4189ff','#a259ff','#ff8a3d'];
+const CELEBRATE_EMOJI = ['🎉','⭐','🌟','✨','🎊','🏆'];
+let celebrateBusy = false;
 function spawnConfetti(){
   const layer = document.getElementById('confettiLayer');
   if(!layer) return;
@@ -370,6 +382,50 @@ function spawnConfetti(){
     p.style.transform = 'rotate(' + Math.floor(Math.random()*360) + 'deg)';
     layer.appendChild(p);
   }
+  const emojiCount = 5;
+  for(let i=0;i<emojiCount;i++){
+    const e = document.createElement('span');
+    e.className = 'celebrate-emoji';
+    e.textContent = CELEBRATE_EMOJI[Math.floor(Math.random()*CELEBRATE_EMOJI.length)];
+    e.style.left = (10 + Math.random()*80) + '%';
+    e.style.top = (6 + Math.random()*18) + '%';
+    e.style.animationDelay = (Math.random()*0.5) + 's, ' + (0.9 + Math.random()*0.4) + 's';
+    layer.appendChild(e);
+  }
+  setTimeout(()=>{ layer.innerHTML=''; }, 3600);
+}
+// Short cheerful chime via Web Audio — no sound files or voices needed,
+// so it always plays even where speech synthesis is blocked or muted.
+let audioCtx = null;
+function playChime(){
+  if(muted) return;
+  try{
+    audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+    if(audioCtx.state === 'suspended') audioCtx.resume();
+    const notes = [523.25, 659.25, 783.99, 1046.5]; // C5 E5 G5 C6
+    const start = audioCtx.currentTime;
+    notes.forEach((freq, i) => {
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.value = freq;
+      const t = start + i * 0.11;
+      gain.gain.setValueAtTime(0, t);
+      gain.gain.linearRampToValueAtTime(0.22, t + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.35);
+      osc.connect(gain).connect(audioCtx.destination);
+      osc.start(t);
+      osc.stop(t + 0.36);
+    });
+  }catch(e){}
+}
+function celebrate(message){
+  if(celebrateBusy) return;
+  celebrateBusy = true;
+  spawnConfetti();
+  playChime();
+  if(message) toast(message, 2200);
+  setTimeout(()=>{ celebrateBusy = false; }, 900);
 }
 
 // ═══ AUDIO (Web Speech API) ═══
@@ -459,10 +515,13 @@ function updateMuteBtn(){
 }
 
 // ═══ STEP 2 · VOCABULARY ═══
+const vocabHeard = new Set();
 function playWord(word, el){
   speak(word);
   el.classList.add('pulse');
   setTimeout(()=>el.classList.remove('pulse'), 400);
+  vocabHeard.add(word);
+  if(vocabHeard.size === 3) celebrate('🌟 You know them all!');
 }
 
 // ═══ STEP 3 · MATCHING ═══
@@ -483,7 +542,7 @@ function matchRightClick(key, el){
     leftEl.classList.add('ok');
     el.classList.add('ok');
     speak(key.charAt(0).toUpperCase()+key.slice(1)+'!');
-    if(matchedSet.size === 3) toast('🌟 Great matching!');
+    if(matchedSet.size === 3) celebrate('🌟 Great matching!');
   } else {
     el.classList.add('bad');
     leftEl.classList.add('bad');
@@ -498,7 +557,7 @@ function chooseAnswer(correct, el, word){
   if(correct){
     el.classList.add('ok');
     speak('Correct! ' + (word || ''));
-    toast('🌟 Correct!');
+    celebrate('🌟 Correct!');
   } else {
     el.classList.add('bad');
     speak('Try again');
@@ -518,15 +577,15 @@ function tapToSpeak(el){
       rec.lang = 'en-US'; rec.interimResults = false; rec.maxAlternatives = 1;
       rec.onresult = (e)=>{
         const said = (e.results[0][0].transcript || '').toLowerCase();
-        if(said.includes('hello')){ toast('⭐ Perfect!'); speak('Great job!'); }
+        if(said.includes('hello')){ celebrate('⭐ Perfect!'); speak('Great job!'); }
         else { toast('🙂 Try again!'); }
       };
-      rec.onerror = ()=>{ toast('⭐ Great job!'); speak('Great job!'); };
+      rec.onerror = ()=>{ celebrate('⭐ Great job!'); speak('Great job!'); };
       rec.start();
       return;
     }catch(e){ /* fall through to simulation */ }
   }
-  setTimeout(()=>{ toast('⭐ Great job!'); speak('Great job!'); }, 900);
+  setTimeout(()=>{ celebrate('⭐ Great job!'); speak('Great job!'); }, 900);
 }
 
 // ═══ STEP 6 · MEMORY ═══
@@ -567,7 +626,7 @@ function flipMemCard(idx, el){
       memoryFlipped = [];
       memoryLock = false;
       if(document.querySelectorAll('.mem-card.matched').length === 8){
-        setTimeout(()=>toast('🏆 You found them all!'), 300);
+        setTimeout(()=>celebrate('🏆 You found them all!'), 300);
       }
     } else {
       setTimeout(()=>{
@@ -579,10 +638,13 @@ function flipMemCard(idx, el){
 }
 
 // ═══ STEP 7 · LET'S PLAY ═══
-function playAnswer(correct, el){
+const playSolved = new Set();
+function playAnswer(correct, el, qId){
   if(correct){
     el.classList.add('ok');
     speak('Correct!');
+    if(qId) playSolved.add(qId);
+    if(playSolved.size === 3) celebrate('🌟 You got them all!');
   } else {
     el.classList.add('bad');
     setTimeout(()=>el.classList.remove('bad'), 500);
