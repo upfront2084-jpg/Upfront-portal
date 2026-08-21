@@ -13,6 +13,7 @@
     font-family:'Baloo 2',sans-serif;
     background:linear-gradient(160deg,#2a63c9,#0f2b5c);
     min-height:100vh;
+    min-height:100dvh;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -24,6 +25,7 @@
     position:relative;
     width:100%;
     max-width:min(1000px, calc((100vh - 32px) * 1.5));
+    max-width:min(1000px, calc((100dvh - 32px) * 1.5));
     aspect-ratio:1536/1024;
     margin:0 auto;
     border-radius:22px;
@@ -33,7 +35,11 @@
   }
   @media(max-width:640px){
     body{padding:0}
-    .stage{border-radius:0;box-shadow:none;max-width:min(100%, calc(100vh * 1.5));aspect-ratio:1536/1024}
+    .stage{
+      border-radius:0;box-shadow:none;aspect-ratio:1536/1024;
+      max-width:min(100%, calc(100vh * 1.5));
+      max-width:min(100%, calc(100dvh * 1.5));
+    }
   }
 
   .screen{
