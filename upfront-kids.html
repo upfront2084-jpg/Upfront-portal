@@ -106,13 +106,13 @@
     outline:none;
     -webkit-appearance:none;
   }
-  .hot:focus-visible{box-shadow:0 0 0 3px rgba(255,255,255,.85);border-radius:14px}
+  .hot:focus-visible{box-shadow:0 0 0 3px rgba(255,255,255,.85);border-radius:999px}
   .hot.pulse{animation:pulse .4s ease}
   @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.06)}100%{transform:scale(1)}}
-  .hot.ok{box-shadow:0 0 0 3px #22c55e inset;border-radius:16px;background:rgba(34,197,94,.15)}
-  .hot.bad{animation:shake .4s ease;box-shadow:0 0 0 3px #ef4444 inset;border-radius:16px;background:rgba(239,68,68,.15)}
+  .hot.ok{box-shadow:0 0 0 3px #22c55e inset;border-radius:999px;background:rgba(34,197,94,.15)}
+  .hot.bad{animation:shake .4s ease;box-shadow:0 0 0 3px #ef4444 inset;border-radius:999px;background:rgba(239,68,68,.15)}
   @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
-  .hot.sel{box-shadow:0 0 0 4px #ffcc00 inset;border-radius:16px}
+  .hot.sel{box-shadow:0 0 0 4px #ffcc00 inset;border-radius:999px}
 
   /* memory cards */
   .mem-card{
@@ -320,8 +320,8 @@
     <button class="hot" style="left:82%;top:87%;width:16%;height:11%" onclick="showScreen('l1_5c')" aria-label="Next"></button>
     <button class="hot" style="left:45%;top:80.5%;width:9%;height:13%" onclick="speak('Hi')" aria-label="Play audio"></button>
 
-    <button class="hot" style="left:52%;top:36%;width:27%;height:29%" onclick="speak('Hi')" aria-label="Listen"></button>
-    <button class="hot" id="micBtn2" style="left:51%;top:75%;width:28%;height:10%" onclick="tapToSpeak(this,'hi')" aria-label="Tap to speak and repeat"></button>
+    <button class="hot" style="left:52.66%;top:36.81%;width:25.78%;height:35.87%" onclick="speak('Hi')" aria-label="Listen"></button>
+    <button class="hot" id="micBtn2" style="left:51.95%;top:76.55%;width:26.17%;height:10.79%" onclick="tapToSpeak(this,'hi')" aria-label="Tap to speak and repeat"></button>
   </div>
 
   <!-- ══ LESSON 1 · STEP 7 — LET'S SPEAK (Goodbye) ══ -->
@@ -356,76 +356,76 @@
 
   <!-- ══ LESSON 1 · STEP 10-12 — QUIZ (3 rounds) ══ -->
   <div class="screen" id="l1_7a" style="background-image:url('kids-assets/lesson1-step10-quiz1.jpg')">
-    <button class="hot" style="left:6%;top:1.5%;width:8%;height:11%" onclick="showScreen('map')" aria-label="Home"></button>
-    <button class="hot" style="left:86%;top:1.5%;width:8%;height:11%" onclick="openSettings()" aria-label="Settings"></button>
-    <button class="hot" style="left:7%;top:86%;width:17%;height:10%" onclick="showScreen('l1_6')" aria-label="Back"></button>
-    <button class="hot" style="left:74%;top:86%;width:19%;height:10%" onclick="showScreen('l1_7b')" aria-label="Next"></button>
-    <button class="hot" style="left:44.4%;top:83.8%;width:8.4%;height:12.2%" onclick="speak('Which word do we use when we say goodbye to someone?')" aria-label="Play audio"></button>
-    <button class="hot" style="left:62.65%;top:43.46%;width:23.15%;height:9.3%" onclick="quizAnswer(false,this)" aria-label="Option A Hello"></button>
-    <button class="hot" style="left:62.65%;top:54.51%;width:23.15%;height:9.39%" onclick="quizAnswer(false,this)" aria-label="Option B Hi"></button>
-    <button class="hot" style="left:62.65%;top:65.56%;width:23.15%;height:9.48%" onclick="quizAnswer(true,this)" aria-label="Option C Goodbye"></button>
+    <button class="hot" style="left:7.22%;top:2.6%;width:5.69%;height:8.65%" onclick="showScreen('map')" aria-label="Home"></button>
+    <button class="hot" style="left:87.08%;top:2.6%;width:5.69%;height:8.65%" onclick="openSettings()" aria-label="Settings"></button>
+    <button class="hot" style="left:7.64%;top:86.15%;width:16.39%;height:9.38%" onclick="showScreen('l1_6')" aria-label="Back"></button>
+    <button class="hot" style="left:74.1%;top:86.15%;width:17.36%;height:9.38%" onclick="showScreen('l1_7b')" aria-label="Next"></button>
+    <button class="hot" style="left:45.35%;top:84.69%;width:7.5%;height:11.56%" onclick="speak('Which word do we use when we say goodbye to someone?')" aria-label="Play audio"></button>
+    <button class="hot" style="left:62.64%;top:43.44%;width:23.12%;height:9.37%" onclick="quizAnswer(false,this)" aria-label="Option A Hello"></button>
+    <button class="hot" style="left:62.64%;top:54.48%;width:23.19%;height:9.38%" onclick="quizAnswer(false,this)" aria-label="Option B Hi"></button>
+    <button class="hot" style="left:62.57%;top:65.42%;width:23.26%;height:9.69%" onclick="quizAnswer(true,this)" aria-label="Option C Goodbye"></button>
   </div>
 
   <div class="screen" id="l1_7b" style="background-image:url('kids-assets/lesson1-step11-quiz2.jpg')">
-    <button class="hot" style="left:6%;top:1.5%;width:8%;height:11%" onclick="showScreen('map')" aria-label="Home"></button>
-    <button class="hot" style="left:86%;top:1.5%;width:8%;height:11%" onclick="openSettings()" aria-label="Settings"></button>
-    <button class="hot" style="left:7%;top:86%;width:17%;height:10%" onclick="showScreen('l1_7a')" aria-label="Back"></button>
-    <button class="hot" style="left:74%;top:86%;width:19%;height:10%" onclick="showScreen('l1_7c')" aria-label="Next"></button>
-    <button class="hot" style="left:44.65%;top:84.65%;width:8.1%;height:11.5%" onclick="speak('Which word do we use when we start a conversation with someone?')" aria-label="Play audio"></button>
-    <button class="hot" style="left:63.25%;top:44.25%;width:22.45%;height:9.02%" onclick="quizAnswer(true,this)" aria-label="Option A Hello"></button>
-    <button class="hot" style="left:63.25%;top:55.01%;width:22.45%;height:9.29%" onclick="quizAnswer(false,this)" aria-label="Option B Hi"></button>
-    <button class="hot" style="left:63.19%;top:66.15%;width:22.51%;height:9.66%" onclick="quizAnswer(false,this)" aria-label="Option C Goodbye"></button>
+    <button class="hot" style="left:7.17%;top:2.18%;width:5.68%;height:8.52%" onclick="showScreen('map')" aria-label="Home"></button>
+    <button class="hot" style="left:87.14%;top:2.18%;width:5.68%;height:8.52%" onclick="openSettings()" aria-label="Settings"></button>
+    <button class="hot" style="left:7.31%;top:86.38%;width:17.26%;height:9.36%" onclick="showScreen('l1_7a')" aria-label="Back"></button>
+    <button class="hot" style="left:74.67%;top:86.38%;width:17.81%;height:9.36%" onclick="showScreen('l1_7c')" aria-label="Next"></button>
+    <button class="hot" style="left:45.56%;top:85.55%;width:7.28%;height:10.91%" onclick="speak('Which word do we use when we start a conversation with someone?')" aria-label="Play audio"></button>
+    <button class="hot" style="left:63.24%;top:44.18%;width:22.45%;height:8.94%" onclick="quizAnswer(true,this)" aria-label="Option A Hello"></button>
+    <button class="hot" style="left:63.24%;top:54.99%;width:22.45%;height:9.36%" onclick="quizAnswer(false,this)" aria-label="Option B Hi"></button>
+    <button class="hot" style="left:63.17%;top:66.01%;width:22.59%;height:9.77%" onclick="quizAnswer(false,this)" aria-label="Option C Goodbye"></button>
   </div>
 
   <div class="screen" id="l1_7c" style="background-image:url('kids-assets/lesson1-step12-quiz3.jpg')">
-    <button class="hot" style="left:6%;top:1.5%;width:8%;height:11%" onclick="showScreen('map')" aria-label="Home"></button>
-    <button class="hot" style="left:86%;top:1.5%;width:8%;height:11%" onclick="openSettings()" aria-label="Settings"></button>
-    <button class="hot" style="left:7%;top:86%;width:17%;height:10%" onclick="showScreen('l1_7b')" aria-label="Back"></button>
-    <button class="hot" style="left:74%;top:86%;width:19%;height:10%" onclick="showScreen('l1_7d')" aria-label="Next"></button>
-    <button class="hot" style="left:44.4%;top:83.25%;width:8.12%;height:11.87%" onclick="speak('Which word do we use when we leave someone at the end of the day?')" aria-label="Play audio"></button>
-    <button class="hot" style="left:63.63%;top:43.74%;width:22.53%;height:8.93%" onclick="quizAnswer(false,this)" aria-label="Option A Hello"></button>
-    <button class="hot" style="left:63.63%;top:54.24%;width:22.53%;height:8.93%" onclick="quizAnswer(false,this)" aria-label="Option B Hi"></button>
-    <button class="hot" style="left:63.63%;top:64.73%;width:22.53%;height:9.39%" onclick="quizAnswer(true,this)" aria-label="Option C Goodbye"></button>
+    <button class="hot" style="left:7.01%;top:2.19%;width:5.83%;height:8.85%" onclick="showScreen('map')" aria-label="Home"></button>
+    <button class="hot" style="left:87.15%;top:2.19%;width:5.83%;height:8.85%" onclick="openSettings()" aria-label="Settings"></button>
+    <button class="hot" style="left:7.08%;top:85.31%;width:17.71%;height:9.17%" onclick="showScreen('l1_7b')" aria-label="Back"></button>
+    <button class="hot" style="left:74.17%;top:85.31%;width:17.92%;height:9.17%" onclick="showScreen('l1_7d')" aria-label="Next"></button>
+    <button class="hot" style="left:45.28%;top:84.27%;width:7.29%;height:10.94%" onclick="speak('Which word do we use when we leave someone at the end of the day?')" aria-label="Play audio"></button>
+    <button class="hot" style="left:63.61%;top:43.75%;width:22.57%;height:8.85%" onclick="quizAnswer(false,this)" aria-label="Option A Hello"></button>
+    <button class="hot" style="left:63.61%;top:54.17%;width:22.57%;height:9.06%" onclick="quizAnswer(false,this)" aria-label="Option B Hi"></button>
+    <button class="hot" style="left:63.54%;top:64.69%;width:22.64%;height:9.48%" onclick="quizAnswer(true,this)" aria-label="Option C Goodbye"></button>
   </div>
 
   <!-- ══ LESSON 1 · STEP 13-15 — UNSCRAMBLE (3 rounds) ══ -->
   <div class="screen" id="l1_7d" style="background-image:url('kids-assets/lesson1-step13-unscramble1.jpg')">
-    <div class="unscr-sentence" id="l1_7d_slots" style="left:23.9%;top:31%;width:50%;height:16%"></div>
-    <div class="unscr-bank" id="l1_7d_bank" style="left:23.9%;top:50%;width:50%;height:16%"></div>
-    <button class="hot" style="left:6%;top:1.5%;width:8%;height:11%" onclick="showScreen('map')" aria-label="Home"></button>
-    <button class="hot" style="left:86%;top:1.5%;width:8%;height:11%" onclick="openSettings()" aria-label="Settings"></button>
-    <button class="hot" style="left:7%;top:86%;width:17%;height:10%" onclick="showScreen('l1_7c')" aria-label="Back"></button>
-    <button class="hot" style="left:74%;top:86%;width:19%;height:10%" onclick="showScreen('l1_7e')" aria-label="Next"></button>
-    <button class="hot" style="left:45.13%;top:71.47%;width:7.2%;height:9.93%" onclick="speak('Put the words in order. Hello Buddy!')" aria-label="Play audio"></button>
+    <div class="unscr-sentence" id="l1_7d_slots" style="left:23.82%;top:30.73%;width:50.49%;height:17.19%"></div>
+    <div class="unscr-bank" id="l1_7d_bank" style="left:23.82%;top:49.48%;width:50.49%;height:17.19%"></div>
+    <button class="hot" style="left:7.01%;top:2.19%;width:5.83%;height:9.79%" onclick="showScreen('map')" aria-label="Home"></button>
+    <button class="hot" style="left:87.15%;top:2.19%;width:5.83%;height:9.79%" onclick="openSettings()" aria-label="Settings"></button>
+    <button class="hot" style="left:7.01%;top:86.88%;width:16.74%;height:8.75%" onclick="showScreen('l1_7c')" aria-label="Back"></button>
+    <button class="hot" style="left:75%;top:86.88%;width:17.85%;height:8.85%" onclick="showScreen('l1_7e')" aria-label="Next"></button>
+    <button class="hot" style="left:46.04%;top:72.5%;width:6.39%;height:9.48%" onclick="speak('Put the words in order. Hello Buddy!')" aria-label="Play audio"></button>
   </div>
 
   <div class="screen" id="l1_7e" style="background-image:url('kids-assets/lesson1-step14-unscramble2.jpg')">
-    <div class="unscr-sentence" id="l1_7e_slots" style="left:24.2%;top:31%;width:49.5%;height:16%"></div>
-    <div class="unscr-bank" id="l1_7e_bank" style="left:24.2%;top:50%;width:49.5%;height:16%"></div>
-    <button class="hot" style="left:6%;top:1.5%;width:8%;height:11%" onclick="showScreen('map')" aria-label="Home"></button>
-    <button class="hot" style="left:86%;top:1.5%;width:8%;height:11%" onclick="openSettings()" aria-label="Settings"></button>
-    <button class="hot" style="left:7%;top:86%;width:17%;height:10%" onclick="showScreen('l1_7d')" aria-label="Back"></button>
-    <button class="hot" style="left:74%;top:86%;width:19%;height:10%" onclick="showScreen('l1_7f')" aria-label="Next"></button>
-    <button class="hot" style="left:45.26%;top:71.19%;width:7.32%;height:10.02%" onclick="speak('Put the words in order. Hi Mia!')" aria-label="Play audio"></button>
+    <div class="unscr-sentence" id="l1_7e_slots" style="left:23.82%;top:30.73%;width:50.49%;height:17.19%"></div>
+    <div class="unscr-bank" id="l1_7e_bank" style="left:23.82%;top:49.48%;width:50.49%;height:17.19%"></div>
+    <button class="hot" style="left:7.15%;top:2.29%;width:5.83%;height:9.38%" onclick="showScreen('map')" aria-label="Home"></button>
+    <button class="hot" style="left:87.01%;top:2.29%;width:5.83%;height:9.38%" onclick="openSettings()" aria-label="Settings"></button>
+    <button class="hot" style="left:7.29%;top:86.67%;width:16.67%;height:8.85%" onclick="showScreen('l1_7d')" aria-label="Back"></button>
+    <button class="hot" style="left:74.93%;top:86.67%;width:17.78%;height:8.85%" onclick="showScreen('l1_7f')" aria-label="Next"></button>
+    <button class="hot" style="left:46.18%;top:72.19%;width:6.46%;height:9.69%" onclick="speak('Put the words in order. Hi Mia!')" aria-label="Play audio"></button>
   </div>
 
   <div class="screen" id="l1_7f" style="background-image:url('kids-assets/lesson1-step15-unscramble3.jpg')">
-    <div class="unscr-sentence" id="l1_7f_slots" style="left:24.2%;top:31%;width:49.8%;height:16%"></div>
-    <div class="unscr-bank" id="l1_7f_bank" style="left:24.2%;top:50%;width:49.8%;height:16%"></div>
-    <button class="hot" style="left:6%;top:1.5%;width:8%;height:11%" onclick="showScreen('map')" aria-label="Home"></button>
-    <button class="hot" style="left:86%;top:1.5%;width:8%;height:11%" onclick="openSettings()" aria-label="Settings"></button>
-    <button class="hot" style="left:7%;top:86%;width:17%;height:10%" onclick="showScreen('l1_7e')" aria-label="Back"></button>
-    <button class="hot" style="left:74%;top:86%;width:19%;height:10%" onclick="showScreen('l1_8')" aria-label="Next"></button>
-    <button class="hot" style="left:45.32%;top:71.38%;width:7.32%;height:10.12%" onclick="speak('Put the words in order. Goodbye Luna!')" aria-label="Play audio"></button>
+    <div class="unscr-sentence" id="l1_7f_slots" style="left:23.82%;top:30.73%;width:50.49%;height:17.19%"></div>
+    <div class="unscr-bank" id="l1_7f_bank" style="left:23.82%;top:49.48%;width:50.49%;height:17.19%"></div>
+    <button class="hot" style="left:7.15%;top:2.29%;width:5.83%;height:8.65%" onclick="showScreen('map')" aria-label="Home"></button>
+    <button class="hot" style="left:87.01%;top:2.29%;width:5.83%;height:8.65%" onclick="openSettings()" aria-label="Settings"></button>
+    <button class="hot" style="left:7.22%;top:86.67%;width:16.88%;height:8.85%" onclick="showScreen('l1_7e')" aria-label="Back"></button>
+    <button class="hot" style="left:74.86%;top:86.67%;width:17.85%;height:8.85%" onclick="showScreen('l1_8')" aria-label="Next"></button>
+    <button class="hot" style="left:46.25%;top:72.4%;width:6.39%;height:9.58%" onclick="speak('Put the words in order. Goodbye Luna!')" aria-label="Play audio"></button>
   </div>
 
-  <!-- ══ LESSON 1 · FINALE — COMPLETE (pending updated artwork) ══ -->
-  <div class="screen" id="l1_8" style="background-image:url('kids-assets/lesson1-step8-complete.jpg')">
-    <button class="hot" style="left:1%;top:1.5%;width:8%;height:11.5%" onclick="showScreen('map')" aria-label="Home"></button>
-    <button class="hot" style="left:91%;top:1.5%;width:8%;height:11.5%" onclick="openSettings()" aria-label="Settings"></button>
-    <button class="hot" style="left:2%;top:87%;width:16%;height:11%" onclick="showScreen('l1_7f')" aria-label="Back"></button>
-    <button class="hot" style="left:82%;top:87%;width:16%;height:11%" onclick="finishLesson()" aria-label="Next"></button>
-    <button class="hot" style="left:45%;top:80.5%;width:9%;height:13%" onclick="speak('You completed Lesson 1! Keep practicing and keep learning!')" aria-label="Play audio"></button>
+  <!-- ══ LESSON 1 · FINALE — GREAT JOB! ══ -->
+  <div class="screen" id="l1_8" style="background-image:url('kids-assets/lesson1-step16-complete.jpg')">
+    <button class="hot" style="left:6.88%;top:1.98%;width:5.9%;height:8.96%" onclick="showScreen('map')" aria-label="Home"></button>
+    <button class="hot" style="left:87.22%;top:1.98%;width:5.9%;height:8.96%" onclick="openSettings()" aria-label="Settings"></button>
+    <button class="hot" style="left:6.88%;top:87.6%;width:15.07%;height:8.54%" onclick="showScreen('l1_7f')" aria-label="Back"></button>
+    <button class="hot" style="left:74.93%;top:87.6%;width:17.36%;height:8.54%" onclick="finishLesson()" aria-label="Finish"></button>
+    <button class="hot" style="left:46.81%;top:86.98%;width:6.32%;height:9.58%" onclick="speak('You completed Lesson 1! Keep practicing and keep learning!')" aria-label="Play audio"></button>
   </div>
 
   <!-- ══ TOAST ══ -->
