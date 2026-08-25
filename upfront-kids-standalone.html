@@ -105,7 +105,9 @@
     -webkit-tap-highlight-color:transparent;
     outline:none;
     -webkit-appearance:none;
+    transition:transform .1s ease;
   }
+  .hot:active{transform:scale(.95)}
   .hot:focus-visible{box-shadow:0 0 0 3px rgba(255,255,255,.85);border-radius:999px}
   .hot.pulse{animation:pulse .4s ease}
   @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.06)}100%{transform:scale(1)}}
@@ -113,6 +115,11 @@
   .hot.bad{animation:shake .4s ease;box-shadow:0 0 0 3px #ef4444 inset;border-radius:999px;background:rgba(239,68,68,.15)}
   @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
   .hot.sel{box-shadow:0 0 0 4px #ffcc00 inset;border-radius:999px}
+  .hot.nudge{animation:nudge-glow 1s ease-in-out 2;border-radius:999px;pointer-events:auto}
+  @keyframes nudge-glow{
+    0%,100%{box-shadow:0 0 0 0 rgba(255,224,90,0);transform:scale(1)}
+    50%{box-shadow:0 0 0 8px rgba(255,224,90,.6);transform:scale(1.04)}
+  }
 
   /* memory cards */
   .mem-card{
@@ -448,6 +455,7 @@ function showScreen(id){
   if(id==='l1_7d' || id==='l1_7e' || id==='l1_7f') initUnscramble(id);
   if(id==='l1_8') celebrate('🎉 Lesson 1 complete!', true);
   closeSettings();
+  if(typeof armIdleTimer === 'function') armIdleTimer();
 }
 
 // ═══ CELEBRATION (confetti + emoji burst + chime sound) ═══
@@ -507,6 +515,63 @@ function playChime(){
     });
   }catch(e){}
 }
+// Soft tap sound — plays on every button press, so the app always feels responsive.
+function playTap(){
+  if(muted) return;
+  try{
+    audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+    if(audioCtx.state === 'suspended') audioCtx.resume();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(700, audioCtx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(920, audioCtx.currentTime + 0.06);
+    gain.gain.setValueAtTime(0.14, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.09);
+    osc.connect(gain).connect(audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.1);
+  }catch(e){}
+}
+// Gentle descending "try again" tone — never harsh, just a friendly nudge.
+function playWrong(){
+  if(muted) return;
+  try{
+    audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+    if(audioCtx.state === 'suspended') audioCtx.resume();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(420, audioCtx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.22);
+    gain.gain.setValueAtTime(0.16, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.26);
+    osc.connect(gain).connect(audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.27);
+  }catch(e){}
+}
+// Two-note "psst, look here" cue that accompanies the idle nudge glow.
+function playNudge(){
+  if(muted) return;
+  try{
+    audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+    if(audioCtx.state === 'suspended') audioCtx.resume();
+    [660, 880].forEach((freq,i)=>{
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.value = freq;
+      const t = audioCtx.currentTime + i*0.12;
+      gain.gain.setValueAtTime(0, t);
+      gain.gain.linearRampToValueAtTime(0.12, t+0.02);
+      gain.gain.exponentialRampToValueAtTime(0.001, t+0.2);
+      osc.connect(gain).connect(audioCtx.destination);
+      osc.start(t);
+      osc.stop(t+0.21);
+    });
+  }catch(e){}
+}
 function celebrate(message, force){
   if(celebrateBusy && !force) return;
   celebrateBusy = true;
@@ -523,9 +588,11 @@ let ttsWarned = false;
 let ttsPrimed = false;
 // Voices whose names tend to sound brighter/younger across common platforms,
 // checked in order — first match wins. Falls back to any English voice.
+// "Junior" and "Sandy" are Apple's actual kid-voice novelty voices (iOS/macOS).
 const FRIENDLY_VOICE_HINTS = [
-  'female child','child','junior','samantha','karen','moira','tessa',
-  'google uk english female','google us english','zira','susan','kids',
+  'junior','sandy','female child','child','kids','kid',
+  'samantha','karen','moira','tessa','fiona','veena',
+  'google uk english female','google us english','zira','susan',
   'female'
 ];
 function loadVoices(){
@@ -564,8 +631,8 @@ function speak(text, rate){
     window.speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(text);
     u.lang = 'en-US';
-    u.rate = rate || 0.9;
-    u.pitch = 1.35;
+    u.rate = rate || 0.92;
+    u.pitch = 1.55;
     const v = pickFriendlyVoice();
     if(v) u.voice = v;
     u.onerror = function(){ if(!ttsWarned){ toast('🔇 Audio blocked — open in Chrome or Safari'); ttsWarned = true; } };
@@ -574,6 +641,40 @@ function speak(text, rate){
     if(!ttsWarned){ toast('🔇 Audio error on this device'); ttsWarned = true; }
   }
 }
+
+// Every real button gets a soft tap sound, for free — no need to wire it per-button.
+document.addEventListener('pointerdown', function(e){
+  if(e.target.closest('.hot, .unscr-tile, .unscr-slot-chip, .modal-btn')) playTap();
+}, true);
+
+// ═══ IDLE NUDGE — a gentle glow+chime on the still-unfinished buttons ═══
+const NUDGE_SKIP_LABELS = ['home','settings','back','next','play audio','finish'];
+let idleTimer = null;
+function clearNudges(){
+  document.querySelectorAll('.nudge').forEach(e=>e.classList.remove('nudge'));
+}
+function armIdleTimer(){
+  clearTimeout(idleTimer);
+  clearNudges();
+  idleTimer = setTimeout(triggerNudge, 7000);
+}
+function triggerNudge(){
+  const screen = document.querySelector('.screen.active');
+  if(!screen) return;
+  const targets = [...screen.querySelectorAll('.hot')].filter(el=>{
+    const label = (el.getAttribute('aria-label')||'').toLowerCase();
+    if(NUDGE_SKIP_LABELS.includes(label)) return false;
+    if(el.classList.contains('ok') || el.classList.contains('matched')) return false;
+    return true;
+  });
+  if(targets.length){
+    targets.forEach(el=>el.classList.add('nudge'));
+    playNudge();
+  }
+  idleTimer = setTimeout(triggerNudge, 6000);
+}
+document.addEventListener('pointerdown', armIdleTimer, true);
+armIdleTimer();
 
 // ═══ TOAST ═══
 let toastTimer = null;
@@ -634,6 +735,7 @@ function matchRightClick(key, el){
   } else {
     el.classList.add('bad');
     leftEl.classList.add('bad');
+    playWrong();
     setTimeout(()=>{ el.classList.remove('bad'); leftEl.classList.remove('bad','sel'); }, 500);
   }
   matchLeftSel = null;
@@ -650,6 +752,7 @@ function chooseAnswer(correct, el, word){
     el.classList.add('bad');
     speak('Try again');
     toast('🙂 Try again!');
+    playWrong();
     setTimeout(()=>el.classList.remove('bad'), 500);
   }
 }
@@ -718,6 +821,7 @@ function flipMemCard(idx, el){
         setTimeout(()=>celebrate('🏆 You found them all!'), 300);
       }
     } else {
+      playWrong();
       setTimeout(()=>{
         a.el.classList.remove('flip'); b.el.classList.remove('flip');
         memoryFlipped = []; memoryLock = false;
@@ -738,6 +842,7 @@ function quizAnswer(correct, el){
     el.classList.add('bad');
     speak('Try again');
     toast('🙂 Try again!');
+    playWrong();
     setTimeout(()=>el.classList.remove('bad'), 500);
   }
 }
@@ -804,6 +909,7 @@ function checkUnscramble(id){
     celebrate('🌟 Perfect sentence!');
   } else {
     toast('🙂 Try again!');
+    playWrong();
     setTimeout(()=>{
       st.bank = st.bank.concat(st.slots.filter(Boolean));
       st.slots = new Array(st.answer.length).fill(null);
