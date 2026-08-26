@@ -205,9 +205,31 @@
     animation:bob 1.4s ease-in-out infinite;pointer-events:none;
   }
   @keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,-8px)}}
+
+  /* ── rotate-phone prompt (landscape-designed course, phone held upright) ── */
+  .rotate-prompt{
+    display:none;
+    position:fixed;inset:0;z-index:999;
+    background:linear-gradient(160deg,#2a63c9,#0f2b5c);
+    color:#fff;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;font-weight:800;padding:24px;gap:14px;
+  }
+  .rotate-prompt .icon{font-size:clamp(40px,12vw,64px);animation:rotate-wiggle 1.6s ease-in-out infinite}
+  .rotate-prompt .line1{font-size:clamp(18px,5.5vw,26px)}
+  .rotate-prompt .line2{font-size:clamp(13px,3.6vw,16px);font-weight:600;opacity:.85}
+  @keyframes rotate-wiggle{0%,20%{transform:rotate(0deg)}50%,90%{transform:rotate(-90deg)}100%{transform:rotate(-90deg)}}
+  @media (orientation:portrait) and (max-width:900px){
+    .rotate-prompt{display:flex}
+  }
 </style>
 </head>
 <body>
+
+<div class="rotate-prompt">
+  <div class="icon">🔄</div>
+  <div class="line1">Gire seu celular!</div>
+  <div class="line2">Rotate your phone to landscape to play</div>
+</div>
 
 <div class="stage" id="stage">
   <div class="confetti-layer" id="confettiLayer"></div>
