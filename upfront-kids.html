@@ -4,6 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>English Adventures — Upfront Kids</title>
+
+<!-- ═══ PWA / "Add to Home Screen" support ═══ -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#2a63c9">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Upfront Kids">
+<link rel="apple-touch-icon" href="kids-assets/icons/apple-touch-icon.png">
+<link rel="icon" href="kids-assets/icons/icon-192.png">
+
 <style>
 @font-face {
   font-family:'Baloo 2';
@@ -950,6 +961,13 @@ function finishLesson(){
   localStorage.setItem('kids_lesson1_done', '1');
   toast('🎉 Lesson 1 complete!');
   setTimeout(()=>showScreen('map'), 900);
+}
+
+// ═══ PWA — install as an app + play offline once opened ═══
+if('serviceWorker' in navigator){
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch(()=>{});
+  });
 }
 </script>
 </body>
