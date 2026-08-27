@@ -632,6 +632,16 @@ if('speechSynthesis' in window){
   window.speechSynthesis.onvoiceschanged = loadVoices;
   document.addEventListener('pointerdown', primeSpeech, { once:true, capture:true });
 }
+// Some voices misread short/foreign-looking proper nouns (e.g. spell out "M-I-A"
+// instead of saying the word). Swap in a phonetic respelling just for speech,
+// while every on-screen label keeps the real spelling.
+const PRONOUNCE_MAP = { 'mia': 'Mee-ah' };
+function applyPronunciation(text){
+  return text.replace(/[A-Za-z]+/g, (word) => {
+    const fix = PRONOUNCE_MAP[word.toLowerCase()];
+    return fix || word;
+  });
+}
 function speak(text, rate){
   if(muted) return;
   if(!('speechSynthesis' in window)){
@@ -640,7 +650,7 @@ function speak(text, rate){
   }
   try{
     window.speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text);
+    const u = new SpeechSynthesisUtterance(applyPronunciation(text));
     u.lang = 'en-US';
     u.rate = rate || 0.98;
     u.pitch = 1.08;
