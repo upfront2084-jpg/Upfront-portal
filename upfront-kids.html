@@ -177,6 +177,13 @@
     border:3px dashed #b9c4dd;border-radius:12px;
   }
 
+  /* ── lesson 2 · drag and drop blank ── */
+  .dd-slot{
+    position:absolute;display:flex;align-items:center;justify-content:center;
+    font-family:'Baloo 2',sans-serif;font-weight:800;color:#3d2e7c;
+    font-size:clamp(16px,3vw,30px);pointer-events:none;
+  }
+
   /* ── toast ──────────────────────────────────────────── */
   .toast{
     position:absolute;left:50%;top:6%;transform:translate(-50%,-20px);
@@ -258,7 +265,7 @@
     <button class="hot" style="left:92.4%;top:2.11%;width:6.17%;height:9.15%" onclick="openSettings()" aria-label="Settings"></button>
 
     <button class="hot" style="left:2.5%;top:13.48%;width:28.36%;height:32.48%" onclick="showScreen('l1_1')" aria-label="Welcome Forest"></button>
-    <button class="hot" style="left:35.94%;top:13.48%;width:28.52%;height:32.48%" onclick="toast('🚧 Coming soon!')" aria-label="Color Valley"></button>
+    <button class="hot" style="left:35.94%;top:13.48%;width:28.52%;height:32.48%" onclick="showScreen('l2_1')" aria-label="Color Valley"></button>
     <button class="hot" style="left:67.58%;top:13.48%;width:28.52%;height:32.48%" onclick="toast('🚧 Coming soon!')" aria-label="Happy Town"></button>
     <button class="hot" style="left:17.19%;top:46.89%;width:27.73%;height:30.13%" onclick="toast('🚧 Coming soon!')" aria-label="Animal Island"></button>
     <button class="hot" style="left:47.27%;top:46.89%;width:27.34%;height:30.13%" onclick="toast('🔒 Locked')" aria-label="Space Station"></button>
@@ -462,6 +469,241 @@
     <button class="hot" style="left:46.88%;top:87.59%;width:5.31%;height:8.9%" onclick="speak('You completed Lesson 1! Keep practicing and keep learning!')" aria-label="Play audio"></button>
   </div>
 
+  <!-- ══ LESSON 2 · STEP 1 — WELCOME ══ -->
+  <div class="screen" id="l2_1" style="background-image:url('kids-assets/lesson2-step1-welcome.jpg')">
+    <button class="hot" style="left:1.17%;top:1.17%;width:7.03%;height:10.54%" onclick="showScreen('map')" aria-label="Home"></button>
+    <button class="hot" style="left:91.8%;top:1.17%;width:7.03%;height:10.54%" onclick="openSettings()" aria-label="Settings"></button>
+    <button class="hot" style="left:1.56%;top:85.48%;width:16.8%;height:8.43%" onclick="showScreen('map')" aria-label="Back"></button>
+    <button class="hot" style="left:80.08%;top:85.48%;width:17.19%;height:8.43%" onclick="showScreen('l2_2')" aria-label="Next"></button>
+    <button class="hot" style="left:59.77%;top:59.72%;width:5.47%;height:8.2%" onclick="speak(&quot;What's your name?&quot;)" aria-label="Play question"></button>
+    <button class="hot" style="left:45.16%;top:88.76%;width:5.78%;height:8.67%" onclick="speak(&quot;What's your name?&quot;)" aria-label="Play audio"></button>
+  </div>
+
+  <!-- ══ LESSON 2 · STEP 2 — VOCABULARY ══ -->
+  <div class="screen" id="l2_2" style="background-image:url('kids-assets/lesson2-step2-vocabulary.jpg')">
+    <button class="hot" style="left:1.17%;top:1.17%;width:7.03%;height:10.54%" onclick="showScreen('map')" aria-label="Home"></button>
+    <button class="hot" style="left:91.8%;top:1.17%;width:7.03%;height:10.54%" onclick="openSettings()" aria-label="Settings"></button>
+    <button class="hot" style="left:1.56%;top:85.58%;width:16.8%;height:8.44%" onclick="showScreen('l2_1')" aria-label="Back"></button>
+    <button class="hot" style="left:80.08%;top:85.58%;width:17.19%;height:8.44%" onclick="showScreen('l2_3')" aria-label="Next"></button>
+    <button class="hot" style="left:51.95%;top:28.96%;width:3.36%;height:5.04%" onclick="speak('My name is.')" aria-label="Play audio"></button>
+    <button class="hot" style="left:48.83%;top:70.93%;width:5.47%;height:8.21%" onclick="speak('My name is.')" aria-label="Play audio"></button>
+
+    <button class="hot" style="left:43.36%;top:37.87%;width:16.02%;height:13.48%" onclick="playWord('My',this)" aria-label="my"></button>
+    <button class="hot" style="left:62.5%;top:37.87%;width:15.63%;height:13.48%" onclick="playWord('name',this)" aria-label="name"></button>
+    <button class="hot" style="left:43.36%;top:54.28%;width:16.02%;height:13.48%" onclick="playWord('is',this)" aria-label="is"></button>
+    <button class="hot" style="left:62.5%;top:54.28%;width:15.63%;height:13.48%" onclick="playWord('am',this)" aria-label="am"></button>
+  </div>
+
+  <!-- ══ LESSON 2 · STEP 3 — MATCHING ══ -->
+  <div class="screen" id="l2_3" style="background-image:url('kids-assets/lesson2-step3-matching.jpg')">
+    <button class="hot" style="left:1.17%;top:1.17%;width:7.03%;height:10.54%" onclick="showScreen('map')" aria-label="Home"></button>
+    <button class="hot" style="left:91.8%;top:1.17%;width:7.03%;height:10.54%" onclick="openSettings()" aria-label="Settings"></button>
+    <button class="hot" style="left:1.56%;top:85.58%;width:16.8%;height:8.44%" onclick="showScreen('l2_2')" aria-label="Back"></button>
+    <button class="hot" style="left:80.08%;top:85.58%;width:17.19%;height:8.44%" onclick="showScreen('l2_4')" aria-label="Next"></button>
+    <button class="hot" style="left:68.59%;top:23.8%;width:3.91%;height:5.86%" onclick="speak('Match the names with the correct friend.')" aria-label="Play audio"></button>
+    <button class="hot" style="left:45.7%;top:76.79%;width:3.91%;height:5.86%" onclick="speak('Match the names with the correct friend.')" aria-label="Play audio"></button>
+
+    <button class="hot match-left2" data-key="leo" style="left:29.69%;top:32.83%;width:12.5%;height:26.96%" onclick="matchLeftClick2('leo',this)" aria-label="Leo picture"></button>
+    <button class="hot match-left2" data-key="mia" style="left:45.31%;top:32.83%;width:12.5%;height:26.96%" onclick="matchLeftClick2('mia',this)" aria-label="Mia picture"></button>
+    <button class="hot match-left2" data-key="luna" style="left:60.94%;top:32.83%;width:12.5%;height:26.96%" onclick="matchLeftClick2('luna',this)" aria-label="Luna picture"></button>
+
+    <button class="hot match-right2" data-key="leo" style="left:29.69%;top:70.1%;width:12.5%;height:5.51%" onclick="matchRightClick2('leo',this)" aria-label="Leo"></button>
+    <button class="hot match-right2" data-key="mia" style="left:46.88%;top:70.1%;width:12.5%;height:5.51%" onclick="matchRightClick2('mia',this)" aria-label="Mia"></button>
+    <button class="hot match-right2" data-key="luna" style="left:62.5%;top:70.1%;width:12.5%;height:5.51%" onclick="matchRightClick2('luna',this)" aria-label="Luna"></button>
+  </div>
+
+  <!-- ══ LESSON 2 · STEP 4 — LISTEN & CHOOSE ══ -->
+  <div class="screen" id="l2_4" style="background-image:url('kids-assets/lesson2-step4-listen.jpg')">
+    <button class="hot" style="left:1.17%;top:1.17%;width:7.03%;height:10.54%" onclick="showScreen('map')" aria-label="Home"></button>
+    <button class="hot" style="left:91.8%;top:1.17%;width:7.03%;height:10.54%" onclick="openSettings()" aria-label="Settings"></button>
+    <button class="hot" style="left:1.56%;top:85.58%;width:16.8%;height:8.44%" onclick="showScreen('l2_3')" aria-label="Back"></button>
+    <button class="hot" style="left:80.08%;top:85.58%;width:17.19%;height:8.44%" onclick="showScreen('l2_5')" aria-label="Next"></button>
+    <button class="hot" style="left:27.89%;top:41.27%;width:3.75%;height:5.63%" onclick="speak('Leo')" aria-label="Listen again"></button>
+
+    <button class="hot" style="left:32.03%;top:41.03%;width:14.84%;height:33.41%" onclick="chooseAnswer2(true,this,'Leo')" aria-label="Option Leo"></button>
+    <button class="hot" style="left:49.22%;top:41.03%;width:14.84%;height:33.41%" onclick="chooseAnswer2(false,this)" aria-label="Option Mia"></button>
+    <button class="hot" style="left:66.41%;top:41.03%;width:14.84%;height:33.41%" onclick="chooseAnswer2(false,this)" aria-label="Option Luna"></button>
+  </div>
+
+  <!-- ══ LESSON 2 · STEP 5 — LET'S SPEAK (Mia) ══ -->
+  <div class="screen" id="l2_5" style="background-image:url('kids-assets/lesson2-step5-speak-mia.jpg')">
+    <button class="hot" style="left:1.17%;top:1.17%;width:7.03%;height:10.54%" onclick="showScreen('map')" aria-label="Home"></button>
+    <button class="hot" style="left:91.8%;top:1.17%;width:7.03%;height:10.54%" onclick="openSettings()" aria-label="Settings"></button>
+    <button class="hot" style="left:1.56%;top:85.58%;width:16.8%;height:8.44%" onclick="showScreen('l2_4')" aria-label="Back"></button>
+    <button class="hot" style="left:80.08%;top:85.58%;width:17.19%;height:8.44%" onclick="showScreen('l2_6')" aria-label="Next"></button>
+
+    <button class="hot" style="left:46.88%;top:30.48%;width:23.44%;height:51.58%" onclick="speak('My name is Mia.')" aria-label="Listen"></button>
+    <button class="hot" id="micBtnL2Mia" style="left:70.7%;top:50.41%;width:7.03%;height:10.55%" onclick="tapToSpeak(this,'mia')" aria-label="Tap to speak and repeat"></button>
+    <button class="hot" style="left:47.27%;top:71.86%;width:3.91%;height:5.51%" onclick="speak('My name is Mia.')" aria-label="Play audio"></button>
+  </div>
+
+  <!-- ══ LESSON 2 · STEP 6 — LET'S SPEAK (Leo) ══ -->
+  <div class="screen" id="l2_6" style="background-image:url('kids-assets/lesson2-step6-speak-leo.jpg')">
+    <button class="hot" style="left:1.17%;top:1.17%;width:7.03%;height:10.54%" onclick="showScreen('map')" aria-label="Home"></button>
+    <button class="hot" style="left:91.8%;top:1.17%;width:7.03%;height:10.54%" onclick="openSettings()" aria-label="Settings"></button>
+    <button class="hot" style="left:1.56%;top:85.58%;width:16.8%;height:8.44%" onclick="showScreen('l2_5')" aria-label="Back"></button>
+    <button class="hot" style="left:80.08%;top:85.58%;width:17.19%;height:8.44%" onclick="showScreen('l2_7')" aria-label="Next"></button>
+
+    <button class="hot" style="left:46.88%;top:30.48%;width:22.66%;height:51.58%" onclick="speak('My name is Leo.')" aria-label="Listen"></button>
+    <button class="hot" id="micBtnL2Leo" style="left:70.7%;top:54.87%;width:7.03%;height:10.55%" onclick="tapToSpeak(this,'leo')" aria-label="Tap to speak and repeat"></button>
+    <button class="hot" style="left:45.94%;top:72.1%;width:3.83%;height:5.63%" onclick="speak('My name is Leo.')" aria-label="Play audio"></button>
+  </div>
+
+  <!-- ══ LESSON 2 · STEP 7 — LET'S SPEAK (Luna) ══ -->
+  <div class="screen" id="l2_7" style="background-image:url('kids-assets/lesson2-step7-speak-luna.jpg')">
+    <button class="hot" style="left:1.17%;top:1.17%;width:7.03%;height:10.54%" onclick="showScreen('map')" aria-label="Home"></button>
+    <button class="hot" style="left:91.8%;top:1.17%;width:7.03%;height:10.54%" onclick="openSettings()" aria-label="Settings"></button>
+    <button class="hot" style="left:1.56%;top:85.58%;width:16.8%;height:8.44%" onclick="showScreen('l2_6')" aria-label="Back"></button>
+    <button class="hot" style="left:80.08%;top:85.58%;width:17.19%;height:8.44%" onclick="showScreen('l2_8')" aria-label="Next"></button>
+
+    <button class="hot" style="left:46.09%;top:30.48%;width:26.95%;height:51.58%" onclick="speak('My name is Luna.')" aria-label="Listen"></button>
+    <button class="hot" id="micBtnL2Luna" style="left:71.48%;top:53.7%;width:7.42%;height:11.14%" onclick="tapToSpeak(this,'luna')" aria-label="Tap to speak and repeat"></button>
+    <button class="hot" style="left:45.16%;top:73.27%;width:3.91%;height:5.86%" onclick="speak('My name is Luna.')" aria-label="Play audio"></button>
+  </div>
+
+  <!-- ══ LESSON 2 · STEP 8 — LET'S SPEAK (Buddy) ══ -->
+  <div class="screen" id="l2_8" style="background-image:url('kids-assets/lesson2-step8-speak-buddy.jpg')">
+    <button class="hot" style="left:1.17%;top:1.17%;width:7.03%;height:10.54%" onclick="showScreen('map')" aria-label="Home"></button>
+    <button class="hot" style="left:91.8%;top:1.17%;width:7.03%;height:10.54%" onclick="openSettings()" aria-label="Settings"></button>
+    <button class="hot" style="left:1.56%;top:85.58%;width:16.8%;height:8.44%" onclick="showScreen('l2_7')" aria-label="Back"></button>
+    <button class="hot" style="left:80.08%;top:85.58%;width:17.19%;height:8.44%" onclick="showScreen('l2_9')" aria-label="Next"></button>
+
+    <button class="hot" style="left:46.88%;top:30.48%;width:27.34%;height:56.27%" onclick="speak('My name is Buddy.')" aria-label="Listen"></button>
+    <button class="hot" id="micBtnL2Buddy" style="left:71.48%;top:53.7%;width:7.42%;height:11.14%" onclick="tapToSpeak(this,'buddy')" aria-label="Tap to speak and repeat"></button>
+    <button class="hot" style="left:43.98%;top:70.93%;width:5.63%;height:8.56%" onclick="speak('My name is Buddy.')" aria-label="Play audio"></button>
+  </div>
+
+  <!-- ══ LESSON 2 · STEP 9 — MEMORY ══ -->
+  <div class="screen" id="l2_9" style="background-image:url('kids-assets/lesson2-step9-memory.jpg')">
+    <button class="hot" style="left:1.17%;top:1.17%;width:7.03%;height:10.54%" onclick="showScreen('map')" aria-label="Home"></button>
+    <button class="hot" style="left:91.8%;top:1.17%;width:7.03%;height:10.54%" onclick="openSettings()" aria-label="Settings"></button>
+    <button class="hot" style="left:1.56%;top:85.58%;width:16.8%;height:8.44%" onclick="showScreen('l2_8')" aria-label="Back"></button>
+    <button class="hot" style="left:80.08%;top:85.58%;width:17.19%;height:8.44%" onclick="showScreen('l2_10')" aria-label="Next"></button>
+    <button class="hot" style="left:47.27%;top:76.79%;width:3.91%;height:5.86%" onclick="speak('Find the pairs!')" aria-label="Play audio"></button>
+
+    <button class="hot mem-card2" style="left:25%;top:34%;width:7.81%;height:16.41%" onclick="flipMemCard2(0,this)" aria-label="Card 1"><img class="mem-img" alt=""><span class="mem-face"></span></button>
+    <button class="hot mem-card2" style="left:34.38%;top:34%;width:7.81%;height:16.41%" onclick="flipMemCard2(1,this)" aria-label="Card 2"><img class="mem-img" alt=""><span class="mem-face"></span></button>
+    <button class="hot mem-card2" style="left:43.75%;top:34%;width:7.81%;height:16.41%" onclick="flipMemCard2(2,this)" aria-label="Card 3"><img class="mem-img" alt=""><span class="mem-face"></span></button>
+    <button class="hot mem-card2" style="left:53.13%;top:34%;width:7.81%;height:16.41%" onclick="flipMemCard2(3,this)" aria-label="Card 4"><img class="mem-img" alt=""><span class="mem-face"></span></button>
+    <button class="hot mem-card2" style="left:25%;top:52.76%;width:7.81%;height:16.41%" onclick="flipMemCard2(4,this)" aria-label="Card 5"><img class="mem-img" alt=""><span class="mem-face"></span></button>
+    <button class="hot mem-card2" style="left:34.38%;top:52.76%;width:7.81%;height:16.41%" onclick="flipMemCard2(5,this)" aria-label="Card 6"><img class="mem-img" alt=""><span class="mem-face"></span></button>
+    <button class="hot mem-card2" style="left:43.75%;top:52.76%;width:7.81%;height:16.41%" onclick="flipMemCard2(6,this)" aria-label="Card 7"><img class="mem-img" alt=""><span class="mem-face"></span></button>
+    <button class="hot mem-card2" style="left:53.13%;top:52.76%;width:7.81%;height:16.41%" onclick="flipMemCard2(7,this)" aria-label="Card 8"><img class="mem-img" alt=""><span class="mem-face"></span></button>
+  </div>
+
+  <!-- ══ LESSON 2 · STEP 10 — DRAG AND DROP (Leo) ══ -->
+  <div class="screen" id="l2_10" style="background-image:url('kids-assets/lesson2-step10-dragdrop-leo.jpg')">
+    <div class="dd-slot" id="l2_10_slot" style="left:65.63%;top:42.79%;width:12.5%;height:6.45%"></div>
+    <button class="hot" style="left:1.17%;top:1.17%;width:7.03%;height:10.54%" onclick="showScreen('map')" aria-label="Home"></button>
+    <button class="hot" style="left:91.8%;top:1.17%;width:7.03%;height:10.54%" onclick="openSettings()" aria-label="Settings"></button>
+    <button class="hot" style="left:1.56%;top:85.58%;width:16.8%;height:8.44%" onclick="showScreen('l2_9')" aria-label="Back"></button>
+    <button class="hot" style="left:80.08%;top:85.58%;width:17.19%;height:8.44%" onclick="showScreen('l2_11')" aria-label="Next"></button>
+    <button class="hot" style="left:73.05%;top:22.27%;width:5.08%;height:7.62%" onclick="speak('Drag the correct name to complete the sentence.')" aria-label="Play audio"></button>
+
+    <button class="hot dd-tile" data-word="Leo" style="left:21.88%;top:70.69%;width:13.67%;height:7.27%" onclick="dragDropAnswer(true,this,'l2_10_slot','My name is Leo.')" aria-label="Leo"></button>
+    <button class="hot dd-tile" data-word="Mia" style="left:37.11%;top:70.69%;width:13.28%;height:7.27%" onclick="dragDropAnswer(false,this)" aria-label="Mia"></button>
+    <button class="hot dd-tile" data-word="Luna" style="left:51.95%;top:70.69%;width:13.28%;height:7.27%" onclick="dragDropAnswer(false,this)" aria-label="Luna"></button>
+    <button class="hot dd-tile" data-word="Buddy" style="left:66.8%;top:70.69%;width:13.28%;height:7.27%" onclick="dragDropAnswer(false,this)" aria-label="Buddy"></button>
+  </div>
+
+  <!-- ══ LESSON 2 · STEP 11 — DRAG AND DROP (Mia) ══ -->
+  <div class="screen" id="l2_11" style="background-image:url('kids-assets/lesson2-step11-dragdrop-mia.jpg')">
+    <div class="dd-slot" id="l2_11_slot" style="left:65.63%;top:42.79%;width:12.5%;height:6.45%"></div>
+    <button class="hot" style="left:1.17%;top:1.17%;width:7.03%;height:10.54%" onclick="showScreen('map')" aria-label="Home"></button>
+    <button class="hot" style="left:91.8%;top:1.17%;width:7.03%;height:10.54%" onclick="openSettings()" aria-label="Settings"></button>
+    <button class="hot" style="left:1.56%;top:85.58%;width:16.8%;height:8.44%" onclick="showScreen('l2_10')" aria-label="Back"></button>
+    <button class="hot" style="left:80.08%;top:85.58%;width:17.19%;height:8.44%" onclick="showScreen('l2_12')" aria-label="Next"></button>
+    <button class="hot" style="left:74.61%;top:22.27%;width:5.08%;height:7.62%" onclick="speak('Drag the correct name to complete the sentence.')" aria-label="Play audio"></button>
+
+    <button class="hot dd-tile" data-word="Leo" style="left:21.88%;top:70.69%;width:13.67%;height:7.27%" onclick="dragDropAnswer(false,this)" aria-label="Leo"></button>
+    <button class="hot dd-tile" data-word="Mia" style="left:37.11%;top:70.69%;width:13.28%;height:7.27%" onclick="dragDropAnswer(true,this,'l2_11_slot','My name is Mia.')" aria-label="Mia"></button>
+    <button class="hot dd-tile" data-word="Luna" style="left:51.95%;top:70.69%;width:13.28%;height:7.27%" onclick="dragDropAnswer(false,this)" aria-label="Luna"></button>
+    <button class="hot dd-tile" data-word="Buddy" style="left:66.8%;top:70.69%;width:13.28%;height:7.27%" onclick="dragDropAnswer(false,this)" aria-label="Buddy"></button>
+  </div>
+
+  <!-- ══ LESSON 2 · STEP 12 — DRAG AND DROP (Luna) ══ -->
+  <div class="screen" id="l2_12" style="background-image:url('kids-assets/lesson2-step12-dragdrop-luna.jpg')">
+    <div class="dd-slot" id="l2_12_slot" style="left:65.63%;top:42.79%;width:12.5%;height:6.45%"></div>
+    <button class="hot" style="left:1.17%;top:1.17%;width:7.03%;height:10.54%" onclick="showScreen('map')" aria-label="Home"></button>
+    <button class="hot" style="left:91.8%;top:1.17%;width:7.03%;height:10.54%" onclick="openSettings()" aria-label="Settings"></button>
+    <button class="hot" style="left:1.56%;top:85.58%;width:16.8%;height:8.44%" onclick="showScreen('l2_11')" aria-label="Back"></button>
+    <button class="hot" style="left:80.08%;top:85.58%;width:17.19%;height:8.44%" onclick="showScreen('l2_13')" aria-label="Next"></button>
+    <button class="hot" style="left:76.95%;top:21.45%;width:5.08%;height:7.62%" onclick="speak('Drag the correct name to complete the sentence.')" aria-label="Play audio"></button>
+
+    <button class="hot dd-tile" data-word="Leo" style="left:21.88%;top:70.69%;width:13.67%;height:7.27%" onclick="dragDropAnswer(false,this)" aria-label="Leo"></button>
+    <button class="hot dd-tile" data-word="Mia" style="left:37.11%;top:70.69%;width:13.28%;height:7.27%" onclick="dragDropAnswer(false,this)" aria-label="Mia"></button>
+    <button class="hot dd-tile" data-word="Luna" style="left:51.95%;top:70.69%;width:13.28%;height:7.27%" onclick="dragDropAnswer(true,this,'l2_12_slot','My name is Luna.')" aria-label="Luna"></button>
+    <button class="hot dd-tile" data-word="Buddy" style="left:66.8%;top:70.69%;width:13.28%;height:7.27%" onclick="dragDropAnswer(false,this)" aria-label="Buddy"></button>
+  </div>
+
+  <!-- ══ LESSON 2 · STEP 13 — DRAG AND DROP (Buddy) ══ -->
+  <div class="screen" id="l2_13" style="background-image:url('kids-assets/lesson2-step13-dragdrop-buddy.jpg')">
+    <div class="dd-slot" id="l2_13_slot" style="left:65.63%;top:42.79%;width:12.5%;height:6.45%"></div>
+    <button class="hot" style="left:1.17%;top:1.17%;width:7.03%;height:10.54%" onclick="showScreen('map')" aria-label="Home"></button>
+    <button class="hot" style="left:91.8%;top:1.17%;width:7.03%;height:10.54%" onclick="openSettings()" aria-label="Settings"></button>
+    <button class="hot" style="left:1.56%;top:85.58%;width:16.8%;height:8.44%" onclick="showScreen('l2_12')" aria-label="Back"></button>
+    <button class="hot" style="left:80.08%;top:85.58%;width:17.19%;height:8.44%" onclick="showScreen('l2_14')" aria-label="Next"></button>
+    <button class="hot" style="left:74.61%;top:22.27%;width:5.08%;height:7.62%" onclick="speak('Drag the correct name to complete the sentence.')" aria-label="Play audio"></button>
+
+    <button class="hot dd-tile" data-word="Leo" style="left:21.88%;top:70.69%;width:13.67%;height:7.27%" onclick="dragDropAnswer(false,this)" aria-label="Leo"></button>
+    <button class="hot dd-tile" data-word="Mia" style="left:37.11%;top:70.69%;width:13.28%;height:7.27%" onclick="dragDropAnswer(false,this)" aria-label="Mia"></button>
+    <button class="hot dd-tile" data-word="Luna" style="left:51.95%;top:70.69%;width:13.28%;height:7.27%" onclick="dragDropAnswer(false,this)" aria-label="Luna"></button>
+    <button class="hot dd-tile" data-word="Buddy" style="left:66.8%;top:70.69%;width:13.28%;height:7.27%" onclick="dragDropAnswer(true,this,'l2_13_slot','My name is Buddy.')" aria-label="Buddy"></button>
+  </div>
+
+  <!-- ══ LESSON 2 · STEP 14 — SENTENCE BUILDER (Mia) ══ -->
+  <div class="screen" id="l2_14" style="background-image:url('kids-assets/lesson2-step14-sentence-mia.jpg')">
+    <div class="unscr-sentence" id="l2_14_slots" style="left:28.52%;top:70.34%;width:63.67%;height:9.97%"></div>
+    <div class="unscr-bank" id="l2_14_bank" style="left:28.52%;top:57.44%;width:63.67%;height:11.72%"></div>
+    <button class="hot" style="left:1.17%;top:1.17%;width:7.03%;height:10.54%" onclick="showScreen('map')" aria-label="Home"></button>
+    <button class="hot" style="left:91.8%;top:1.17%;width:7.03%;height:10.54%" onclick="openSettings()" aria-label="Settings"></button>
+    <button class="hot" style="left:1.56%;top:85.58%;width:16.8%;height:8.44%" onclick="showScreen('l2_13')" aria-label="Back"></button>
+    <button class="hot" style="left:80.08%;top:85.58%;width:17.19%;height:8.44%" onclick="showScreen('l2_15')" aria-label="Next"></button>
+    <button class="hot" style="left:74.61%;top:22.86%;width:5.47%;height:8.21%" onclick="speak(&quot;What's your name?&quot;)" aria-label="Play audio"></button>
+  </div>
+
+  <!-- ══ LESSON 2 · STEP 15 — SENTENCE BUILDER (Buddy) ══ -->
+  <div class="screen" id="l2_15" style="background-image:url('kids-assets/lesson2-step15-sentence-buddy.jpg')">
+    <div class="unscr-sentence" id="l2_15_slots" style="left:28.52%;top:70.34%;width:63.67%;height:9.97%"></div>
+    <div class="unscr-bank" id="l2_15_bank" style="left:28.52%;top:57.44%;width:63.67%;height:11.72%"></div>
+    <button class="hot" style="left:1.17%;top:1.17%;width:7.03%;height:10.54%" onclick="showScreen('map')" aria-label="Home"></button>
+    <button class="hot" style="left:91.8%;top:1.17%;width:7.03%;height:10.54%" onclick="openSettings()" aria-label="Settings"></button>
+    <button class="hot" style="left:1.56%;top:85.58%;width:16.8%;height:8.44%" onclick="showScreen('l2_14')" aria-label="Back"></button>
+    <button class="hot" style="left:80.08%;top:85.58%;width:17.19%;height:8.44%" onclick="showScreen('l2_16')" aria-label="Next"></button>
+    <button class="hot" style="left:74.61%;top:22.86%;width:5.47%;height:8.21%" onclick="speak(&quot;What's your name?&quot;)" aria-label="Play audio"></button>
+  </div>
+
+  <!-- ══ LESSON 2 · STEP 16 — SENTENCE BUILDER (Leo) ══ -->
+  <div class="screen" id="l2_16" style="background-image:url('kids-assets/lesson2-step16-sentence-leo.jpg')">
+    <div class="unscr-sentence" id="l2_16_slots" style="left:28.52%;top:70.34%;width:63.67%;height:9.97%"></div>
+    <div class="unscr-bank" id="l2_16_bank" style="left:28.52%;top:57.44%;width:63.67%;height:11.72%"></div>
+    <button class="hot" style="left:1.17%;top:1.17%;width:7.03%;height:10.54%" onclick="showScreen('map')" aria-label="Home"></button>
+    <button class="hot" style="left:91.8%;top:1.17%;width:7.03%;height:10.54%" onclick="openSettings()" aria-label="Settings"></button>
+    <button class="hot" style="left:1.56%;top:85.58%;width:16.8%;height:8.44%" onclick="showScreen('l2_15')" aria-label="Back"></button>
+    <button class="hot" style="left:80.08%;top:85.58%;width:17.19%;height:8.44%" onclick="showScreen('l2_17')" aria-label="Next"></button>
+    <button class="hot" style="left:74.61%;top:22.86%;width:5.47%;height:8.21%" onclick="speak(&quot;What's your name?&quot;)" aria-label="Play audio"></button>
+  </div>
+
+  <!-- ══ LESSON 2 · STEP 17 — SENTENCE BUILDER (Luna) ══ -->
+  <div class="screen" id="l2_17" style="background-image:url('kids-assets/lesson2-step17-sentence-luna.jpg')">
+    <div class="unscr-sentence" id="l2_17_slots" style="left:28.52%;top:70.34%;width:63.67%;height:9.97%"></div>
+    <div class="unscr-bank" id="l2_17_bank" style="left:28.52%;top:57.44%;width:63.67%;height:11.72%"></div>
+    <button class="hot" style="left:1.17%;top:1.17%;width:7.03%;height:10.54%" onclick="showScreen('map')" aria-label="Home"></button>
+    <button class="hot" style="left:91.8%;top:1.17%;width:7.03%;height:10.54%" onclick="openSettings()" aria-label="Settings"></button>
+    <button class="hot" style="left:1.56%;top:85.58%;width:16.8%;height:8.44%" onclick="showScreen('l2_16')" aria-label="Back"></button>
+    <button class="hot" style="left:80.08%;top:85.58%;width:17.19%;height:8.44%" onclick="showScreen('l2_18')" aria-label="Next"></button>
+    <button class="hot" style="left:74.61%;top:22.86%;width:5.47%;height:8.21%" onclick="speak(&quot;What's your name?&quot;)" aria-label="Play audio"></button>
+  </div>
+
+  <!-- ══ LESSON 2 · FINALE — WELL DONE! ══ -->
+  <div class="screen" id="l2_18" style="background-image:url('kids-assets/lesson2-step18-complete.jpg')">
+    <button class="hot" style="left:1.17%;top:1.17%;width:7.03%;height:10.54%" onclick="showScreen('map')" aria-label="Home"></button>
+    <button class="hot" style="left:91.8%;top:1.17%;width:7.03%;height:10.54%" onclick="openSettings()" aria-label="Settings"></button>
+    <button class="hot" style="left:1.56%;top:86.52%;width:17.19%;height:7.5%" onclick="showScreen('l2_17')" aria-label="Back"></button>
+    <button class="hot" style="left:78.13%;top:86.52%;width:19.53%;height:7.5%" onclick="finishLesson2()" aria-label="Finish"></button>
+    <button class="hot" style="left:47.11%;top:87.69%;width:4.06%;height:6.1%" onclick="speak('You completed Lesson 2! Keep practicing and keep learning!')" aria-label="Play audio"></button>
+  </div>
+
   <!-- ══ TOAST ══ -->
   <div class="toast" id="toast"></div>
 
@@ -485,8 +727,11 @@ function showScreen(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   if(id==='l1_6') initMemory();
-  if(id==='l1_7d' || id==='l1_7e' || id==='l1_7f') initUnscramble(id);
+  if(id==='l2_9') initMemory2();
+  if(id==='l2_10' || id==='l2_11' || id==='l2_12' || id==='l2_13') resetDragDrop(id);
+  if(id==='l1_7d' || id==='l1_7e' || id==='l1_7f' || id==='l2_14' || id==='l2_15' || id==='l2_16' || id==='l2_17') initUnscramble(id);
   if(id==='l1_8') celebrate('🎉 Lesson 1 complete!', true);
+  if(id==='l2_18') celebrate('🎉 Lesson 2 complete!', true);
   closeSettings();
 }
 
@@ -733,9 +978,54 @@ function matchRightClick(key, el){
   matchLeftSel = null;
 }
 
+// ═══ LESSON 2 · STEP 3 · MATCHING ═══
+let matchLeftSel2 = null;
+const matchedSet2 = new Set();
+function matchLeftClick2(key, el){
+  if(matchedSet2.has(key)) return;
+  document.querySelectorAll('.match-left2').forEach(e=>e.classList.remove('sel'));
+  matchLeftSel2 = key;
+  el.classList.add('sel');
+}
+function matchRightClick2(key, el){
+  if(!matchLeftSel2 || matchedSet2.has(key)) return;
+  const leftEl = document.querySelector('.match-left2[data-key="'+matchLeftSel2+'"]');
+  if(matchLeftSel2 === key){
+    matchedSet2.add(key);
+    leftEl.classList.remove('sel');
+    leftEl.classList.add('ok');
+    el.classList.add('ok');
+    speak(key.charAt(0).toUpperCase()+key.slice(1)+'!');
+    if(matchedSet2.size === 3) celebrate('🌟 Great matching!');
+  } else {
+    el.classList.add('bad');
+    leftEl.classList.add('bad');
+    playWrong();
+    setTimeout(()=>{ el.classList.remove('bad'); leftEl.classList.remove('bad','sel'); }, 500);
+  }
+  matchLeftSel2 = null;
+}
+
 // ═══ STEP 4 · LISTEN & CHOOSE ═══
 function chooseAnswer(correct, el, word){
   document.querySelectorAll('#l1_4 .hot.ok, #l1_4 .hot.bad').forEach(e=>e.classList.remove('ok','bad'));
+  if(correct){
+    el.classList.add('ok');
+    speak('Correct! ' + (word || ''));
+    celebrate('🌟 Correct!');
+  } else {
+    el.classList.add('bad');
+    speak('Try again');
+    toast('🙂 Try again!');
+    playWrong();
+    setTimeout(()=>el.classList.remove('bad'), 500);
+  }
+}
+
+// ═══ LESSON 2 · STEP 4 · LISTEN & CHOOSE ═══
+function chooseAnswer2(correct, el, word){
+  const screen = el.closest('.screen');
+  screen.querySelectorAll('.hot.ok, .hot.bad').forEach(e=>e.classList.remove('ok','bad'));
   if(correct){
     el.classList.add('ok');
     speak('Correct! ' + (word || ''));
@@ -822,6 +1112,81 @@ function flipMemCard(idx, el){
   }
 }
 
+// ═══ LESSON 2 · STEP 9 · MEMORY ═══
+const MEMORY_PAIRS_L2 = [
+  {word:'Leo',   face:'kids-assets/face-leo.jpg'},
+  {word:'Mia',   face:'kids-assets/face-mia.jpg'},
+  {word:'Luna',  face:'kids-assets/face-luna.jpg'},
+  {word:'Buddy', face:'kids-assets/face-buddy.jpg'}
+];
+let memoryDeck2 = [];
+let memoryFlipped2 = [];
+let memoryLock2 = false;
+function initMemory2(){
+  memoryDeck2 = MEMORY_PAIRS_L2.concat(MEMORY_PAIRS_L2);
+  for(let i=memoryDeck2.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [memoryDeck2[i],memoryDeck2[j]] = [memoryDeck2[j],memoryDeck2[i]];
+  }
+  memoryFlipped2 = [];
+  memoryLock2 = false;
+  document.querySelectorAll('.mem-card2').forEach((c,i)=>{
+    c.classList.remove('flip','matched');
+    c.dataset.word = memoryDeck2[i].word;
+    c.querySelector('.mem-face').textContent = memoryDeck2[i].word;
+    c.querySelector('.mem-img').src = memoryDeck2[i].face;
+  });
+}
+function flipMemCard2(idx, el){
+  if(memoryLock2 || el.classList.contains('flip') || el.classList.contains('matched')) return;
+  el.classList.add('flip');
+  memoryFlipped2.push({idx, el, word: memoryDeck2[idx].word});
+  if(memoryFlipped2.length === 2){
+    memoryLock2 = true;
+    const [a,b] = memoryFlipped2;
+    if(a.word === b.word && a.idx !== b.idx){
+      a.el.classList.add('matched'); b.el.classList.add('matched');
+      speak('My name is ' + a.word + '.');
+      memoryFlipped2 = [];
+      memoryLock2 = false;
+      if(document.querySelectorAll('.mem-card2.matched').length === 8){
+        setTimeout(()=>celebrate('🏆 You found them all!'), 300);
+      }
+    } else {
+      playWrong();
+      setTimeout(()=>{
+        a.el.classList.remove('flip'); b.el.classList.remove('flip');
+        memoryFlipped2 = []; memoryLock2 = false;
+      }, 800);
+    }
+  }
+}
+
+// ═══ LESSON 2 · STEP 10-13 · DRAG AND DROP ═══
+function resetDragDrop(id){
+  const screen = document.getElementById(id);
+  delete screen.dataset.ddLocked;
+  screen.querySelectorAll('.dd-tile').forEach(t=>t.classList.remove('ok','bad'));
+  const slot = screen.querySelector('.dd-slot');
+  if(slot) slot.textContent = '';
+}
+function dragDropAnswer(correct, el, slotId, sentence){
+  const screen = el.closest('.screen');
+  if(screen.dataset.ddLocked === '1') return;
+  if(correct){
+    screen.dataset.ddLocked = '1';
+    el.classList.add('ok');
+    document.getElementById(slotId).textContent = el.dataset.word;
+    speak(sentence);
+    celebrate('🌟 Correct!');
+  } else {
+    el.classList.add('bad');
+    playWrong();
+    toast('🙂 Try again!');
+    setTimeout(()=>el.classList.remove('bad'), 500);
+  }
+}
+
 // ═══ STEP 7 · QUIZ ═══
 function quizAnswer(correct, el){
   const screen = el.closest('.screen');
@@ -843,7 +1208,11 @@ function quizAnswer(correct, el){
 const UNSCRAMBLE_DATA = {
   l1_7d: ['Hello','Buddy','!'],
   l1_7e: ['Hi','Mia','!'],
-  l1_7f: ['Goodbye','Luna','!']
+  l1_7f: ['Goodbye','Luna','!'],
+  l2_14: ['My','name','is','Mia','.'],
+  l2_15: ['My','name','is','Buddy','.'],
+  l2_16: ['My','name','is','Leo','.'],
+  l2_17: ['My','name','is','Luna','.']
 };
 const unscrambleState = {};
 function shuffleArr(arr){
@@ -914,6 +1283,11 @@ function checkUnscramble(id){
 function finishLesson(){
   localStorage.setItem('kids_lesson1_done', '1');
   toast('🎉 Lesson 1 complete!');
+  setTimeout(()=>showScreen('map'), 900);
+}
+function finishLesson2(){
+  localStorage.setItem('kids_lesson2_done', '1');
+  toast('🎉 Lesson 2 complete!');
   setTimeout(()=>showScreen('map'), 900);
 }
 
