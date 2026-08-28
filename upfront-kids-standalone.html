@@ -131,32 +131,38 @@
   .hot.bad{animation:shake .4s ease;box-shadow:0 0 0 3px #ef4444 inset;border-radius:999px;background:rgba(239,68,68,.15)}
   @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
   .hot.sel{box-shadow:0 0 0 4px #ffcc00 inset;border-radius:999px}
+  /* large card-shaped hotspots (lesson 2 matching + listen&choose) get a
+     rounded-rectangle highlight instead of the default pill, so the
+     correct/selected outline hugs the actual card artwork */
+  .match-left2.ok,.match-left2.bad,.match-left2.sel,
+  .match-right2.ok,.match-right2.bad,.match-right2.sel,
+  .choice-card2.ok,.choice-card2.bad,.choice-card2.sel{border-radius:18px}
 
   /* memory cards */
-  .mem-card{
+  .mem-card,.mem-card2{
     border-radius:12%;display:flex;flex-direction:column;
     align-items:center;justify-content:center;overflow:hidden;
   }
-  .mem-card .mem-img{
+  .mem-card .mem-img,.mem-card2 .mem-img{
     width:60%;aspect-ratio:1/1;border-radius:50%;object-fit:cover;
     opacity:0;transform:scale(.6);transition:all .25s ease;
     margin-bottom:2%;pointer-events:none;
   }
-  .mem-card .mem-face{
+  .mem-card .mem-face,.mem-card2 .mem-face{
     opacity:0;transform:scale(.7);
     transition:all .25s ease;
     font-weight:800;font-size:clamp(9px,2.2vw,16px);
     color:#5b21b6;text-align:center;padding:0 4px;pointer-events:none;
   }
-  .mem-card.flip,.mem-card.matched{
+  .mem-card.flip,.mem-card.matched,.mem-card2.flip,.mem-card2.matched{
     background:rgba(255,255,255,.95);
     box-shadow:0 0 0 3px #7c3aed inset;
     border-radius:12%;
   }
-  .mem-card.matched{box-shadow:0 0 0 3px #22c55e inset;background:rgba(220,255,230,.95)}
-  .mem-card.flip .mem-img,.mem-card.matched .mem-img{opacity:1;transform:scale(1)}
-  .mem-card.flip .mem-face,.mem-card.matched .mem-face{opacity:1;transform:scale(1)}
-  .mem-card.listening-lock{pointer-events:none}
+  .mem-card.matched,.mem-card2.matched{box-shadow:0 0 0 3px #22c55e inset;background:rgba(220,255,230,.95)}
+  .mem-card.flip .mem-img,.mem-card.matched .mem-img,.mem-card2.flip .mem-img,.mem-card2.matched .mem-img{opacity:1;transform:scale(1)}
+  .mem-card.flip .mem-face,.mem-card.matched .mem-face,.mem-card2.flip .mem-face,.mem-card2.matched .mem-face{opacity:1;transform:scale(1)}
+  .mem-card.listening-lock,.mem-card2.listening-lock{pointer-events:none}
 
   /* ── unscramble tiles (step 7, overlaid on the real artwork) ── */
   .unscr-sentence,.unscr-bank{
@@ -520,9 +526,9 @@
     <button class="hot" style="left:80.08%;top:85.58%;width:17.19%;height:8.44%" onclick="showScreen('l2_5')" aria-label="Next"></button>
     <button class="hot" style="left:27.89%;top:41.27%;width:3.75%;height:5.63%" onclick="speak('Leo')" aria-label="Listen again"></button>
 
-    <button class="hot" style="left:32.03%;top:41.03%;width:14.84%;height:33.41%" onclick="chooseAnswer2(true,this,'Leo')" aria-label="Option Leo"></button>
-    <button class="hot" style="left:49.22%;top:41.03%;width:14.84%;height:33.41%" onclick="chooseAnswer2(false,this)" aria-label="Option Mia"></button>
-    <button class="hot" style="left:66.41%;top:41.03%;width:14.84%;height:33.41%" onclick="chooseAnswer2(false,this)" aria-label="Option Luna"></button>
+    <button class="hot choice-card2" style="left:32.03%;top:41.03%;width:14.84%;height:33.41%" onclick="chooseAnswer2(true,this,'Leo')" aria-label="Option Leo"></button>
+    <button class="hot choice-card2" style="left:49.22%;top:41.03%;width:14.84%;height:33.41%" onclick="chooseAnswer2(false,this)" aria-label="Option Mia"></button>
+    <button class="hot choice-card2" style="left:66.41%;top:41.03%;width:14.84%;height:33.41%" onclick="chooseAnswer2(false,this)" aria-label="Option Luna"></button>
   </div>
 
   <!-- ══ LESSON 2 · STEP 5 — LET'S SPEAK (Mia) ══ -->
