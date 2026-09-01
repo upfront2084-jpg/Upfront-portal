@@ -1,0 +1,11 @@
+# Prevent the hosting cache/CDN from serving a stale service worker or app
+# shell after a deploy. sw.js and upfront-kids.html must always be re-checked
+# on every request; the versioned CACHE_NAME inside sw.js is what controls
+# the actual asset caching (via the Cache Storage API), not this file.
+<IfModule mod_headers.c>
+  <FilesMatch "^(sw\.js|upfront-kids\.html)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+  </FilesMatch>
+</IfModule>
