@@ -131,23 +131,13 @@
   .hot.bad{animation:shake .4s ease;box-shadow:0 0 0 3px #ef4444 inset;border-radius:999px;background:rgba(239,68,68,.15)}
   @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
   .hot.sel{box-shadow:0 0 0 4px #ffcc00 inset;border-radius:999px}
-  /* large card-shaped hotspots (lesson 2 matching + listen&choose) are sized
-     to cover the whole colored backdrop card for an easy tap target, but the
-     correct/wrong/selected ring should hug the character art inside it —
-     draw it inset from the button's own edge instead of the default pill
-     that traces the full (much bigger) backdrop */
-  .match-left2.ok,.match-right2.ok,.choice-card2.ok{
-    box-shadow:none;background:none;border-radius:18px;
-    outline:3px solid #22c55e;outline-offset:-10px;
-  }
-  .match-left2.bad,.match-right2.bad,.choice-card2.bad{
-    box-shadow:none;background:none;border-radius:18px;
-    outline:3px solid #ef4444;outline-offset:-10px;
-  }
-  .match-left2.sel{
-    box-shadow:none;border-radius:18px;
-    outline:4px solid #ffcc00;outline-offset:-10px;
-  }
+  /* large card-shaped hotspots (lesson 2 matching + listen&choose) get a
+     rounded-rectangle highlight that fills the button's whole tap-target
+     box (the full colored backdrop card), instead of the default pill
+     shape which only traced a circle/oval inside it */
+  .match-left2.ok,.match-right2.ok,.choice-card2.ok{border-radius:18px;box-shadow:0 0 0 3px #22c55e inset;background:rgba(34,197,94,.15)}
+  .match-left2.bad,.match-right2.bad,.choice-card2.bad{border-radius:18px;box-shadow:0 0 0 3px #ef4444 inset;background:rgba(239,68,68,.15)}
+  .match-left2.sel{border-radius:18px;box-shadow:0 0 0 4px #ffcc00 inset}
 
   /* memory cards */
   .mem-card,.mem-card2{
