@@ -131,12 +131,23 @@
   .hot.bad{animation:shake .4s ease;box-shadow:0 0 0 3px #ef4444 inset;border-radius:999px;background:rgba(239,68,68,.15)}
   @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
   .hot.sel{box-shadow:0 0 0 4px #ffcc00 inset;border-radius:999px}
-  /* large card-shaped hotspots (lesson 2 matching + listen&choose) get a
-     rounded-rectangle highlight instead of the default pill, so the
-     correct/selected outline hugs the actual card artwork */
-  .match-left2.ok,.match-left2.bad,.match-left2.sel,
-  .match-right2.ok,.match-right2.bad,.match-right2.sel,
-  .choice-card2.ok,.choice-card2.bad,.choice-card2.sel{border-radius:18px}
+  /* large card-shaped hotspots (lesson 2 matching + listen&choose) are sized
+     to cover the whole colored backdrop card for an easy tap target, but the
+     correct/wrong/selected ring should hug the character art inside it —
+     draw it inset from the button's own edge instead of the default pill
+     that traces the full (much bigger) backdrop */
+  .match-left2.ok,.match-right2.ok,.choice-card2.ok{
+    box-shadow:none;background:none;border-radius:18px;
+    outline:3px solid #22c55e;outline-offset:-10px;
+  }
+  .match-left2.bad,.match-right2.bad,.choice-card2.bad{
+    box-shadow:none;background:none;border-radius:18px;
+    outline:3px solid #ef4444;outline-offset:-10px;
+  }
+  .match-left2.sel{
+    box-shadow:none;border-radius:18px;
+    outline:4px solid #ffcc00;outline-offset:-10px;
+  }
 
   /* memory cards */
   .mem-card,.mem-card2{
@@ -659,8 +670,8 @@
 
   <!-- ══ LESSON 2 · STEP 14 — SENTENCE BUILDER (Mia) ══ -->
   <div class="screen" id="l2_14" style="background-image:url('kids-assets/lesson2-step14-sentence-mia.jpg')">
-    <div class="unscr-sentence" id="l2_14_slots" style="left:28.52%;top:70.34%;width:63.67%;height:9.97%"></div>
-    <div class="unscr-bank" id="l2_14_bank" style="left:28.52%;top:57.44%;width:63.67%;height:11.72%"></div>
+    <div class="unscr-sentence" id="l2_14_slots" style="left:21.88%;top:70.1%;width:52.73%;height:11.96%"></div>
+    <div class="unscr-bank" id="l2_14_bank" style="left:22.5%;top:58.62%;width:51.72%;height:9.97%"></div>
     <button class="hot" style="left:1.17%;top:1.17%;width:7.03%;height:10.54%" onclick="showScreen('map')" aria-label="Home"></button>
     <button class="hot" style="left:91.8%;top:1.17%;width:7.03%;height:10.54%" onclick="openSettings()" aria-label="Settings"></button>
     <button class="hot" style="left:1.56%;top:85.58%;width:16.8%;height:8.44%" onclick="showScreen('l2_13')" aria-label="Back"></button>
@@ -670,8 +681,8 @@
 
   <!-- ══ LESSON 2 · STEP 15 — SENTENCE BUILDER (Buddy) ══ -->
   <div class="screen" id="l2_15" style="background-image:url('kids-assets/lesson2-step15-sentence-buddy.jpg')">
-    <div class="unscr-sentence" id="l2_15_slots" style="left:28.52%;top:70.34%;width:63.67%;height:9.97%"></div>
-    <div class="unscr-bank" id="l2_15_bank" style="left:28.52%;top:57.44%;width:63.67%;height:11.72%"></div>
+    <div class="unscr-sentence" id="l2_15_slots" style="left:21.88%;top:70.1%;width:52.73%;height:11.96%"></div>
+    <div class="unscr-bank" id="l2_15_bank" style="left:22.5%;top:58.62%;width:51.72%;height:9.97%"></div>
     <button class="hot" style="left:1.17%;top:1.17%;width:7.03%;height:10.54%" onclick="showScreen('map')" aria-label="Home"></button>
     <button class="hot" style="left:91.8%;top:1.17%;width:7.03%;height:10.54%" onclick="openSettings()" aria-label="Settings"></button>
     <button class="hot" style="left:1.56%;top:85.58%;width:16.8%;height:8.44%" onclick="showScreen('l2_14')" aria-label="Back"></button>
@@ -681,8 +692,8 @@
 
   <!-- ══ LESSON 2 · STEP 16 — SENTENCE BUILDER (Leo) ══ -->
   <div class="screen" id="l2_16" style="background-image:url('kids-assets/lesson2-step16-sentence-leo.jpg')">
-    <div class="unscr-sentence" id="l2_16_slots" style="left:28.52%;top:70.34%;width:63.67%;height:9.97%"></div>
-    <div class="unscr-bank" id="l2_16_bank" style="left:28.52%;top:57.44%;width:63.67%;height:11.72%"></div>
+    <div class="unscr-sentence" id="l2_16_slots" style="left:21.88%;top:70.1%;width:52.73%;height:11.96%"></div>
+    <div class="unscr-bank" id="l2_16_bank" style="left:22.5%;top:58.62%;width:51.72%;height:9.97%"></div>
     <button class="hot" style="left:1.17%;top:1.17%;width:7.03%;height:10.54%" onclick="showScreen('map')" aria-label="Home"></button>
     <button class="hot" style="left:91.8%;top:1.17%;width:7.03%;height:10.54%" onclick="openSettings()" aria-label="Settings"></button>
     <button class="hot" style="left:1.56%;top:85.58%;width:16.8%;height:8.44%" onclick="showScreen('l2_15')" aria-label="Back"></button>
@@ -692,8 +703,8 @@
 
   <!-- ══ LESSON 2 · STEP 17 — SENTENCE BUILDER (Luna) ══ -->
   <div class="screen" id="l2_17" style="background-image:url('kids-assets/lesson2-step17-sentence-luna.jpg')">
-    <div class="unscr-sentence" id="l2_17_slots" style="left:28.52%;top:70.34%;width:63.67%;height:9.97%"></div>
-    <div class="unscr-bank" id="l2_17_bank" style="left:28.52%;top:57.44%;width:63.67%;height:11.72%"></div>
+    <div class="unscr-sentence" id="l2_17_slots" style="left:21.88%;top:70.1%;width:52.73%;height:11.96%"></div>
+    <div class="unscr-bank" id="l2_17_bank" style="left:22.5%;top:58.62%;width:51.72%;height:9.97%"></div>
     <button class="hot" style="left:1.17%;top:1.17%;width:7.03%;height:10.54%" onclick="showScreen('map')" aria-label="Home"></button>
     <button class="hot" style="left:91.8%;top:1.17%;width:7.03%;height:10.54%" onclick="openSettings()" aria-label="Settings"></button>
     <button class="hot" style="left:1.56%;top:85.58%;width:16.8%;height:8.44%" onclick="showScreen('l2_16')" aria-label="Back"></button>
