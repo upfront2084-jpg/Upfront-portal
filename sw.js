@@ -1,4 +1,4 @@
-const CACHE_NAME = 'upfront-kids-v15';
+const CACHE_NAME = 'upfront-kids-v16';
 const SHELL = [
   './upfront-kids.html',
   './manifest.json',
